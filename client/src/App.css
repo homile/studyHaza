@@ -1,9 +1,4 @@
 @font-face {
-  font-family: "Pretendard-Black";
-  src: url("./fonts/Pretendard-Black.ttf");
-}
-
-@font-face {
   font-family: "Pretendard-Bold";
   src: url("./fonts/Pretendard-Bold.ttf");
 }
@@ -13,10 +8,6 @@
   src: url("./fonts/Pretendard-ExtraBold.ttf");
 }
 
-@font-face {
-  font-family: "Pretendard-ExtraLight";
-  src: url("./fonts/Pretendard-ExtraLight.ttf");
-}
 
 @font-face {
   font-family: "Pretendard-Light";
@@ -33,16 +24,6 @@
   src: url("./fonts/Pretendard-Regular.ttf");
 }
 
-@font-face {
-  font-family: "Pretendard-SemiBold";
-  src: url("./fonts/Pretendard-SemiBold.ttf");
-}
-
-@font-face {
-  font-family: "Pretendard-Thin";
-  src: url("./fonts/Pretendard-Thin.ttf");
-}
-
 .app {
-  font-family: "Pretendard-Thin";
+  font-family: "Pretendard-Regular";
 }
