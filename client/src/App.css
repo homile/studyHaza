@@ -27,3 +27,7 @@
 .app {
   font-family: "Pretendard-Regular";
 }
+
+
+/* globalStyles 로 옮길 것 - 진 - */
+*{box-sizing: border-box}
