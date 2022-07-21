@@ -1,0 +1,65 @@
+@font-face {
+  font-family: "Pretendard-Bold";
+  src: url("./fonts/Pretendard-Bold.ttf");
+}
+
+@font-face {
+  font-family: "Pretendard-ExtraBold";
+  src: url("./fonts/Pretendard-ExtraBold.ttf");
+}
+
+
+@font-face {
+  font-family: "Pretendard-Light";
+  src: url("./fonts/Pretendard-Light.ttf");
+}
+
+@font-face {
+  font-family: "Pretendard-Medium";
+  src: url("./fonts/Pretendard-Medium.ttf");
+}
+
+@font-face {
+  font-family: "Pretendard-Regular";
+  src: url("./fonts/Pretendard-Regular.ttf");
+}
+
+.app {
+  font-family: "Pretendard-Regular";
+}
+
+
+/* ---------- globalStyles 로 옮길 것 - 진 ---------- */
+*{box-sizing: border-box;transition: all .75s;}
+button{border:0;background:none;cursor:pointer;}
+
+/* modal common */
+.btn-modal-cls {
+  position:absolute;
+  top:24px;
+  right:25px;
+  width: 46px;
+  height: 46px;
+  font-size:0;
+  opacity: 0.3;
+  border:2px solid #000;
+  border-radius: 50px;
+}
+.btn-modal-cls:hover{
+  opacity: 1;
+}
+.btn-modal-cls:before, .btn-modal-cls:after {
+  position: absolute;
+  top:11px;
+  left: 20px;
+  content: ' ';
+  height: 21px;
+  width: 2px;
+  background-color: #333;
+}
+.btn-modal-cls:before {
+  transform: rotate(45deg);
+  }
+.btn-modal-cls:after {
+  transform: rotate(-45deg);
+}
