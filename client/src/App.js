@@ -5,6 +5,7 @@ import { createGlobalStyle } from "styled-components";
 import reset from 'styled-reset'
 import "./fonts/fonts.css";
 
+import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
 
 const GlobalStyles = createGlobalStyle`
   ${reset}
@@ -20,6 +21,16 @@ function App() {
     <div className="app">
       <GlobalStyles />
       <HeadLine>App</HeadLine>
+      <Router>
+        <Routes>
+          <Route path="/"  /* element={이동할컴포넌트} */ />
+          <Route path="/login"  /* element={이동할컴포넌트} */ />
+          <Route path="signup/"  /* element={이동할컴포넌트} */ />
+          <Route path="/board"  /* element={이동할컴포넌트} */ />
+          <Route path="/studyboard"  /* element={이동할컴포넌트} */ />
+          <Route path="/mypage"  /* element={이동할컴포넌트} */ />
+        </Routes>
+      </Router>
     </div>
   );
 }
