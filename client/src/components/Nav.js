@@ -4,16 +4,12 @@ import { NavLink } from "react-router-dom";
 import Button from "./ui/button/ButtonPrimary";
 
 const NavContainer = styled.div`
-  position: absolute;
   display: flex;
   justify-content: space-between;
   align-items: center;
-
   width: 1285px;
   height: 51px;
   margin: 1rem;
-  top: 44px;
-  left: 315px;
 `;
 
 const LeftContainer = styled.div`
@@ -96,9 +92,7 @@ function Nav() {
           <Logo>
             <NavLogo to="/">StudyHaza</NavLogo>
           </Logo>
-          <NavStyle to="/studyjoin" activeClassName="active">
-            스터디
-          </NavStyle>
+          <NavStyle to="/studyjoin">스터디</NavStyle>
           <NavStyle to="/community">커뮤니티</NavStyle>
         </LeftContainer>
 
