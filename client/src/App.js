@@ -1,34 +1,38 @@
 import React from "react";
 import "./App.css";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Nav from "./components/Nav";
+import Main from "./pages/Main";
+import StudyJoin from "./pages/StudyJoin";
+import Community from "./pages/Community";
+import Login from "./pages/Login";
 import styled from "styled-components";
-import { createGlobalStyle } from "styled-components";
-import reset from 'styled-reset'
-import "./fonts/fonts.css";
 
-import Footer from './components/Footer';
-import Modal from './components/Modal';
-import ModalSoon from './components/ModalSoon';
-
-
-const GlobalStyles = createGlobalStyle`
-  ${reset}
-  .app {font-family: "Pretendard-Bold";}
-`;
-
-const HeadLine = styled.h1`
-  font-family: "Pretendard-Bold";
+const AppContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
 
 function App() {
   return (
-    <div className="app">
-      <GlobalStyles />
-      <HeadLine>App</HeadLine>
-      <Footer />
+    <>
+      <Router>
+        <AppContainer>
+          <Nav />
 
-      <Modal children={"등록하시겠습니까?"} />
-      <ModalSoon children={"소셜 로그인 기능은"} />
-    </div>
+          <Routes>
+            <Route path="/" element={<Main />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" /* element={이동할컴포넌트} */ />
+            <Route path="/community" element={<Community />} />
+            <Route path="/studyjoin" element={<StudyJoin />} />
+            <Route path="/mypage" /* element={이동할컴포넌트} */ />
+          </Routes>
+        </AppContainer>
+      </Router>
+    </>
   );
 }
 
