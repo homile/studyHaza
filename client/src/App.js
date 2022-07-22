@@ -5,6 +5,10 @@ import { createGlobalStyle } from "styled-components";
 import reset from 'styled-reset'
 import "./fonts/fonts.css";
 
+import Footer from './components/Footer';
+import Modal from './components/Modal';
+import ModalSoon from './components/ModalSoon';
+
 
 const GlobalStyles = createGlobalStyle`
   ${reset}
@@ -20,6 +24,9 @@ function App() {
     <div className="app">
       <GlobalStyles />
       <HeadLine>App</HeadLine>
+      <Footer />
+      <Modal children={"등록하시겠습니까?"} />
+      <ModalSoon />
     </div>
   );
 }

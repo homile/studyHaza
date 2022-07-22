@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
-function Modal ( {clickModalHandler} ) {
+function Modal ( {handleModal, children} ) {
     const [isOpen, setIsOpen] = useState(false);
     const openModalHandler = () => {
         setIsOpen(!isOpen)
@@ -53,11 +53,11 @@ function Modal ( {clickModalHandler} ) {
         <StyledModalCon>
             <button type="button" className="btn-modal-cls" onClick={openModalHandler}></button>
             <div className="modal-body">
-                <strong>등록하시겠습니까?</strong>
+                <strong>{children}</strong>
             </div>
             <StyledModalFooter className="modal-footer">
                 <button type="button" className="btn-modal cancel" onClick={openModalHandler}>취소</button>
-                <button type="button" className="btn-modal cta" onClick={clickModalHandler}>확인</button>
+                <button type="button" className="btn-modal cta" onClick={handleModal}>확인</button>
             </StyledModalFooter>
         </StyledModalCon>
     </StyledModal> : null}

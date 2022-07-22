@@ -62,7 +62,7 @@ function ModalSoon ( {clickModalHandler} ) {
                 </div>
             </div>
             <StyledModalFooter className="modal-footer">
-                <button type="button" className="btn-modal cta" onClick={clickModalHandler}>확인</button>
+                <button type="button" className="btn-modal cta" onClick={openModalHandler}>확인</button>
             </StyledModalFooter>
         </StyledModalCon>
     </StyledModal> : null}
