@@ -25,8 +25,9 @@ function App() {
       <GlobalStyles />
       <HeadLine>App</HeadLine>
       <Footer />
+
       <Modal children={"등록하시겠습니까?"} />
-      <ModalSoon />
+      <ModalSoon children={"소셜 로그인 기능은"} />
     </div>
   );
 }

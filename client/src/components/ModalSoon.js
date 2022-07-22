@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import ImgObject from '../images/icon_team.png';
 
-function ModalSoon ( {clickModalHandler} ) {
+function ModalSoon ( {children} ) {
     const [isOpen, setIsOpen] = useState(false);
     const openModalHandler = () => {
         setIsOpen(!isOpen)
@@ -57,7 +57,7 @@ function ModalSoon ( {clickModalHandler} ) {
             <div className="modal-body soon">
                 <div>
                     <b>Coming Soon</b>
-                    <p>[기능명] 준비중 입니다.</p>
+                    <p>{children} 준비중 입니다.</p>
                     <img className="icon-team" src ={ImgObject} alt=""></img>
                 </div>
             </div>
