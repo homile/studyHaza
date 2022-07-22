@@ -1,7 +1,159 @@
 import React from "react";
+import styled from "styled-components";
+
+import { ButtonLogin } from "../components/ui/button/ButtonLogin";
+import Footer from "../components/Footer";
+import naver_symbol from "../assets/naver_symbol.png";
+import facebook_symbol from "../assets/facebook_symbol.png";
+import kakao_symbol from "../assets/kakao_symbol.png";
+import google_symbol from "../assets/google_symbol.png";
 
 function Login() {
-  return <div>Login</div>;
+  const StyledLoginContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    width: 410px;
+    height: 910px;
+
+    hr{
+      width: 100%;
+      border: 0.5px solid #dedede ;
+      margin-top: 2rem;
+      margin-bottom: 2rem;
+    }
+  `;
+
+  const StyledLoginTitle = styled.h1`
+    font-size: 50px;
+    font-weight: bold;
+    margin-top: 1rem;
+    margin-bottom: 1.5rem;
+  `;
+
+  const StyledInputContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-items: center;
+    width: 100%;
+    height: 90px;
+    margin-bottom: 1rem;
+
+    label {
+      margin-top: 1rem;
+      margin-bottom: 0.5rem;
+      font-size: 17px;
+      font-family: "Pretendard-Medium";
+    }
+
+    input {
+      width: 100%;
+      height: 50px;
+      border: 1px solid black;
+      border-radius: 0.5rem;
+      padding: 0;
+      font-size: 18px;
+      text-indent: 2.5rem;
+    }
+
+    div {
+      position: relative;
+      width: 100%;
+    }
+
+    i {
+      position: absolute;
+      top: 1.1rem;
+      left: 1rem;
+    }
+  `;
+
+  const StyledUtilContainer = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 0.5rem;
+    em{
+      margin-left: 0.5rem;
+      margin-right: 0.5rem;
+      cursor: pointer;
+    }
+  `;
+
+  const SnsButtonContainer = styled.div`
+    position: relative;
+    width: 100%;
+
+    img {
+      position: absolute;
+      width: 43px;
+      height: 43px;
+      left: 1rem;
+    }
+  `;
+
+  return (
+    <>
+      <StyledLoginContainer>
+        <StyledLoginTitle>StudyHaza</StyledLoginTitle>
+        <StyledInputContainer>
+          <label for="email">이메일 계정</label>
+          <div>
+            <input id="email" placeholder="이메일" />
+            <i className="fa-solid fa-at" />
+          </div>
+        </StyledInputContainer>
+        <StyledInputContainer>
+          <label for="password">비밀번호</label>
+          <div>
+            <input id="password" type="password" placeholder="비밀번호" />
+            <i className="fa-solid fa-lock"></i>
+          </div>
+        </StyledInputContainer>
+        <ButtonLogin>로그인</ButtonLogin>
+        <StyledUtilContainer>
+          <span>
+            <em>아이디/패스워드 찾기</em>
+          </span>
+          <span>
+            |
+          </span>
+          <span>
+            <em>회원가입</em>
+          </span>
+        </StyledUtilContainer>
+        <hr></hr>
+        <SnsButtonContainer>
+          <ButtonLogin color="#381f1f" background="#FFE600">
+            카카오톡
+            <img alt="카카오톡 로고" src={kakao_symbol} />
+          </ButtonLogin>
+        </SnsButtonContainer>
+        <SnsButtonContainer>
+          <ButtonLogin background="#1977F2">
+            페이스북
+            <img alt="페이스북 로고" src={facebook_symbol} />
+          </ButtonLogin>
+        </SnsButtonContainer>
+        <SnsButtonContainer>
+          <ButtonLogin background="#02C75A">
+            네이버
+            <img alt="네이버 로고" src={naver_symbol} />
+          </ButtonLogin>
+        </SnsButtonContainer>
+        <SnsButtonContainer>
+          <ButtonLogin color="#242424" background="white" borderColor="#d3d3d3">
+            구글
+            <img alt="구글 로고" src={google_symbol} />
+          </ButtonLogin>
+        </SnsButtonContainer>
+      </StyledLoginContainer>
+      <Footer />
+    </>
+  );
 }
 
 export default Login;
