@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 
-import { ButtonLogin } from "../components/ui/button/ButtonLogin";
-import { StyledInputContainer } from "../components/ui/InputPrimary";
+import { ButtonLogin } from "../components/ui/Button";
+import { StyledInputContainer } from "../components/ui/Input";
 import Footer from "../components/Footer";
 
 import naver_symbol from "../assets/naver_symbol.png";
