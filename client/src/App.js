@@ -3,6 +3,7 @@ import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Nav from "./components/Nav";
 import Main from "./pages/Main";
+import Footer from "./components/Footer";
 import StudyJoin from "./pages/StudyJoin";
 import Community from "./pages/Community";
 import Login from "./pages/Login";
@@ -30,6 +31,8 @@ function App() {
             <Route path="/studyjoin" element={<StudyJoin />} />
             <Route path="/mypage" /* element={이동할컴포넌트} */ />
           </Routes>
+
+          <Footer />
         </AppContainer>
       </Router>
     </>

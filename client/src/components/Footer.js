@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import logo from "../images/logo_wh.png";
 
 const StyledFooter = styled.footer`
   width: 100%;
@@ -20,12 +21,17 @@ const StyledFooter = styled.footer`
     color: #bbb;
   }
 `;
+const LogoImage = styled.img`
+  height: 22px;
+  opacity: .4;
+  margin-top:-2px;
+`;
 
 function Footer() {
   return (
     <StyledFooter>
       <div className="ft-hd">
-        <i>StudyHaza</i>
+        <LogoImage src={logo} alt="logo" />
         <ul className="ft-link">
           <li>
             <a herf="#">스터디하자 소개</a>
