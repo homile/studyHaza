@@ -1,7 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
-import Button from "./ui/button/ButtonPrimary";
+import { ButtonPrimary } from "./ui/Button";
+import logo from "../images/logo.png";
+import { useLocation } from "react-router-dom";
 
 const NavContainer = styled.div`
   display: flex;
@@ -57,19 +59,6 @@ const SearchIcon = styled.span`
   border: 2px solid #f1f1f1;
 `;
 
-const Logo = styled.h1`
-  font-size: 30px;
-
-  font-size: 39px;
-  letter-spacing: -0.04em;
-  text-decoration: none;
-`;
-
-const NavLogo = styled(NavLink)`
-  text-decoration: none;
-  color: black;
-`;
-
 const NavStyle = styled(NavLink)`
   text-decoration: none;
   color: black;
@@ -84,14 +73,25 @@ const NavStyle = styled(NavLink)`
   }
 `;
 
+const LogoImage = styled.img`
+  height: 40px;
+`;
+
 function Nav() {
+  const { pathname } = useLocation();
+
+  // useEffect(() => {
+  //   console.log(pathname);
+  // }, [pathname]);
+
   return (
     <>
       <NavContainer>
         <LeftContainer>
-          <Logo>
-            <NavLogo to="/">StudyHaza</NavLogo>
-          </Logo>
+          <NavLink to="/">
+            <LogoImage src={logo} alt="logo" />
+          </NavLink>
+
           <NavStyle to="/studyjoin">스터디</NavStyle>
           <NavStyle to="/community">커뮤니티</NavStyle>
         </LeftContainer>
@@ -105,7 +105,9 @@ function Nav() {
             <i className="fa-solid fa-moon fa-fw"></i>
           </DarkmodeIcon>
           <NavLink to="/login">
-            <Button text="LOGIN"></Button>
+            <ButtonPrimary>
+              {pathname === "/login" ? "회원가입" : "LOGIN"}
+            </ButtonPrimary>
           </NavLink>
         </RightContainer>
       </NavContainer>
