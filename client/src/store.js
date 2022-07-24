@@ -1,10 +1,7 @@
-import { compose, createStore, applyMiddleware } from "redux";
-import rootReducer from '../reducers/index';
-import thunk from "redux-thunk";
+import { createStore } from "redux";
+import rootReducer from './reducers/index';
 
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ?
-  window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({})
-  : compose;
-const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)));
+// rootReducer 여러 Reducer들을 모아둔 곳
+const store = createStore(rootReducer);
 
 export default store;
