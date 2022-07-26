@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 import { ButtonPrimary } from "./ui/Button";
+import { ButtonSecondary } from "./ui/Button";
 import logo from "../images/logo.png";
 import { useLocation } from "react-router-dom";
 
@@ -104,7 +105,8 @@ function Nav() {
           <DarkmodeIcon>
             <i className="fa-solid fa-moon fa-fw"></i>
           </DarkmodeIcon>
-          <NavLink to="/login">
+
+          <NavLink to={pathname !== "/login" ? "/login" : "/signup"}>
             <ButtonPrimary>
               {pathname === "/login" ? "회원가입" : "LOGIN"}
             </ButtonPrimary>
