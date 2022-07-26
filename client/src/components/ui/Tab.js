@@ -1,6 +1,36 @@
 import { useState } from "react";
 import styled from "styled-components";
-import studyData from "../../resource/postsDummyData"
+
+export const Tab = () => {
+    const menuArr = [
+        {name :'전체', content : '전체 목록'},
+        {name :'프론트엔드', content : '프론트엔드 목록'},
+        {name :'백엔드', content : '백엔드 목록'},
+    ];
+
+    const [currentTab, setCurrentTab] = useState(0);
+
+    const activeMenuHandler = (idx) => {
+        setCurrentTab(idx)
+    };
+
+    return(
+        <div>
+            <TabMenu>
+                {menuArr.map((el,idx) => {
+                    return(
+                        <li key={idx}
+                        className={`${idx === currentTab ? 'active' : null}`}
+                        onClick={()=>activeMenuHandler(idx)}>{el.name}</li>
+                    )
+                })}
+            </TabMenu>
+            <StudyList>
+                <div>{menuArr[currentTab].content}</div>
+            </StudyList>
+        </div>
+    );
+};
 
 const TabMenu = styled.ul`
     display: flex;
@@ -13,7 +43,6 @@ const TabMenu = styled.ul`
         padding:15px 20px;
         border-radius:12px;
         cursor: pointer;
-
         &.active{
             background-color:#2584F4;
             color:#fff
@@ -37,34 +66,3 @@ const TabMenu = styled.ul`
 const StudyList = styled.div`
     display: block;
 `
-
-export const Tab = () => {
-    const menuArr = [
-        {name :'전체', content : '전체 목록'},
-        {name :'프론트엔드', content : '프론트엔드 목록'},
-        {name :'백엔드', content : '백엔드 목록'},
-    ];
-
-    const [currentTab, setCurrentTab] = useState(0);
-
-    const activeMenuHandler = (idx) => {
-        setCurrentTab(idx)
-    };
-
-    return(
-        <>
-        <TabMenu>
-            {menuArr.map((el,idx) => {
-                return(
-                    <li key={idx}
-                    className={`${idx === currentTab ? 'active' : null}`}
-                    onClick={()=>activeMenuHandler(idx)}>{el.name}</li>
-                )
-            })}
-        </TabMenu>
-        <StudyList>
-            <div>{menuArr[currentTab].content}</div>
-        </StudyList>
-        </>
-    );
-};
