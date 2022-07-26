@@ -55,7 +55,7 @@ const ConPanel = styled.div`
   width:100%;
   padding:50px 0 25px;
   
-  div{
+  > div{
     display: flex;
     justify-content: space-between;
     align-items: center;
