@@ -22,6 +22,8 @@ function Main() {
     getPosts();
   }, [])
 
+  console.log(posts)
+
   // console.log(...posts.filter((el) => el.nickName === 'chapchap'))
 
   return (
