@@ -1,37 +1,39 @@
 import React from "react";
 import "./App.css";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Nav from "./components/Nav";
+import Main from "./pages/Main";
+import StudyJoin from "./pages/StudyJoin";
+import Community from "./pages/Community";
+import Login from "./pages/Login";
 import styled from "styled-components";
-import { createGlobalStyle } from "styled-components";
-import reset from 'styled-reset'
-import "./fonts/fonts.css";
+import SignUp from "./pages/SignUp";
 
-import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
-
-const GlobalStyles = createGlobalStyle`
-  ${reset}
-  .app {font-family: "Pretendard-Bold";}
-`;
-
-const HeadLine = styled.h1`
-  font-family: "Pretendard-Bold";
+const AppContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
 
 function App() {
   return (
-    <div className="app">
-      <GlobalStyles />
-      <HeadLine>App</HeadLine>
+    <>
       <Router>
-        <Routes>
-          <Route path="/"  /* element={이동할컴포넌트} */ />
-          <Route path="/login"  /* element={이동할컴포넌트} */ />
-          <Route path="signup/"  /* element={이동할컴포넌트} */ />
-          <Route path="/board"  /* element={이동할컴포넌트} */ />
-          <Route path="/studyboard"  /* element={이동할컴포넌트} */ />
-          <Route path="/mypage"  /* element={이동할컴포넌트} */ />
-        </Routes>
+        <AppContainer>
+          <Nav />
+
+          <Routes>
+            <Route path="/" element={<Main />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<SignUp />} />
+            <Route path="/community" element={<Community />} />
+            <Route path="/studyjoin" element={<StudyJoin />} />
+            <Route path="/mypage" /* element={이동할컴포넌트} */ />
+          </Routes>
+        </AppContainer>
       </Router>
-    </div>
+    </>
   );
 }
 
