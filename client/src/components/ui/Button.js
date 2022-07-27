@@ -40,3 +40,25 @@ export const ButtonPrimary = styled.button`
       0 17px 50px 0 rgba(0, 0, 0, 0.19);
   }
 `;
+
+// 수정, 삭제, 목록으로, 참여하기, 취소, 작성완료 버튼
+export const ButtonSecondary = styled.button`
+  background: ${(props) => props.background || "white"};
+  color: ${(props) => props.color || "#2584F4"};
+  border-radius: 50px;
+  border: 1px solid;
+  border-color: ${(props) => props.color || "#2584F4"};
+  width: ${(props) => props.width || "91px"};
+  height: ${(props) => props.width || "44px"};
+  transition-duration: 0.4s;
+  font-size: 20px;
+  font-weight: 600;
+  text-align: center;
+
+  &:hover {
+    background-color: ${(props) => props.background || "#2584F4"};
+    color: ${(props) => props.color || "white"};
+    box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24),
+      0 17px 50px 0 rgba(0, 0, 0, 0.19);
+  }
+`;
