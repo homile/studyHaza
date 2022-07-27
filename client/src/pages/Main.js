@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Tab } from "../components/ui/Tab";
 import { AdArea } from "../components/ui/AdArea";
-import  SwitchButton from "../components/ui/SwitchButton";
+import { SwitchButton } from "../components/ui/SwitchButton";
+import { StudyCard } from "../components/ui/StudyCard";
 import { db } from "../firebase-config";
 import { collection, getDocs } from "firebase/firestore";
 import styled from "styled-components";
@@ -30,13 +31,23 @@ function Main() {
     <Container>
       <AdArea />
       <ConPanel>
-        <div>
+        <ConSortArea>
           <Tab />
           <SwitchGroup>
             <em>모집중만 보기</em>
             <SwitchButton />
           </SwitchGroup>
-        </div>
+        </ConSortArea>
+        <StudyCardList>
+          <StudyCard />
+          <StudyCard />
+          <StudyCard />
+          <StudyCard />
+          <StudyCard />
+          <StudyCard />
+          <StudyCard />
+          <StudyCard />
+        </StudyCardList>
       </ConPanel>
     </Container>
   );
@@ -54,12 +65,12 @@ const Container = styled.div`
 const ConPanel = styled.div`
   width:100%;
   padding:50px 0 25px;
-  
-  > div{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
+`
+
+const ConSortArea = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 `
 
 const SwitchGroup = styled.div`
@@ -68,4 +79,11 @@ const SwitchGroup = styled.div`
   font-size:20px;
   font-family: 'Pretendard-Medium';
   gap:5px;
+`
+
+const StudyCardList = styled.div`
+  display:grid;
+  grid-template-columns: repeat(4, 1fr);
+  row-gap: 30px;
+  column-gap: 30px;
 `
