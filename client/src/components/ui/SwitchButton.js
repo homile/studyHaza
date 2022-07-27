@@ -1,7 +1,7 @@
 import { useState } from "react";
 import styled from "styled-components";
 
-const SwitchButton = () => {
+export const SwitchButton = () => {
     const [isOn, setisOn] = useState(false);
     const toggleHandler = () => {
         setisOn(!isOn)
@@ -16,8 +16,6 @@ const SwitchButton = () => {
         </>
     )
 }
-
-export default SwitchButton
 
 
 const ToggleContainer = styled.div`
