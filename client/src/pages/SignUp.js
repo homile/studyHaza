@@ -3,7 +3,7 @@ import React from "react";
 import styled from "styled-components";
 
 import Footer from "../components/Footer";
-import { StyledInputContainer } from "../components/ui/Input";
+import { StyledInputContainer } from "../components/ui/LoginInput";
 import { ButtonLogin } from "../components/ui/Button";
 
 function SignUp() {
@@ -28,7 +28,11 @@ function SignUp() {
         <StyledInputContainer>
           <label htmlFor="passwordCheck">비밀번호 확인</label>
           <div>
-            <input id="passwordCheck" type="password" placeholder="비밀번호 확인" />
+            <input
+              id="passwordCheck"
+              type="password"
+              placeholder="비밀번호 확인"
+            />
             <i className="fa-solid fa-lock"></i>
           </div>
         </StyledInputContainer>

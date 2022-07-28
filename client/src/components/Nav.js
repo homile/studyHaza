@@ -2,7 +2,6 @@ import React from "react";
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 import { ButtonPrimary } from "./ui/Button";
-import { ButtonSecondary } from "./ui/Button";
 import logo from "../images/logo.png";
 import { useLocation } from "react-router-dom";
 
@@ -80,10 +79,6 @@ const LogoImage = styled.img`
 
 function Nav() {
   const { pathname } = useLocation();
-
-  // useEffect(() => {
-  //   console.log(pathname);
-  // }, [pathname]);
 
   return (
     <>
