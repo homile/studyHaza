@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Tab } from "../components/ui/Tab";
 import { AdArea } from "../components/ui/AdArea";
 import { SwitchButton } from "../components/ui/SwitchButton";
+import { ButtonPrimary } from "../components/ui/Button";
 import { StudyCard } from "../components/ui/StudyCard";
 import { db } from "../firebase-config";
 import { collection, getDocs } from "firebase/firestore";
@@ -16,16 +17,10 @@ function Main() {
   useEffect(() => {
     const getPosts = async () => {
       const data = await getDocs(postsCollectionRef);
-      // console.log(data.docs.map((doc) => ({ ...doc.data(), id: doc.id})));
       setPosts(data.docs.map((doc) => ({ ...doc.data()})))
     }
-
     getPosts();
   }, [])
-
-  console.log(posts)
-
-  // console.log(...posts.filter((el) => el.nickName === 'chapchap'))
 
   return (
     <Container>
@@ -39,15 +34,11 @@ function Main() {
           </SwitchGroup>
         </ConSortArea>
         <StudyCardList>
-          <StudyCard />
-          <StudyCard />
-          <StudyCard />
-          <StudyCard />
-          <StudyCard />
-          <StudyCard />
-          <StudyCard />
-          <StudyCard />
+          {posts.map((data, idx) => <StudyCard key={data.id} data={data} idx={idx} />)}
         </StudyCardList>
+        <div className="button-area">
+          <ButtonPrimary>+ 더보기</ButtonPrimary>
+        </div>
       </ConPanel>
     </Container>
   );
@@ -59,12 +50,18 @@ const Container = styled.div`
   max-width:1290px;
   width:100%;
   margin:0 auto;
-  padding:50px 0;
+  padding:40px 0;
 `
 
 const ConPanel = styled.div`
   width:100%;
   padding:50px 0 25px;
+
+  .button-area{
+    display:flex;
+    justify-content: center;
+    padding:60px 0 30px;
+  }
 `
 
 const ConSortArea = styled.div`
@@ -85,5 +82,6 @@ const StudyCardList = styled.div`
   display:grid;
   grid-template-columns: repeat(4, 1fr);
   row-gap: 30px;
-  column-gap: 30px;
+  column-gap: 30px;  
+  margin-top: 25px;
 `
