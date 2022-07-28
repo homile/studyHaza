@@ -17,10 +17,12 @@ function Main() {
   useEffect(() => {
     const getPosts = async () => {
       const data = await getDocs(postsCollectionRef);
-      setPosts(data.docs.map((doc) => ({ ...doc.data()})))
+      setPosts(data.docs.map((doc) => ({ ...doc.data()})).sort((a, b) => {return b.id -  a.id}))
     }
     getPosts();
   }, [])
+
+
 
   return (
     <Container>
