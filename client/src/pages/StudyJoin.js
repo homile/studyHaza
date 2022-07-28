@@ -1,7 +1,27 @@
-import React from "react";
+import React, { useState } from "react";
+import WriteStudy from "../components/WriteStudy";
+import { ButtonPrimary } from "../components/ui/Button";
 
 function StudyJoin() {
-  return <div>StudyJoin</div>;
+  const [isWrite, setIsWrite] = useState(false);
+
+  const onWriteClick = () => {
+    setIsWrite(true);
+  };
+  return (
+    <>
+      <p>Community</p>
+
+      {isWrite ? (
+        <WriteStudy />
+      ) : (
+        <>
+          <ButtonPrimary onClick={onWriteClick}>글쓰기</ButtonPrimary>
+          <div>스터디 목록</div>
+        </>
+      )}
+    </>
+  );
 }
 
 export default StudyJoin;
