@@ -42,8 +42,8 @@ const StyledModalFooter= styled.div`
     .btn-modal.cta:hover{background:#2863FB;color:#fff}
 `
 
-function ModalSoon ( {children} ) {
-    const [isOpen, setIsOpen] = useState(false);
+function ModalSoon ( {children, isOpen, setIsOpen} ) {
+    
     const openModalHandler = () => {
         setIsOpen(!isOpen)
     };
