@@ -5,6 +5,43 @@ import { ButtonPrimary } from "./ui/Button";
 import logo from "../images/logo.png";
 import { useLocation } from "react-router-dom";
 
+function Nav() {
+  const { pathname } = useLocation();
+
+  return (
+    <>
+      <NavContainer>
+        <LeftContainer>
+          <NavLink to="/">
+            <LogoImage src={logo} alt="logo" />
+          </NavLink>
+
+          <NavStyle to="/studyjoin">스터디</NavStyle>
+          <NavStyle to="/community">커뮤니티</NavStyle>
+        </LeftContainer>
+
+        <RightContainer>
+          <SearchIcon>
+            <i className="fa-solid fa-magnifying-glass fa-fw"></i>
+          </SearchIcon>
+
+          <DarkmodeIcon>
+            <i className="fa-solid fa-moon fa-fw"></i>
+          </DarkmodeIcon>
+
+          <NavLink to={pathname !== "/login" ? "/login" : "/signup"}>
+            <ButtonPrimary>
+              {pathname === "/login" ? "회원가입" : "LOGIN"}
+            </ButtonPrimary>
+          </NavLink>
+        </RightContainer>
+      </NavContainer>
+    </>
+  );
+}
+
+export default Nav;
+
 const NavContainer = styled.div`
   display: flex;
   justify-content: space-between;
@@ -76,40 +113,3 @@ const NavStyle = styled(NavLink)`
 const LogoImage = styled.img`
   height: 40px;
 `;
-
-function Nav() {
-  const { pathname } = useLocation();
-
-  return (
-    <>
-      <NavContainer>
-        <LeftContainer>
-          <NavLink to="/">
-            <LogoImage src={logo} alt="logo" />
-          </NavLink>
-
-          <NavStyle to="/studyjoin">스터디</NavStyle>
-          <NavStyle to="/community">커뮤니티</NavStyle>
-        </LeftContainer>
-
-        <RightContainer>
-          <SearchIcon>
-            <i className="fa-solid fa-magnifying-glass fa-fw"></i>
-          </SearchIcon>
-
-          <DarkmodeIcon>
-            <i className="fa-solid fa-moon fa-fw"></i>
-          </DarkmodeIcon>
-
-          <NavLink to={pathname !== "/login" ? "/login" : "/signup"}>
-            <ButtonPrimary>
-              {pathname === "/login" ? "회원가입" : "LOGIN"}
-            </ButtonPrimary>
-          </NavLink>
-        </RightContainer>
-      </NavContainer>
-    </>
-  );
-}
-
-export default Nav;
