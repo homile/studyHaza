@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import WriteStudy from "../components/WriteStudy";
+import WriteBox from "../components/WriteBox";
 import { ButtonPrimary } from "../components/ui/Button";
 
 function StudyJoin() {
@@ -13,7 +13,7 @@ function StudyJoin() {
       <p>Community</p>
 
       {isWrite ? (
-        <WriteStudy />
+        <WriteBox />
       ) : (
         <>
           <ButtonPrimary onClick={onWriteClick}>글쓰기</ButtonPrimary>

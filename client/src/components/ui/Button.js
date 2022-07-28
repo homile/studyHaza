@@ -33,6 +33,7 @@ export const ButtonPrimary = styled.button`
   font-size: 20px;
   font-weight: 600;
   text-align: center;
+  margin-left: 10px;
 
   &:hover {
     background-color: ${(props) => props.background || "#2863fb"};
