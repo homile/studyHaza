@@ -2,21 +2,21 @@ import styled from "styled-components";
 import { ProfileImgXS } from "./ProfileImg";
 import img from "../../images/pf_sample.png";
 
-export const StudyCard = ({data, idx}) => {
-    
+export const StudyCard = ({data}) => {
+    const startDay = new Date(data.startDate);
+    const toDay = new Date();
+    const diff = startDay - toDay;
+    const diffDay = Math.floor(diff / (1000*60*60*24));
+
     // 모집마감일 디데이 
-    function diffDay() {
-        const startDay = new Date(data.startDate);
-        const toDay = new Date();
-        const diff = startDay - toDay;
-        const diffDay = Math.floor(diff / (1000*60*60*24));
-        
+    function diffDayData() {
         if(diffDay <= 0){
             return '종료';
         }
         return `D-${diffDay}`;
     }
-
+    
+    // 기술 스택명 불러오기
     const frontStacks = ["Angular", "Emotion", "GraphQL", "NextJS", "ReactJS", "VueJS", "Redux", "Recoil", 
     "Storybook", "StyledComponent", "HTML", "CSS", "JavaScript", "TypeScript"]
 
@@ -24,8 +24,8 @@ export const StudyCard = ({data, idx}) => {
     "Python", "Java", "JavaScript"]
 
     const devStackWord = (devType, skill) => {
-        let a = '';
-        let idx = '';
+      let a = '';
+      let idx = '';
       if (devType === "frontend"){
         idx = frontStacks.findIndex((el) => el === skill);
         a = 'fe'
@@ -39,7 +39,7 @@ export const StudyCard = ({data, idx}) => {
       if(idx >= 9){
         return `sk_${a}${idx+1}`  
       }else{
-        return `sk_${a}0${idx+1}`
+        return `sk_${a}${idx+1}`
       }
     }
 
@@ -49,7 +49,7 @@ export const StudyCard = ({data, idx}) => {
             <ItemCard>
                 <ProjectInfo>
                     <div className="date-area">
-                        <span className="date-area__date"><em>{diffDay()}</em> {data.startDate}</span>
+                        <span className="date-area__date"><em>{diffDayData()}</em> {data.startDate}</span>
                         <ThumbnailGroup>
                             <li><ProfileImgXS src={img}/></li>
                             <li><ProfileImgXS src={img}/></li>
@@ -58,9 +58,10 @@ export const StudyCard = ({data, idx}) => {
                     </div>
                     <h4>{data.title}</h4>
                     <ul className="skill-area">
-                        {data.devStack.map((el)=>{
+                        {data.devStack.map((el, idx)=>{
                             return (
-                                <li><img src={process.env.PUBLIC_URL + `/skill/${devStackWord(data.devType,`${el}`)}.png`} alt="" /></li>
+                                // <li key={idx}><img src={process.env.PUBLIC_URL + `/skill/${devStackWord(`${el}`)}.png`} alt="" /></li>
+                                <li key={idx}><img src={process.env.PUBLIC_URL + `/skill/${devStackWord(data.devType,`${el}`)}.png`} alt="" /></li>
                             )
                         })}
                     </ul>
