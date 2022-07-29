@@ -17,64 +17,32 @@ export const StudyCard = ({data, idx}) => {
         return `D-${diffDay}`;
     }
 
-    // 기술 스택명 불러오기
-    const devStackWord = skill => {
-        switch (skill) {
-          case "Angular":
-            return "sk_fe01";
-          case "Emotion":
-            return "sk_fe02";
-          case "GraphQL":
-            return "sk_fe03";
-          case "NextJS":
-            return "sk_fe04";
-          case "ReactJS":
-            return "sk_fe05";
-          case "VueJS":
-            return "sk_fe06";
-          case "Redux":
-            return "sk_fe07";
-          case "Recoil":
-            return "sk_fe08";
-          case "Storybook":
-            return "sk_fe09";
-          case "StyledComponent":
-            return "sk_fe10";
-          case "HTML":
-            return "sk_fe11";
-          case "CSS":
-            return "sk_fe12";
-          case "JavaScript":
-            return "sk_fe13";
-          case "TypeScript":
-            return "sk_fe14";
-          case "Apollo":
-            return "sk_be01";
-          case "AWS":
-            return "sk_be02";
-          case "ExpressJS":
-            return "sk_be03";
-          case "Django":
-            return "sk_be04";
-          case "NestJS":
-            return "sk_be05";
-          case "NodeJS":
-            return "sk_be06";
-          case "Spring":
-            return "sk_be07";
-          case "SpringBoot":
-            return "sk_be08";
-          case "Python":
-            return "sk_be09";
-          case "Java":
-            return "sk_be10";
-          case "JavaScript":
-            return "sk_be11";
+    const frontStacks = ["Angular", "Emotion", "GraphQL", "NextJS", "ReactJS", "VueJS", "Redux", "Recoil", 
+    "Storybook", "StyledComponent", "HTML", "CSS", "JavaScript", "TypeScript"]
 
-        default:
-            return null;
-        }
+    const backStacks = ["Apollo", "AWS", "ExpressJS", "Django", "NestJS", "NodeJS", "Spring", "SpringBoot", 
+    "Python", "Java", "JavaScript"]
+
+    const devStackWord = (devType, skill) => {
+        let a = '';
+        let idx = '';
+      if (devType === "frontend"){
+        idx = frontStacks.findIndex((el) => el === skill);
+        a = 'fe'
+      }
+
+      if (devType === "backend"){
+        idx = backStacks.findIndex((el) => el === skill);
+        a = 'be';
+      }
+
+      if(idx >= 9){
+        return `sk_${a}${idx+1}`  
+      }else{
+        return `sk_${a}0${idx+1}`
+      }
     }
+
 
     return (
         <>  
@@ -92,7 +60,7 @@ export const StudyCard = ({data, idx}) => {
                     <ul className="skill-area">
                         {data.devStack.map((el)=>{
                             return (
-                                <li><img src={process.env.PUBLIC_URL + `/skill/${devStackWord(`${el}`)}.png`} alt="" /></li>
+                                <li><img src={process.env.PUBLIC_URL + `/skill/${devStackWord(data.devType,`${el}`)}.png`} alt="" /></li>
                             )
                         })}
                     </ul>

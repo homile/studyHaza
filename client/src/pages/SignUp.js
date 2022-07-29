@@ -26,18 +26,15 @@ function SignUp() {
     });
   
   const emailChange = (e) => {
-    console.log(e)
     setEmail(e);
   }
 
   const passwordChange = (e) => {
-    console.log(e)
     setPassword(e);
   }
 
   const snsLoginHandler = (e) => {
     e.preventDefault();
-    console.log(e)
   };
 
   return (
@@ -77,8 +74,7 @@ function SignUp() {
               <i className="fa-solid fa-user"></i>
             </div>
           </StyledInputContainer>
-          <button type="submit" onClick={e => snsLoginHandler(e)}>가입하기</button>
-          <ButtonLogin>가입하기</ButtonLogin>
+          <ButtonLogin type="submit" onClick={e => snsLoginHandler(e)}>가입하기</ButtonLogin>
         </form>
       </StyledSignUpContainer>
       <Footer />

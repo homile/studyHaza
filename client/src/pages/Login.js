@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 
-import { ButtonLogin } from "../components/ui/Button";
+import { ButtonLogin, ButtonSnsLogin } from "../components/ui/Button";
 import { StyledInputContainer } from "../components/ui/LoginInput";
 import ModalSoon from "../components/ModalSoon";
 
@@ -16,6 +16,10 @@ function Login() {
   const snsLoginHandler = () => {
     setIsOpen(true);
   };
+
+  const loginHandler = (e) => {
+    e.preventDefault();
+  }
 
   return (
     <>
@@ -36,7 +40,7 @@ function Login() {
               <i className="fa-solid fa-lock"></i>
             </div>
           </StyledInputContainer>
-          <ButtonLogin>로그인</ButtonLogin>
+          <ButtonLogin type="submit" onClick={e => loginHandler(e)}>로그인</ButtonLogin>
         </form>
         <StyledUtilContainer>
           <span>
@@ -49,29 +53,29 @@ function Login() {
         </StyledUtilContainer>
         <hr></hr>
         <SnsButtonContainer>
-          <ButtonLogin
+          <ButtonSnsLogin
             color="#381f1f"
             background="#FFE600"
             onClick={snsLoginHandler}
           >
             카카오톡
             <img alt="카카오톡 로고" src={kakao_symbol} />
-          </ButtonLogin>
+          </ButtonSnsLogin>
         </SnsButtonContainer>
         <SnsButtonContainer>
-          <ButtonLogin background="#1977F2" onClick={snsLoginHandler}>
+          <ButtonSnsLogin background="#1977F2" onClick={snsLoginHandler}>
             페이스북
             <img alt="페이스북 로고" src={facebook_symbol} />
-          </ButtonLogin>
+          </ButtonSnsLogin>
         </SnsButtonContainer>
         <SnsButtonContainer>
-          <ButtonLogin background="#02C75A" onClick={snsLoginHandler}>
+          <ButtonSnsLogin background="#02C75A" onClick={snsLoginHandler}>
             네이버
             <img alt="네이버 로고" src={naver_symbol} />
-          </ButtonLogin>
+          </ButtonSnsLogin>
         </SnsButtonContainer>
         <SnsButtonContainer>
-          <ButtonLogin
+          <ButtonSnsLogin
             color="#242424"
             background="white"
             borderColor="#d3d3d3"
@@ -79,7 +83,7 @@ function Login() {
           >
             구글
             <img alt="구글 로고" src={google_symbol} />
-          </ButtonLogin>
+          </ButtonSnsLogin>
         </SnsButtonContainer>
         <ModalSoon isOpen={isOpen} setIsOpen={setIsOpen}>
           SNS 로그인 기능
