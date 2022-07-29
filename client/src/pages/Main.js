@@ -22,6 +22,8 @@ function Main() {
     getPosts();
   }, [])
 
+
+
   return (
     <Container>
       <AdArea />

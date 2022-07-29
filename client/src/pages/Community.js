@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { ButtonPrimary } from "../components/ui/Button";
-import { NavLink } from "react-router-dom";
-import WrtieCommunity from "../components/WrtieCommunity";
+import WriteBox from "../components/WriteBox";
 
 function Community() {
   const [isWrite, setIsWrite] = useState(false);
@@ -14,7 +13,7 @@ function Community() {
       <p>Community</p>
 
       {isWrite ? (
-        <WrtieCommunity />
+        <WriteBox />
       ) : (
         <>
           <ButtonPrimary onClick={onWriteClick}>글쓰기</ButtonPrimary>
