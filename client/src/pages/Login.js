@@ -107,7 +107,7 @@ const StyledLoginContainer = styled.div`
     margin-bottom: 2rem;
   }
 
-  form{
+  form {
     margin: 0;
     padding: 0;
     width: 100%;
