@@ -1,6 +1,7 @@
 import { createGlobalStyle } from "styled-components";
 import reset from "styled-reset";
 import "./fonts/fonts.css";
+import img from "./images/calendar_icon.png";
 
 const GlobalStyle = createGlobalStyle`
   ${reset}
@@ -15,6 +16,13 @@ const GlobalStyle = createGlobalStyle`
   h1 {
     font-family: 'Pretendard-ExtraBold';
   }
+
+  .react-datepicker__input-container input {
+    background-color: red;
+    background: url(${img}) no-repeat 6% 50%/15px auto;
+    padding-left: 3.3rem;
+  }
+
 
 `;
 

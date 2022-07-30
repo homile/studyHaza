@@ -2,6 +2,7 @@ import React from "react";
 import { WriteInputContainer } from "./ui/WriteInput";
 import styled from "styled-components";
 import { SelectBox } from "./ui/SelectBox";
+import { DatePick } from "./DatePick";
 
 const devTypeOptions = [
   { value: "front", name: "프론트엔드" },
@@ -31,9 +32,7 @@ function WriteStudy() {
       <DivContainer>
         <WriteInputContainer width="95%">
           <label htmlFor="title">시작일자</label>
-          <div>
-            <input id="title" placeholder="-" />
-          </div>
+          <DatePick />
         </WriteInputContainer>
         <WriteInputContainer>
           <label htmlFor="title">모집구분</label>
