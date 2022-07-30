@@ -10,8 +10,6 @@ function Community() {
   };
   return (
     <>
-      <p>Community</p>
-
       {isWrite ? (
         <WriteBox />
       ) : (

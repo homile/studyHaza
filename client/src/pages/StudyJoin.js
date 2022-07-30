@@ -10,8 +10,6 @@ function StudyJoin() {
   };
   return (
     <>
-      <p>Community</p>
-
       {isWrite ? (
         <WriteBox />
       ) : (
