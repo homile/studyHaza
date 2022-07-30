@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { ButtonLogin, ButtonSnsLogin } from "../components/ui/Button";
 import { StyledInputContainer } from "../components/ui/LoginInput";
 import ModalSoon from "../components/ModalSoon";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
 import naver_symbol from "../assets/naver_symbol.png";
 import facebook_symbol from "../assets/facebook_symbol.png";
@@ -19,7 +20,30 @@ function Login() {
 
   const loginHandler = (e) => {
     e.preventDefault();
-  }
+  };
+
+  const auth = getAuth();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  signInWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+      // Signed in
+      const user = userCredential.user;
+      // ...
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+    });
+
+  const emailChange = (e) => {
+    setEmail(e);
+  };
+
+  const passwordChange = (e) => {
+    setPassword(e);
+  };
 
   return (
     <>
@@ -29,18 +53,20 @@ function Login() {
           <StyledInputContainer>
             <label htmlFor="email">이메일 계정</label>
             <div>
-              <input id="email" placeholder="이메일" />
+              <input id="email" placeholder="이메일" onChange={emailChange} />
               <i className="fa-solid fa-at" />
             </div>
           </StyledInputContainer>
           <StyledInputContainer>
             <label htmlFor="password">비밀번호</label>
             <div>
-              <input id="password" type="password" placeholder="비밀번호" />
+              <input id="password" type="password" placeholder="비밀번호" onChange={passwordChange} />
               <i className="fa-solid fa-lock"></i>
             </div>
           </StyledInputContainer>
-          <ButtonLogin type="submit" onClick={e => loginHandler(e)}>로그인</ButtonLogin>
+          <ButtonLogin type="submit" onClick={(e) => loginHandler(e)}>
+            로그인
+          </ButtonLogin>
         </form>
         <StyledUtilContainer>
           <span>
