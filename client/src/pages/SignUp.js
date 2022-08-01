@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import styled from "styled-components";
 
@@ -8,33 +8,55 @@ import { ButtonLogin } from "../components/ui/Button";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 
 function SignUp() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [passwordCheck, setPasswordCheck] = useState("");
+  const [validation, setValidation] = useState("none");
+
+  const nameInput = useRef(null);
+
+  useEffect(() => {
+    nameInput.current.focus();
+  }, []);
 
   // firebase 회원가입 코드
   const auth = getAuth();
-  createUserWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      // Signed in
-      const user = userCredential.user;
-      // ...
-    })
-    .catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      // ..
-    });
-  
+
   const emailChange = (e) => {
     setEmail(e);
-  }
+  };
 
   const passwordChange = (e) => {
     setPassword(e);
-  }
+  };
+
+  const passwordCheckChange = (e) => {
+    setPasswordCheck(e);
+  };
 
   const snsLoginHandler = (e) => {
     e.preventDefault();
+
+    // 패스워드와 패스워드 확인란이 같을 때만 회원가입 실행
+    if (password === passwordCheck) {
+      createUserWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          // Signed in
+          const user = userCredential.user;
+          console.log(user);
+          // ...
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          // ..
+        });
+      setEmail("");
+      setPassword("");
+      setPasswordCheck("");
+    } else {
+      setValidation("block");
+    }
   };
 
   return (
@@ -45,16 +67,32 @@ function SignUp() {
           <StyledInputContainer>
             <label htmlFor="email">이메일 계정</label>
             <div>
-              <input id="email" type="email" placeholder="이메일 계정" onChange={e => emailChange(e.target.value)}/>
+              <input
+                id="email"
+                type="email"
+                placeholder="이메일 계정"
+                value={email}
+                ref={nameInput}
+                onChange={(e) => emailChange(e.target.value)}
+              />
               <i className="fa-solid fa-at" />
             </div>
           </StyledInputContainer>
           <StyledInputContainer>
             <label htmlFor="password">비밀번호</label>
             <div>
-              <input id="password" type="password" placeholder="비밀번호" onChange={e => passwordChange(e.target.value)}/>
+              <input
+                id="password"
+                type="password"
+                placeholder="비밀번호"
+                value={password}
+                onChange={(e) => passwordChange(e.target.value)}
+              />
               <i className="fa-solid fa-lock"></i>
             </div>
+            <ValidationCheck display={validation}>
+              비밀번호가 일치하지 않습니다.
+            </ValidationCheck>
           </StyledInputContainer>
           <StyledInputContainer>
             <label htmlFor="passwordCheck">비밀번호 확인</label>
@@ -63,9 +101,14 @@ function SignUp() {
                 id="passwordCheck"
                 type="password"
                 placeholder="비밀번호 확인"
+                value={passwordCheck}
+                onChange={(e) => passwordCheckChange(e.target.value)}
               />
               <i className="fa-solid fa-lock"></i>
             </div>
+            <ValidationCheck display={validation}>
+              비밀번호가 일치하지 않습니다.
+            </ValidationCheck>
           </StyledInputContainer>
           <StyledInputContainer>
             <label htmlFor="nickName">닉네임</label>
@@ -74,7 +117,9 @@ function SignUp() {
               <i className="fa-solid fa-user"></i>
             </div>
           </StyledInputContainer>
-          <ButtonLogin type="submit" onClick={e => snsLoginHandler(e)}>가입하기</ButtonLogin>
+          <ButtonLogin type="submit" onClick={(e) => snsLoginHandler(e)}>
+            가입하기
+          </ButtonLogin>
         </form>
       </StyledSignUpContainer>
       <Footer />
@@ -112,4 +157,10 @@ const StyledSignUpTitle = styled.h1`
   font-weight: bold;
   margin-top: 1rem;
   margin-bottom: 1.5rem;
+`;
+
+const ValidationCheck = styled.label`
+  display: ${(props) => props.display || "none"};
+  color: red;
+  margin-top: -0.5rem;
 `;

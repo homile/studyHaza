@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import styled from "styled-components";
 
 import { ButtonLogin, ButtonSnsLogin } from "../components/ui/Button";
@@ -13,20 +13,26 @@ import google_symbol from "../assets/google_symbol.png";
 
 function Login() {
   const [isOpen, setIsOpen] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const auth = getAuth();
+
+  const nameInput = useRef(null);
+
+  useEffect(() => {
+    nameInput.current.focus();
+  }, []);
 
   const snsLoginHandler = () => {
     setIsOpen(true);
   };
 
+  // 로그인 버튼 클릭
   const loginHandler = (e) => {
     e.preventDefault();
-  };
 
-  const auth = getAuth();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
-  signInWithEmailAndPassword(auth, email, password)
+    signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       // Signed in
       const user = userCredential.user;
@@ -36,6 +42,8 @@ function Login() {
       const errorCode = error.code;
       const errorMessage = error.message;
     });
+  };
+
 
   const emailChange = (e) => {
     setEmail(e);
@@ -53,7 +61,7 @@ function Login() {
           <StyledInputContainer>
             <label htmlFor="email">이메일 계정</label>
             <div>
-              <input id="email" placeholder="이메일" onChange={emailChange} />
+              <input id="email" placeholder="이메일" ref={nameInput} onChange={emailChange} />
               <i className="fa-solid fa-at" />
             </div>
           </StyledInputContainer>
