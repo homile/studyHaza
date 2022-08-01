@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
-// 로그인 버튼
-export const ButtonLogin = styled.div`
+// 소셜 로그인 버튼
+export const ButtonSnsLogin = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -59,6 +59,29 @@ export const ButtonSecondary = styled.button`
   &:hover {
     background-color: ${(props) => props.background || "#2584F4"};
     color: ${(props) => props.color || "white"};
+    box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24),
+      0 17px 50px 0 rgba(0, 0, 0, 0.19);
+  }
+`;
+
+
+// 로그인 및 회원가입 버튼
+export const ButtonLogin = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Pretendard-Medium";
+  width: ${(props) => props.width || "100%"};
+  height: 54px;
+  font-size: 20px;
+  color: ${(props) => props.color || "white"};
+  background: ${(props) => props.background || "#2584f4"};
+  border: 1px solid ${(props) => props.borderColor || "none"};
+  border-radius: 0.5rem;
+  margin: 0.6rem 0;
+  cursor: pointer;
+
+  &:hover {
     box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24),
       0 17px 50px 0 rgba(0, 0, 0, 0.19);
   }
