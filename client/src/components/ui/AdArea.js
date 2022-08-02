@@ -1,31 +1,10 @@
 import styled from "styled-components";
-import { useEffect, useState } from 'react'
+import CountUp from 'react-countup';
 
 export const AdArea = ({posts}) => {
-  const postsNum = 30;
-  // 카운트 함수
-  function useCountUp() {
-    const [count, setCount] = useState(0)
-    const stepTime = Math.abs(Math.floor(300 / (postsNum - 0)))
-
-    useEffect(() => {
-      let currentNumber = 0
-      const counter = setInterval(() => {
-        currentNumber += 1
-        setCount(currentNumber)
-
-        if (currentNumber === postsNum) {
-          clearInterval(counter)
-        }
-      }, stepTime)
-    }, [postsNum, 0, stepTime])
-
-    return count
-  }
-
     return(
         <BannerArea>
-            <p><strong>{useCountUp()}</strong>개의 스터디가<br/>당신의 합류를 기다리는 중!</p>
+            <p><strong><CountUp duration={1} start={0} end={posts.length} /></strong>개의 스터디가<br/>당신의 합류를 기다리는 중!</p>
         </BannerArea>
     )
 };
