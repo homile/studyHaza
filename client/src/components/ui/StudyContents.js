@@ -5,12 +5,15 @@ import { ButtonPrimary } from "./Button";
 import { SwitchButton } from "./SwitchButton";
 
 export const StudyContents = ({posts}) => {
+    const postsData = posts.map((data, idx) => <StudyCard key={data.id} data={data} idx={idx} />);
+    const postsDataFE = posts.filter((data)=> data.devType === 'frontend').map((data, idx) => <StudyCard key={data.id} data={data} idx={idx} />);
+    const postsDataBE = posts.filter((data)=> data.devType === 'backend').map((data, idx) => <StudyCard key={data.id} data={data} idx={idx} />);
+    
     const menuArr = [
-        {name :'전체', content : '전체 목록'},
-        {name :'프론트엔드', content : '프론트엔드 목록'},
-        {name :'백엔드', content : '백엔드 목록'},
+        {name :'전체', content : postsData},
+        {name :'프론트엔드', content : postsDataFE},
+        {name :'백엔드', content : postsDataBE},
     ];
-
     const [currentTab, setCurrentTab] = useState(0);
 
     const activeMenuHandler = (idx) => {
@@ -35,11 +38,8 @@ export const StudyContents = ({posts}) => {
                 </SwitchGroup>
             </ConSortArea>
             <StudyList>
-                <div>
-                   {/* {menuArr[currentTab].content} */}
-                </div>
                 <StudyCardList>
-                    {posts.map((data, idx) => <StudyCard key={data.id} data={data} idx={idx} />)}
+                    {menuArr[currentTab].content}
                 </StudyCardList>
                 <div className="button-area">
                     <ButtonPrimary>+ 더보기</ButtonPrimary>
