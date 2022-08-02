@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import styled from "styled-components";
 
@@ -14,6 +15,8 @@ function SignUp() {
   const [validation, setValidation] = useState("none");
 
   const nameInput = useRef(null);
+
+  let navigate = useNavigate();
 
   useEffect(() => {
     nameInput.current.focus();
@@ -44,6 +47,7 @@ function SignUp() {
           // Signed in
           const user = userCredential.user;
           console.log(user);
+          navigate('/login');
           // ...
         })
         .catch((error) => {
@@ -54,6 +58,7 @@ function SignUp() {
       setEmail("");
       setPassword("");
       setPasswordCheck("");
+      setValidation("none");
     } else {
       setValidation("block");
     }
@@ -78,7 +83,7 @@ function SignUp() {
               <i className="fa-solid fa-at" />
             </div>
           </StyledInputContainer>
-          <StyledInputContainer>
+          <StyledInputContainer height={validation === 'block' ? "100px" : "90px"}>
             <label htmlFor="password">비밀번호</label>
             <div>
               <input

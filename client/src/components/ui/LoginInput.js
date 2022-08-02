@@ -6,7 +6,7 @@ export const StyledInputContainer = styled.div`
   align-items: flex-start;
   justify-items: center;
   width: 100%;
-  height: 90px;
+  height: ${(props) => props.height || "90px" };
   margin-bottom: 1.5rem;
 
   label {
