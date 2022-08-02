@@ -7,7 +7,7 @@ export const StyledInputContainer = styled.div`
   justify-items: center;
   width: 100%;
   height: 90px;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
 
   label {
     margin-top: 1rem;

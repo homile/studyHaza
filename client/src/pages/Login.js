@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import styled from "styled-components";
 
-import { ButtonLogin } from "../components/ui/Button";
+import { ButtonLogin, ButtonSnsLogin } from "../components/ui/Button";
 import { StyledInputContainer } from "../components/ui/LoginInput";
 import ModalSoon from "../components/ModalSoon";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
 import naver_symbol from "../assets/naver_symbol.png";
 import facebook_symbol from "../assets/facebook_symbol.png";
@@ -12,9 +13,44 @@ import google_symbol from "../assets/google_symbol.png";
 
 function Login() {
   const [isOpen, setIsOpen] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const auth = getAuth();
+
+  const nameInput = useRef(null);
+
+  useEffect(() => {
+    nameInput.current.focus();
+  }, []);
 
   const snsLoginHandler = () => {
     setIsOpen(true);
+  };
+
+  // 로그인 버튼 클릭
+  const loginHandler = (e) => {
+    e.preventDefault();
+
+    signInWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+      // Signed in
+      const user = userCredential.user;
+      // ...
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+    });
+  };
+
+
+  const emailChange = (e) => {
+    setEmail(e);
+  };
+
+  const passwordChange = (e) => {
+    setPassword(e);
   };
 
   return (
@@ -25,18 +61,20 @@ function Login() {
           <StyledInputContainer>
             <label htmlFor="email">이메일 계정</label>
             <div>
-              <input id="email" placeholder="이메일" />
+              <input id="email" placeholder="이메일" ref={nameInput} onChange={emailChange} />
               <i className="fa-solid fa-at" />
             </div>
           </StyledInputContainer>
           <StyledInputContainer>
             <label htmlFor="password">비밀번호</label>
             <div>
-              <input id="password" type="password" placeholder="비밀번호" />
+              <input id="password" type="password" placeholder="비밀번호" onChange={passwordChange} />
               <i className="fa-solid fa-lock"></i>
             </div>
           </StyledInputContainer>
-          <ButtonLogin>로그인</ButtonLogin>
+          <ButtonLogin type="submit" onClick={(e) => loginHandler(e)}>
+            로그인
+          </ButtonLogin>
         </form>
         <StyledUtilContainer>
           <span>
@@ -49,29 +87,29 @@ function Login() {
         </StyledUtilContainer>
         <hr></hr>
         <SnsButtonContainer>
-          <ButtonLogin
+          <ButtonSnsLogin
             color="#381f1f"
             background="#FFE600"
             onClick={snsLoginHandler}
           >
             카카오톡
             <img alt="카카오톡 로고" src={kakao_symbol} />
-          </ButtonLogin>
+          </ButtonSnsLogin>
         </SnsButtonContainer>
         <SnsButtonContainer>
-          <ButtonLogin background="#1977F2" onClick={snsLoginHandler}>
+          <ButtonSnsLogin background="#1977F2" onClick={snsLoginHandler}>
             페이스북
             <img alt="페이스북 로고" src={facebook_symbol} />
-          </ButtonLogin>
+          </ButtonSnsLogin>
         </SnsButtonContainer>
         <SnsButtonContainer>
-          <ButtonLogin background="#02C75A" onClick={snsLoginHandler}>
+          <ButtonSnsLogin background="#02C75A" onClick={snsLoginHandler}>
             네이버
             <img alt="네이버 로고" src={naver_symbol} />
-          </ButtonLogin>
+          </ButtonSnsLogin>
         </SnsButtonContainer>
         <SnsButtonContainer>
-          <ButtonLogin
+          <ButtonSnsLogin
             color="#242424"
             background="white"
             borderColor="#d3d3d3"
@@ -79,7 +117,7 @@ function Login() {
           >
             구글
             <img alt="구글 로고" src={google_symbol} />
-          </ButtonLogin>
+          </ButtonSnsLogin>
         </SnsButtonContainer>
         <ModalSoon isOpen={isOpen} setIsOpen={setIsOpen}>
           SNS 로그인 기능

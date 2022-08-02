@@ -43,6 +43,7 @@ export const StudyCard = ({data}) => {
       }
     }
 
+
     return (
         <>  
             <ItemCard>
