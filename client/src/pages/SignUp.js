@@ -38,7 +38,7 @@ function SignUp() {
     e.preventDefault();
 
     // 패스워드와 패스워드 확인란이 같을 때만 회원가입 실행
-    if (password === passwordCheck) {
+    if (password === passwordCheck && password !== '' && passwordCheck !== '') {
       createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
           // Signed in
@@ -91,7 +91,7 @@ function SignUp() {
               <i className="fa-solid fa-lock"></i>
             </div>
             <ValidationCheck display={validation}>
-              비밀번호가 일치하지 않습니다.
+              {password === '' ? "비밀번호를 입력해주세요" : "비밀번호가 일치하지 않습니다."}
             </ValidationCheck>
           </StyledInputContainer>
           <StyledInputContainer>
@@ -107,7 +107,7 @@ function SignUp() {
               <i className="fa-solid fa-lock"></i>
             </div>
             <ValidationCheck display={validation}>
-              비밀번호가 일치하지 않습니다.
+            {password === '' ? "비밀번호를 입력해주세요" : "비밀번호가 일치하지 않습니다."}
             </ValidationCheck>
           </StyledInputContainer>
           <StyledInputContainer>
