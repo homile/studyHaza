@@ -1,10 +1,11 @@
 import React, { useRef, useState, useEffect } from "react";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 
 import { ButtonLogin, ButtonSnsLogin } from "../components/ui/Button";
 import { StyledInputContainer } from "../components/ui/LoginInput";
 import ModalSoon from "../components/ModalSoon";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { getAuth, setPersistence, signInWithEmailAndPassword, browserSessionPersistence  } from "firebase/auth";
 
 import naver_symbol from "../assets/naver_symbol.png";
 import facebook_symbol from "../assets/facebook_symbol.png";
@@ -19,6 +20,7 @@ function Login() {
   const auth = getAuth();
 
   const nameInput = useRef(null);
+  let navigate = useNavigate();
 
   useEffect(() => {
     nameInput.current.focus();
@@ -33,17 +35,33 @@ function Login() {
     e.preventDefault();
 
     signInWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      // Signed in
-      const user = userCredential.user;
-      // ...
-    })
-    .catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-    });
+      .then((userCredential) => {
+        // Signed in
+        const user = userCredential.user;
+        setPersistence(auth, browserSessionPersistence)
+        .then(() => {
+          // Existing and future Auth states are now persisted in the current
+          // session only. Closing the window would clear any existing state even
+          // if a user forgets to sign out.
+          // ...
+          // New sign-in will be persisted with session persistence.
+          return signInWithEmailAndPassword(auth, email, password);
+        })
+        .catch((error) => {
+          // Handle Errors here.
+          const errorCode = error.code;
+          const errorMessage = error.message;
+        });
+        setEmail('');
+        setPassword('');
+        navigate('/');
+        // ...
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+      });
   };
-
 
   const emailChange = (e) => {
     setEmail(e);
@@ -61,14 +79,24 @@ function Login() {
           <StyledInputContainer>
             <label htmlFor="email">이메일 계정</label>
             <div>
-              <input id="email" placeholder="이메일" ref={nameInput} onChange={emailChange} />
+              <input
+                id="email"
+                placeholder="이메일"
+                ref={nameInput}
+                onChange={(e) => emailChange(e.target.value)}
+              />
               <i className="fa-solid fa-at" />
             </div>
           </StyledInputContainer>
           <StyledInputContainer>
             <label htmlFor="password">비밀번호</label>
             <div>
-              <input id="password" type="password" placeholder="비밀번호" onChange={passwordChange} />
+              <input
+                id="password"
+                type="password"
+                placeholder="비밀번호"
+                onChange={(e) => passwordChange(e.target.value)}
+              />
               <i className="fa-solid fa-lock"></i>
             </div>
           </StyledInputContainer>
