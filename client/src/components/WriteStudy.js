@@ -58,9 +58,9 @@ function WriteStudy() {
           </div>
         </WriteInputContainer>
       </DivContainer>
+
       <CheckBox devTypeOptions={devTypeOptions} />
       <WriteInputContainer height="400px">
-        <hr />
         <label htmlFor="content">모집 상세</label>
         <div>
           <textarea id="content" placeholder="모집 상세 내용을 입력해주세요." />

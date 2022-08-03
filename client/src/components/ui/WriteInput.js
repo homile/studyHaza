@@ -9,6 +9,7 @@ export const WriteInputContainer = styled.div`
   label {
     font-size: 17px;
     font-family: "Pretendard-Medium";
+    margin-bottom: 0.2rem;
   }
 
   input {
@@ -23,7 +24,7 @@ export const WriteInputContainer = styled.div`
 
   textarea {
     width: 100%;
-    height: ${(props) => props.height || "600px"};
+    height: ${(props) => props.height || "890px"};
     border: 1px solid #eeeeee;
     border-radius: 10px;
     font-size: 18px;

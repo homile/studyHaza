@@ -48,11 +48,9 @@ const CheckBox = () => {
 
   // devTypeOptions value에 따라 FRONT_LIST, BACK_LIST가 바뀌도록 수정해야 함
   const checkList = FRONT_LIST.map((item) => {
-    console.log(item.data);
     return (
-      <CheckBoxItem>
+      <CheckBoxItem key={item.id}>
         <input
-          key={item.id}
           id={item.id}
           type="checkbox"
           onChange={(e) => {
@@ -66,8 +64,9 @@ const CheckBox = () => {
 
   return (
     <CheckBoxContainer>
-      <label htmlFor="title">진행방식</label>
-      <div>{checkList}</div>
+      <hr />
+      <label htmlFor="title">주요 기술</label>
+      <ListContainer>{checkList}</ListContainer>
     </CheckBoxContainer>
   );
 };
@@ -80,22 +79,41 @@ const CheckBoxContainer = styled.div`
   justify-items: center;
   width: 100%;
   margin-top: 1rem;
+  margin-bottom: 50px;
 
   label {
     font-size: 17px;
     font-family: "Pretendard-Medium";
+    margin-bottom: 0.2rem;
   }
 
   input {
     margin-top: 8px;
     border-radius: 50px;
-    background-color: aliceblue;
+  }
+
+  hr {
+    width: 100%;
+    border: 0.5px solid #e1e1e1;
+    margin: 40px 0 50px 0;
   }
 `;
 
+const ListContainer = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+`;
+
 const CheckBoxItem = styled.div`
-  display: inline-block;
+  display: flex;
   margin-right: 5rem;
+  margin-bottom: 0.5rem;
+
+  label {
+    position: relative;
+    top: 30%;
+    margin-left: 0.5rem;
+  }
 
   input[type="checkbox"] {
     -webkit-appearance: none;
