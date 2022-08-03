@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import styled from "styled-components";
 
@@ -14,6 +15,8 @@ function SignUp() {
   const [validation, setValidation] = useState("none");
 
   const nameInput = useRef(null);
+
+  let navigate = useNavigate();
 
   useEffect(() => {
     nameInput.current.focus();
@@ -38,12 +41,13 @@ function SignUp() {
     e.preventDefault();
 
     // 패스워드와 패스워드 확인란이 같을 때만 회원가입 실행
-    if (password === passwordCheck) {
+    if (password === passwordCheck && password !== '' && passwordCheck !== '') {
       createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
           // Signed in
           const user = userCredential.user;
           console.log(user);
+          navigate('/login');
           // ...
         })
         .catch((error) => {
@@ -54,6 +58,7 @@ function SignUp() {
       setEmail("");
       setPassword("");
       setPasswordCheck("");
+      setValidation("none");
     } else {
       setValidation("block");
     }
@@ -78,7 +83,7 @@ function SignUp() {
               <i className="fa-solid fa-at" />
             </div>
           </StyledInputContainer>
-          <StyledInputContainer>
+          <StyledInputContainer height={validation === 'block' ? "100px" : "90px"}>
             <label htmlFor="password">비밀번호</label>
             <div>
               <input
@@ -91,7 +96,7 @@ function SignUp() {
               <i className="fa-solid fa-lock"></i>
             </div>
             <ValidationCheck display={validation}>
-              비밀번호가 일치하지 않습니다.
+              {password === '' ? "비밀번호를 입력해주세요" : "비밀번호가 일치하지 않습니다."}
             </ValidationCheck>
           </StyledInputContainer>
           <StyledInputContainer>
@@ -107,13 +112,13 @@ function SignUp() {
               <i className="fa-solid fa-lock"></i>
             </div>
             <ValidationCheck display={validation}>
-              비밀번호가 일치하지 않습니다.
+            {password === '' ? "비밀번호를 입력해주세요" : "비밀번호가 일치하지 않습니다."}
             </ValidationCheck>
           </StyledInputContainer>
           <StyledInputContainer>
             <label htmlFor="nickName">닉네임</label>
             <div>
-              <input id="nickName" placeholder="사용할 닉네임" />
+              <input id="nickName" placeholder="사용할 닉네임" value={email} />
               <i className="fa-solid fa-user"></i>
             </div>
           </StyledInputContainer>
