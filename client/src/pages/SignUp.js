@@ -118,7 +118,7 @@ function SignUp() {
           <StyledInputContainer>
             <label htmlFor="nickName">닉네임</label>
             <div>
-              <input id="nickName" placeholder="사용할 닉네임" />
+              <input id="nickName" placeholder="사용할 닉네임" value={email} />
               <i className="fa-solid fa-user"></i>
             </div>
           </StyledInputContainer>
