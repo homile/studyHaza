@@ -30,7 +30,7 @@ const WriteContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 1000px;
-  height: 1000px;
+  height: 1250px;
   border: 1px solid #e3e3e3;
   border-radius: 0 0 30px 30px;
   margin-bottom: 6rem;
