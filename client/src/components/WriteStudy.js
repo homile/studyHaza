@@ -3,6 +3,7 @@ import { WriteInputContainer } from "./ui/WriteInput";
 import styled from "styled-components";
 import { SelectBox } from "./ui/SelectBox";
 import { DatePick } from "./DatePick";
+import CheckBox from "./CheckBox";
 
 const devTypeOptions = [
   { value: "front", name: "프론트엔드" },
@@ -57,8 +58,9 @@ function WriteStudy() {
           </div>
         </WriteInputContainer>
       </DivContainer>
+
+      <CheckBox devTypeOptions={devTypeOptions} />
       <WriteInputContainer height="400px">
-        <hr />
         <label htmlFor="content">모집 상세</label>
         <div>
           <textarea id="content" placeholder="모집 상세 내용을 입력해주세요." />
