@@ -1,11 +1,6 @@
-import { useState } from "react";
 import styled from "styled-components";
 
-export const SwitchButton = () => {
-    const [isOn, setisOn] = useState(false);
-    const toggleHandler = () => {
-        setisOn(!isOn)
-    }
+export const SwitchButton = ({isOn, toggleHandler}) => {
     return(
         <>
             <ToggleContainer onClick={toggleHandler}>

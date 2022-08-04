@@ -1,23 +1,55 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { StudyCard } from "./StudyCard";
 import { ButtonPrimary } from "./Button";
 import { SwitchButton } from "./SwitchButton";
 
 export const StudyContents = ({posts}) => {
-    const postsData = posts.map((data, idx) => <StudyCard key={data.id} data={data} idx={idx} />);
-    const postsDataFE = posts.filter((data)=> data.devType === 'frontend').map((data, idx) => <StudyCard key={data.id} data={data} idx={idx} />);
-    const postsDataBE = posts.filter((data)=> data.devType === 'backend').map((data, idx) => <StudyCard key={data.id} data={data} idx={idx} />);
+    const [currentTab, setCurrentTab] = useState(0);
+    const [isOn, setisOn] = useState(false);
+    const [data, setdata] = useState(posts);
+    const [postData, setPostData] = useState([]);
+
+    // const tabFeHandler = () => {
+    //     setPostData(data.filter((data)=> data.devType === 'frontend').map((data, idx) => <StudyCard key={data.id} data={data} idx={idx} />)) 
+    // }
+    // const tabBeHandler = () => {
+    //     setPostData(data.filter((data)=> data.devType === 'backend').map((data, idx) => <StudyCard key={data.id} data={data} idx={idx} />)) 
+    // }
     
     const menuArr = [
-        {name :'전체', content : postsData},
-        {name :'프론트엔드', content : postsDataFE},
-        {name :'백엔드', content : postsDataBE},
+        {name :'전체', content : postData},
+        {name :'프론트엔드', content : 'postsDataFE'},
+        {name :'백엔드', content : 'postsDataBE'},
     ];
-    const [currentTab, setCurrentTab] = useState(0);
+
+    // setInterval(() => console.log(new Date()), 2000);
+
+    useEffect(()=>{
+        setPostData( posts.map((data, idx) => <StudyCard key={data.id} data={data} idx={idx} />) );
+        console.log(postData);
+    },[posts]);
+
+
+    const toggleHandler = () => {
+        isOn ? setPostData(posts.map((data, idx) => <StudyCard key={data.id} data={data} idx={idx}/>)) : setPostData(posts.filter((data)=> { return new Date(data.startDate) > new Date()}).map((data, idx) => <StudyCard key={data.id} data={data} idx={idx} />));
+        setisOn(!isOn) 
+    }
+
+    // useEffect(()=>{
+    //     // isOn ? setPostData(postData) :  setPostData(posts.filter((data)=> { return new Date(data.startDate) > new Date()}).map((data, idx) => <StudyCard key={data.id} data={data} idx={idx} />));
+    // },[isOn])
 
     const activeMenuHandler = (idx) => {
         setCurrentTab(idx)
+
+        if(idx === 1){
+            setPostData(posts.filter((data)=> data.devType === 'frontend').map((data, idx) => <StudyCard key={data.id} data={data} idx={idx} />)) 
+        } else if (idx === 2){
+            setPostData(posts.filter((data)=> data.devType === 'backend').map((data, idx) => <StudyCard key={data.id} data={data} idx={idx} />)) 
+        } else {
+            setPostData( posts.map((data, idx) => <StudyCard key={data.id} data={data} idx={idx} />) );
+        }
     };
 
     return(
@@ -34,12 +66,15 @@ export const StudyContents = ({posts}) => {
                 </TabMenu>
                 <SwitchGroup>
                     <em>모집중만 보기</em>
-                    <SwitchButton />
+                    <SwitchButton isOn={isOn} toggleHandler={toggleHandler}/>
                 </SwitchGroup>
             </ConSortArea>
             <StudyList>
                 <StudyCardList>
-                    {menuArr[currentTab].content}
+                    {/* {postsData.length === 0 ? 'ㅎㅏ이': menuArr[currentTab].content}
+                     */}
+                     {postData}
+                    {/* {menuArr[currentTab].content} */}
                 </StudyCardList>
                 <div className="button-area">
                     <ButtonPrimary>+ 더보기</ButtonPrimary>
