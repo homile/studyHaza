@@ -4,12 +4,14 @@ import { AdArea } from "../components/ui/AdArea";
 import { db } from "../firebase-config";
 import { collection, getDocs } from "firebase/firestore";
 import styled from "styled-components";
+import { useSelector } from "react-redux";
 
 function Main() {
   // 게시물 받아와서 상태에 넣기
   const [posts, setPosts] = useState([]);
   // 컬렉션이름이 posts인 db데이터 가져오기
   const postsCollectionRef = collection(db, "posts");
+  const state = useSelector(state => state.loginReducer.isLogin)
 
   useEffect(() => {
     const getPosts = async () => {
@@ -19,6 +21,7 @@ function Main() {
       setPosts(studyData.sort((a, b) => {return b.id -  a.id}));
     }
     getPosts();
+    console.log(state)
   }, [])
   
   return (
