@@ -20,8 +20,6 @@ function Login() {
   const [password, setPassword] = useState("");
   
   const dispatch = useDispatch();
-  // store에 있는 로그인 판별 유무 가져올 수 있음
-  const state = useSelector(state => state.loginReducer.isLogin)
 
   const auth = getAuth();
 
@@ -30,7 +28,6 @@ function Login() {
 
   useEffect(() => {
     nameInput.current.focus();
-    console.log(state)
   }, []);
 
   const snsLoginHandler = () => {
@@ -60,7 +57,6 @@ function Login() {
           const errorMessage = error.message;
         });
         dispatch(loginSuccess());
-        console.log(state)
         setEmail('');
         setPassword('');
         navigate('/');

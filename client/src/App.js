@@ -9,6 +9,7 @@ import Community from "./pages/Community";
 import Login from "./pages/Login";
 import styled from "styled-components";
 import SignUp from "./pages/SignUp";
+import MyPage from "./pages/MyPage";
 
 const AppContainer = styled.div`
   display: flex;
@@ -30,7 +31,7 @@ function App() {
             <Route path="/signup" element={<SignUp />} />
             <Route path="/community" element={<Community />} />
             <Route path="/studyjoin" element={<StudyJoin />} />
-            <Route path="/mypage" /* element={이동할컴포넌트} */ />
+            <Route path="/mypage" element={<MyPage />} />
           </Routes>
 
           <Footer />
