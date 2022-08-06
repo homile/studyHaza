@@ -7,48 +7,58 @@ import { SwitchButton } from "./SwitchButton";
 export const StudyContents = ({posts}) => {
     const [currentTab, setCurrentTab] = useState(0);
     const [isOn, setisOn] = useState(false);
-    const [data, setdata] = useState(posts);
+    const [isOnData, setIsOnData] = useState();
     const [postData, setPostData] = useState([]);
 
-    // const tabFeHandler = () => {
-    //     setPostData(data.filter((data)=> data.devType === 'frontend').map((data, idx) => <StudyCard key={data.id} data={data} idx={idx} />)) 
-    // }
-    // const tabBeHandler = () => {
-    //     setPostData(data.filter((data)=> data.devType === 'backend').map((data, idx) => <StudyCard key={data.id} data={data} idx={idx} />)) 
-    // }
-    
     const menuArr = [
-        {name :'전체', content : postData},
-        {name :'프론트엔드', content : 'postsDataFE'},
-        {name :'백엔드', content : 'postsDataBE'},
+        {name :'전체'},
+        {name :'프론트엔드'},
+        {name :'백엔드'},
     ];
 
-    // setInterval(() => console.log(new Date()), 2000);
-
-    useEffect(()=>{
-        setPostData( posts.map((data, idx) => <StudyCard key={data.id} data={data} idx={idx} />) );
-        console.log(postData);
-    },[posts]);
-
-
-    const toggleHandler = () => {
-        isOn ? setPostData(posts.map((data, idx) => <StudyCard key={data.id} data={data} idx={idx}/>)) : setPostData(posts.filter((data)=> { return new Date(data.startDate) > new Date()}).map((data, idx) => <StudyCard key={data.id} data={data} idx={idx} />));
-        setisOn(!isOn) 
+    const baseData = {
+        a : {
+            a1 : posts,
+            a2 : posts.filter((data)=> data.devType === 'frontend'),
+            a3 : posts.filter((data)=> data.devType === 'backend'),
+        }
     }
 
-    // useEffect(()=>{
-    //     // isOn ? setPostData(postData) :  setPostData(posts.filter((data)=> { return new Date(data.startDate) > new Date()}).map((data, idx) => <StudyCard key={data.id} data={data} idx={idx} />));
-    // },[isOn])
+    const filterData = {
+        a : {
+            a1 : posts.filter((data)=>{return new Date(data.startDate) > new Date()}),
+            a2 : posts.filter((data)=> data.devType === 'frontend').filter((data)=>{return new Date(data.startDate) > new Date()}),
+            a3 : posts.filter((data)=> data.devType === 'backend').filter((data)=>{return new Date(data.startDate) > new Date()}),
+        }
+    }
+
+    useEffect(()=>{
+        setPostData(posts)
+        setIsOnData (baseData)
+    },[posts]);
+
+    const toggleHandler = () => {
+        setisOn(!isOn);
+        if(!isOn){
+            setIsOnData (filterData)
+            console.log(isOn, isOnData, postData);
+        }else{
+            setIsOnData (baseData)
+            console.log(isOn, isOnData, postData);
+        }
+    }
 
     const activeMenuHandler = (idx) => {
         setCurrentTab(idx)
-
         if(idx === 1){
-            setPostData(posts.filter((data)=> data.devType === 'frontend').map((data, idx) => <StudyCard key={data.id} data={data} idx={idx} />)) 
+            setPostData(isOnData['a']['a2']);
+            console.log(isOn, isOnData);
         } else if (idx === 2){
-            setPostData(posts.filter((data)=> data.devType === 'backend').map((data, idx) => <StudyCard key={data.id} data={data} idx={idx} />)) 
+            setPostData(isOnData['a']['a3']);
+            console.log(isOn, isOnData);
         } else {
-            setPostData( posts.map((data, idx) => <StudyCard key={data.id} data={data} idx={idx} />) );
+            setPostData(isOnData['a']['a1']);
+            console.log(isOn, isOnData);
         }
     };
 
@@ -71,10 +81,7 @@ export const StudyContents = ({posts}) => {
             </ConSortArea>
             <StudyList>
                 <StudyCardList>
-                    {/* {postsData.length === 0 ? 'ㅎㅏ이': menuArr[currentTab].content}
-                     */}
-                     {postData}
-                    {/* {menuArr[currentTab].content} */}
+                     {postData.map((data, idx) => <StudyCard key={data.id} data={data} idx={idx} />)}
                 </StudyCardList>
                 <div className="button-area">
                     <ButtonPrimary>+ 더보기</ButtonPrimary>
