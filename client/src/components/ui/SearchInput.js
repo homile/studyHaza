@@ -98,9 +98,4 @@ const Icon = styled.span`
   font-size: 23px;
   cursor: pointer;
   transition: none;
-
-  &:hover {
-    transition: none;
-    color: blue;
-  }
 `;
