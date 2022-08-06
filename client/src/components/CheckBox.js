@@ -125,6 +125,7 @@ const CheckBoxItem = styled.div`
     width: 28px;
     height: 28px;
     background: url(${img1}) no-repeat 50% 50%/15px auto #d9d9d9;
+    transition: none;
   }
 
   input[type="checkbox"]::after {

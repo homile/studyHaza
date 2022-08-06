@@ -22,6 +22,10 @@ const GlobalStyle = createGlobalStyle`
     padding-left: 3.3rem;
   }
 
+  .react-datepicker-popper, .react-datepicker-popper *{
+    transition: none;
+  }
+
 
 `;
 
