@@ -1,10 +1,12 @@
 import React, { useRef, useState, useEffect } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
 import { ButtonLogin, ButtonSnsLogin } from "../components/ui/Button";
 import { StyledInputContainer } from "../components/ui/LoginInput";
 import ModalSoon from "../components/ModalSoon";
+import { loginSuccess } from "../actions";
 import { getAuth, setPersistence, signInWithEmailAndPassword, browserSessionPersistence  } from "firebase/auth";
 
 import naver_symbol from "../assets/naver_symbol.png";
@@ -16,6 +18,8 @@ function Login() {
   const [isOpen, setIsOpen] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  
+  const dispatch = useDispatch();
 
   const auth = getAuth();
 
@@ -52,6 +56,7 @@ function Login() {
           const errorCode = error.code;
           const errorMessage = error.message;
         });
+        dispatch(loginSuccess());
         setEmail('');
         setPassword('');
         navigate('/');

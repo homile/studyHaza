@@ -14,18 +14,24 @@ function Main() {
   useEffect(() => {
     const getPosts = async () => {
       const data = await getDocs(postsCollectionRef);
-      const boardStudyRoot = data.docs.map((doc) => ({ ...doc.data()}));
-      const studyData = boardStudyRoot.filter((el)=>{return el.board === 'study'});
-      setPosts(studyData.sort((a, b) => {return b.id -  a.id}));
-    }
+      const boardStudyRoot = data.docs.map((doc) => ({ ...doc.data() }));
+      const studyData = boardStudyRoot.filter((el) => {
+        return el.board === "study";
+      });
+      setPosts(
+        studyData.sort((a, b) => {
+          return b.id - a.id;
+        })
+      );
+    };
     getPosts();
-  }, [])
-  
+  }, []);
+
   return (
     <Container>
-      <AdArea posts={posts}/>
+      <AdArea posts={posts} />
       <ConPanel>
-        <StudyContents posts={posts}/>
+        <StudyContents posts={posts} />
       </ConPanel>
     </Container>
   );
@@ -34,19 +40,19 @@ function Main() {
 export default Main;
 
 const Container = styled.div`
-  max-width:1290px;
-  width:100%;
-  margin:0 auto;
-  padding:40px 0;
-`
+  max-width: 1290px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 40px 0;
+`;
 
 const ConPanel = styled.div`
-  width:100%;
-  padding:50px 0 25px;
+  width: 100%;
+  padding: 50px 0 25px;
 
-  .button-area{
-    display:flex;
+  .button-area {
+    display: flex;
     justify-content: center;
-    padding:60px 0 30px;
+    padding: 60px 0 30px;
   }
-`
+`;
