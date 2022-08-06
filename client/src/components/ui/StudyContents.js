@@ -6,71 +6,54 @@ import { SwitchButton } from "./SwitchButton";
 
 export const StudyContents = ({posts}) => {
     const [currentTab, setCurrentTab] = useState(0);
-    const [isOn, setisOn] = useState(false);
-    const [isOnData, setIsOnData] = useState();
+    const [isOn, setIsOn]= useState(false);
     const [postData, setPostData] = useState([]);
 
-    const menuArr = [
-        {name :'전체'},
-        {name :'프론트엔드'},
-        {name :'백엔드'},
-    ];
+    const filtered = {
+        menuTab: ["전체", "프론트엔드", "백엔드"]};
 
-    const baseData = {
-        a : {
-            a1 : posts,
-            a2 : posts.filter((data)=> data.devType === 'frontend'),
-            a3 : posts.filter((data)=> data.devType === 'backend'),
-        }
-    }
-
-    const filterData = {
-        a : {
-            a1 : posts.filter((data)=>{return new Date(data.startDate) > new Date()}),
-            a2 : posts.filter((data)=> data.devType === 'frontend').filter((data)=>{return new Date(data.startDate) > new Date()}),
-            a3 : posts.filter((data)=> data.devType === 'backend').filter((data)=>{return new Date(data.startDate) > new Date()}),
-        }
-    }
-
-    useEffect(()=>{
+    useEffect(() => {
         setPostData(posts)
-        setIsOnData (baseData)
-    },[posts]);
+    }, [posts]);
+
+    useEffect(() => {
+        if(isOn){
+            const filterdData = posts.filter((data) => {return new Date(data.startDate) > new Date()});
+            setPostData(filterdData);
+            if(currentTab === 1){
+                setPostData(filterdData.filter ((data) => {return data.devType === "frontend"}));
+            }
+            if(currentTab === 2){
+                setPostData(filterdData.filter ((data) => {return data.devType === "backend"}));
+            }
+        }else{
+            setPostData(posts);
+            if(currentTab === 1){
+                setPostData(posts.filter ((data) => {return data.devType === "frontend"}));
+            }
+            if(currentTab === 2){
+                setPostData(posts.filter ((data) => {return data.devType === "backend"}));
+            }
+        }
+    }, [isOn, currentTab]);
 
     const toggleHandler = () => {
-        setisOn(!isOn);
-        if(!isOn){
-            setIsOnData (filterData)
-            console.log(isOn, isOnData, postData);
-        }else{
-            setIsOnData (baseData)
-            console.log(isOn, isOnData, postData);
-        }
+        setIsOn(!isOn)
     }
 
     const activeMenuHandler = (idx) => {
         setCurrentTab(idx)
-        if(idx === 1){
-            setPostData(isOnData['a']['a2']);
-            console.log(isOn, isOnData);
-        } else if (idx === 2){
-            setPostData(isOnData['a']['a3']);
-            console.log(isOn, isOnData);
-        } else {
-            setPostData(isOnData['a']['a1']);
-            console.log(isOn, isOnData);
-        }
     };
 
     return(
         <div>
             <ConSortArea>
                 <TabMenu>
-                    {menuArr.map((el,idx) => {
+                    {filtered.menuTab.map((el, idx) => {
                         return(
                             <li key={idx}
                             className={`${idx === currentTab ? 'active' : null}`}
-                            onClick={()=>activeMenuHandler(idx)}>{el.name}</li>
+                            onClick={()=>activeMenuHandler(idx)}>{el}</li>
                         )
                     })}
                 </TabMenu>
@@ -81,7 +64,7 @@ export const StudyContents = ({posts}) => {
             </ConSortArea>
             <StudyList>
                 <StudyCardList>
-                     {postData.map((data, idx) => <StudyCard key={data.id} data={data} idx={idx} />)}
+                    {postData.map((data, idx) => <StudyCard key={data.id} data={data} idx={idx} />)}
                 </StudyCardList>
                 <div className="button-area">
                     <ButtonPrimary>+ 더보기</ButtonPrimary>
