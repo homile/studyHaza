@@ -8,6 +8,7 @@ import logo from "../images/logo.png";
 import { useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import img from "../images/pf_sample.png";
+import Search from "./ui/SearchInput";
 
 function Nav() {
   const { pathname } = useLocation();
@@ -33,10 +34,10 @@ function Nav() {
         </LeftContainer>
 
         <RightContainer>
-          <SearchIcon>
+          {/* <SearchIcon>
             <i className="fa-solid fa-magnifying-glass fa-fw"></i>
-          </SearchIcon>
-
+          </SearchIcon> */}
+          <Search />
           <DarkmodeIcon>
             <i className="fa-solid fa-moon fa-fw"></i>
           </DarkmodeIcon>
@@ -116,18 +117,6 @@ const DarkmodeIcon = styled.span`
   > .fa-moon {
     color: white;
   }
-`;
-
-const SearchIcon = styled.span`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  background: white;
-  font-size: 26.07px;
-  border: 2px solid #f1f1f1;
 `;
 
 const NavStyle = styled(NavLink)`
