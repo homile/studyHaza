@@ -44,8 +44,6 @@ const CheckBox = ({ devStack, devType, setDevStack }) => {
     }
   };
 
-  console.log(devStack);
-
   const checkList = (devType === "frontend" ? FRONT_LIST : BACK_LIST).map(
     (item) => {
       return (
