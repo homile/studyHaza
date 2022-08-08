@@ -6,61 +6,54 @@ import { SwitchButton } from "./SwitchButton";
 
 export const StudyContents = ({posts}) => {
     const [currentTab, setCurrentTab] = useState(0);
-    const [isOn, setisOn] = useState(false);
-    const [data, setdata] = useState(posts);
+    const [isOn, setIsOn]= useState(false);
     const [postData, setPostData] = useState([]);
 
-    // const tabFeHandler = () => {
-    //     setPostData(data.filter((data)=> data.devType === 'frontend').map((data, idx) => <StudyCard key={data.id} data={data} idx={idx} />)) 
-    // }
-    // const tabBeHandler = () => {
-    //     setPostData(data.filter((data)=> data.devType === 'backend').map((data, idx) => <StudyCard key={data.id} data={data} idx={idx} />)) 
-    // }
-    
-    const menuArr = [
-        {name :'전체', content : postData},
-        {name :'프론트엔드', content : 'postsDataFE'},
-        {name :'백엔드', content : 'postsDataBE'},
-    ];
+    const filtered = {
+        menuTab: ["전체", "프론트엔드", "백엔드"]};
 
-    // setInterval(() => console.log(new Date()), 2000);
+    useEffect(() => {
+        setPostData(posts)
+    }, [posts]);
 
-    useEffect(()=>{
-        setPostData( posts.map((data, idx) => <StudyCard key={data.id} data={data} idx={idx} />) );
-        console.log(postData);
-    },[posts]);
-
+    useEffect(() => {
+        if(isOn){
+            const filterdData = posts.filter((data) => {return new Date(data.startDate) > new Date()});
+            setPostData(filterdData);
+            if(currentTab === 1){
+                setPostData(filterdData.filter ((data) => {return data.devType === "frontend"}));
+            }
+            if(currentTab === 2){
+                setPostData(filterdData.filter ((data) => {return data.devType === "backend"}));
+            }
+        }else{
+            setPostData(posts);
+            if(currentTab === 1){
+                setPostData(posts.filter ((data) => {return data.devType === "frontend"}));
+            }
+            if(currentTab === 2){
+                setPostData(posts.filter ((data) => {return data.devType === "backend"}));
+            }
+        }
+    }, [isOn, currentTab]);
 
     const toggleHandler = () => {
-        isOn ? setPostData(posts.map((data, idx) => <StudyCard key={data.id} data={data} idx={idx}/>)) : setPostData(posts.filter((data)=> { return new Date(data.startDate) > new Date()}).map((data, idx) => <StudyCard key={data.id} data={data} idx={idx} />));
-        setisOn(!isOn) 
+        setIsOn(!isOn)
     }
-
-    // useEffect(()=>{
-    //     // isOn ? setPostData(postData) :  setPostData(posts.filter((data)=> { return new Date(data.startDate) > new Date()}).map((data, idx) => <StudyCard key={data.id} data={data} idx={idx} />));
-    // },[isOn])
 
     const activeMenuHandler = (idx) => {
         setCurrentTab(idx)
-
-        if(idx === 1){
-            setPostData(posts.filter((data)=> data.devType === 'frontend').map((data, idx) => <StudyCard key={data.id} data={data} idx={idx} />)) 
-        } else if (idx === 2){
-            setPostData(posts.filter((data)=> data.devType === 'backend').map((data, idx) => <StudyCard key={data.id} data={data} idx={idx} />)) 
-        } else {
-            setPostData( posts.map((data, idx) => <StudyCard key={data.id} data={data} idx={idx} />) );
-        }
     };
 
     return(
         <div>
             <ConSortArea>
                 <TabMenu>
-                    {menuArr.map((el,idx) => {
+                    {filtered.menuTab.map((el, idx) => {
                         return(
                             <li key={idx}
                             className={`${idx === currentTab ? 'active' : null}`}
-                            onClick={()=>activeMenuHandler(idx)}>{el.name}</li>
+                            onClick={()=>activeMenuHandler(idx)}>{el}</li>
                         )
                     })}
                 </TabMenu>
@@ -71,10 +64,7 @@ export const StudyContents = ({posts}) => {
             </ConSortArea>
             <StudyList>
                 <StudyCardList>
-                    {/* {postsData.length === 0 ? 'ㅎㅏ이': menuArr[currentTab].content}
-                     */}
-                     {postData}
-                    {/* {menuArr[currentTab].content} */}
+                    {postData.map((data, idx) => <StudyCard key={data.id} data={data} idx={idx} />)}
                 </StudyCardList>
                 <div className="button-area">
                     <ButtonPrimary>+ 더보기</ButtonPrimary>
