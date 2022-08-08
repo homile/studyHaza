@@ -10,7 +10,9 @@ export const StudyContents = ({posts}) => {
     const [postData, setPostData] = useState([]);
 
     const filtered = {
-        menuTab: ["전체", "프론트엔드", "백엔드"]};
+        menuTab: ["전체", "프론트엔드", "백엔드"],
+        skillTab: ["전체", "frontend", "backend"]
+    };
 
     useEffect(() => {
         setPostData(posts)
@@ -20,19 +22,17 @@ export const StudyContents = ({posts}) => {
         if(isOn){
             const filterdData = posts.filter((data) => {return new Date(data.startDate) > new Date()});
             setPostData(filterdData);
-            if(currentTab === 1){
-                setPostData(filterdData.filter ((data) => {return data.devType === "frontend"}));
-            }
-            if(currentTab === 2){
-                setPostData(filterdData.filter ((data) => {return data.devType === "backend"}));
+            for(let i= 1 ; i<filtered.skillTab.length; i++){
+                if(currentTab === i){
+                    setPostData(filterdData.filter ((data) => {return data.devType === filtered.skillTab[i]}));
+                }
             }
         }else{
             setPostData(posts);
-            if(currentTab === 1){
-                setPostData(posts.filter ((data) => {return data.devType === "frontend"}));
-            }
-            if(currentTab === 2){
-                setPostData(posts.filter ((data) => {return data.devType === "backend"}));
+            for(let i= 1 ; i<filtered.skillTab.length; i++){
+                if(currentTab === i){
+                    setPostData(posts.filter ((data) => {return data.devType === filtered.skillTab[i]}));
+                }
             }
         }
     }, [isOn, currentTab]);

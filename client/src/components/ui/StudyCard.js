@@ -126,6 +126,7 @@ const ProjectInfo = styled.div`
     .skill-area , .meta-area{
         display:flex;
         gap: 5px;
+        flex-wrap: wrap;
     }
     .skill-area{
         li{
