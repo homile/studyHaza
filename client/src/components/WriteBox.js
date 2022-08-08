@@ -1,3 +1,4 @@
+import React from "react";
 import styled from "styled-components";
 import { useLocation } from "react-router-dom";
 import WriteCommunity from "./WriteCommunity";
@@ -7,6 +8,7 @@ import WriteStudy from "./WriteStudy";
 // 스터디 모집 글쓰기, 커뮤니티 글쓰기 컴포넌트 container
 const WriteBox = () => {
   const { pathname } = useLocation();
+
   return (
     <>
       <HeaderContainer>
@@ -14,11 +16,6 @@ const WriteBox = () => {
       </HeaderContainer>
       <WriteContainer>
         {pathname === "/community" ? <WriteCommunity /> : <WriteStudy />}
-
-        <ButtonContainer>
-          <ButtonPrimary background="#B6B6B6">취소</ButtonPrimary>
-          <ButtonPrimary>작성완료</ButtonPrimary>
-        </ButtonContainer>
       </WriteContainer>
     </>
   );
@@ -49,9 +46,4 @@ const HeaderContainer = styled.div`
   font-size: 35px;
   padding-left: 55px;
   padding-bottom: 29px;
-`;
-
-const ButtonContainer = styled.div`
-  display: flex;
-  justify-content: flex-end;
 `;

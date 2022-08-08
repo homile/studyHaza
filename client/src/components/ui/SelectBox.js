@@ -1,8 +1,23 @@
 import styled from "styled-components";
 import img from "../../images/down_arrow.png";
+
 export const SelectBox = (props) => {
+  const onChangeDevType = (e) => {
+    props.setDevType(e.target.value);
+    console.log(e.target.value);
+  };
+
+  const onChangeOnOff = (e) => {
+    props.setOnOff(e.target.value);
+    console.log(e.target.value);
+  };
+
   return (
-    <Select>
+    <Select
+      onChange={
+        props.options === props.devTypeOptions ? onChangeDevType : onChangeOnOff
+      }
+    >
       {props.options.map((option) => (
         <option key={option.value} value={option.value}>
           {option.name}

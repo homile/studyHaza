@@ -34,9 +34,6 @@ function Nav() {
         </LeftContainer>
 
         <RightContainer>
-          {/* <SearchIcon>
-            <i className="fa-solid fa-magnifying-glass fa-fw"></i>
-          </SearchIcon> */}
           <Search />
           <DarkmodeIcon>
             <i className="fa-solid fa-moon fa-fw"></i>

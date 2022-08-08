@@ -3,14 +3,14 @@ import styled from "styled-components";
 
 function Search() {
   const [search, setSearch] = useState("");
-  const [lengths, setLength] = useState(0);
+  // const [lengths, setLength] = useState(0);
 
   const onChange = (e) => {
     setSearch(e.target.value);
     if (e.target.value.length !== 0) {
       console.log("have value!!!");
     }
-    setLength(e.target.value.length);
+    // setLength(e.target.value.length);
   };
 
   return (
