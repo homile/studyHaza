@@ -4,63 +4,66 @@ import img1 from "../images/check_icon1.png";
 import img2 from "../images/check_icon2.png";
 
 const FRONT_LIST = [
-  { id: 0, data: "Angular" },
-  { id: 1, data: "Emotion" },
-  { id: 2, data: "GraphQL" },
-  { id: 3, data: "NextJS" },
-  { id: 4, data: "ReactJS" },
-  { id: 5, data: "VueJS" },
-  { id: 6, data: "Redux" },
-  { id: 7, data: "Recoil" },
-  { id: 8, data: "Storybook" },
-  { id: 9, data: "StyledComponent" },
-  { id: 10, data: "HTML" },
-  { id: 11, data: "CSS" },
-  { id: 12, data: "JavaScript" },
-  { id: 13, data: "TypeScript" },
+  { id: "Angular", data: "Angular" },
+  { id: "Emotion", data: "Emotion" },
+  { id: "GraphQL", data: "GraphQL" },
+  { id: "NextJS", data: "NextJS" },
+  { id: "ReactJS", data: "ReactJS" },
+  { id: "VueJS", data: "VueJS" },
+  { id: "Redux", data: "Redux" },
+  { id: "Recoil", data: "Recoil" },
+  { id: "Storybook", data: "Storybook" },
+  { id: "StyledComponent", data: "StyledComponent" },
+  { id: "HTML", data: "HTML" },
+  { id: "CSS", data: "CSS" },
+  { id: "JavaScript", data: "JavaScript" },
+  { id: "TypeScript", data: "TypeScript" },
 ];
 
 const BACK_LIST = [
-  { id: 0, data: "Apollo" },
-  { id: 1, data: "AWS" },
-  { id: 2, data: "ExpressJS" },
-  { id: 3, data: "Django" },
-  { id: 4, data: "NestJS" },
-  { id: 5, data: "NodeJS" },
-  { id: 6, data: "Spring" },
-  { id: 7, data: "SpringBoot" },
-  { id: 5, data: "Python" },
-  { id: 6, data: "Java" },
-  { id: 7, data: "JavaScript" },
+  { id: "Apollo", data: "Apollo" },
+  { id: "AWS", data: "AWS" },
+  { id: "ExpressJS", data: "ExpressJS" },
+  { id: "Django", data: "Django" },
+  { id: "NestJS", data: "NestJS" },
+  { id: "NodeJS", data: "NodeJS" },
+  { id: "Spring", data: "Spring" },
+  { id: "SpringBoot", data: "SpringBoot" },
+  { id: "Python", data: "Python" },
+  { id: "Java", data: "Java" },
+  { id: "JavaScript", data: "JavaScript" },
 ];
 
-const CheckBox = () => {
-  const [checkedInputs, setCheckedInputs] = useState([]);
-
+const CheckBox = ({ devStack, devType, setDevStack }) => {
   const changeHandler = (checked, id) => {
     if (checked) {
-      setCheckedInputs([...checkedInputs, id]);
+      setDevStack([...devStack, id]);
     } else {
       // 체크 해제
-      setCheckedInputs(checkedInputs.filter((el) => el !== id));
+      setDevStack(devStack.filter((el) => el !== id));
     }
   };
 
-  // devTypeOptions value에 따라 FRONT_LIST, BACK_LIST가 바뀌도록 수정해야 함
-  const checkList = FRONT_LIST.map((item) => {
-    return (
-      <CheckBoxItem key={item.id}>
-        <input
-          id={item.id}
-          type="checkbox"
-          onChange={(e) => {
-            changeHandler(e.currentTarget.checked, { item });
-          }}
-        />
-        <label htmlFor={item.id}>{item.data}</label>
-      </CheckBoxItem>
-    );
-  });
+  console.log(devStack);
+
+  const checkList = (devType === "frontend" ? FRONT_LIST : BACK_LIST).map(
+    (item) => {
+      return (
+        <CheckBoxItem key={item.id}>
+          <input
+            id={item.id}
+            defaultValue={devStack}
+            type="checkbox"
+            onChange={(e) => {
+              changeHandler(e.currentTarget.checked, item.id);
+            }}
+            checked={devStack.includes(item.id) ? true : false}
+          />
+          <label htmlFor={item.id}>{item.data}</label>
+        </CheckBoxItem>
+      );
+    }
+  );
 
   return (
     <CheckBoxContainer>

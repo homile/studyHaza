@@ -20,6 +20,20 @@ export const WriteInputContainer = styled.div`
     font-size: 18px;
     padding: 0 1.5rem;
     margin-top: 8px;
+
+    &::-webkit-outer-spin-button,
+    &:-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+    }
+  }
+
+  input[type="number"]::-webkit-outer-spin-button,
+  input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
   }
 
   textarea {
