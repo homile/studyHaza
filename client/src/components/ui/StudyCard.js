@@ -15,6 +15,14 @@ export const StudyCard = ({data}) => {
         }
         return `D-${diffDay}`;
     }
+
+    // function test(){
+    //     if(){
+    //         return '모집종료'
+    //     }else{
+    //         return '모집 중'
+    //     }
+    // }
     
     // 기술 스택명 불러오기
     const frontStacks = ["Angular", "Emotion", "GraphQL", "NextJS", "ReactJS", "VueJS", "Redux", "Recoil", 
@@ -71,7 +79,7 @@ export const StudyCard = ({data}) => {
                     </ul>
                 </ProjectInfo>
                 <StudyInfo>
-                    <p>{data.nickName} <em>모집 중 {data.haveHeadCount}/{data.totalHeadCount}명</em></p>
+                    <p>{data.nickName} <em>{diffDay <= 0 || data.haveHeadCount === data.totalHeadCount ? '모집 종료' : '모집 중'} {data.haveHeadCount}/{data.totalHeadCount}명</em></p>
                 </StudyInfo>
             </ItemCard>
         </>
