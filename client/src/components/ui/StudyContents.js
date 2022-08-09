@@ -16,7 +16,7 @@ export const StudyContents = ({posts}) => {
     };
 
     useEffect(() => {
-        setPostData(posts.slice(0, 12))
+        setPostData(posts.sort((a, b) => new Date(b.dateCreated) - new Date(a.dateCreated)).slice(0, 12))
     }, [posts]);
 
     useEffect(() => {
