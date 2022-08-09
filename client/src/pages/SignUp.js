@@ -1,22 +1,21 @@
 import React, { useEffect, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
 
 import styled from "styled-components";
 
 import Footer from "../components/Footer";
 import { StyledInputContainer } from "../components/ui/LoginInput";
 import { ButtonLogin } from "../components/ui/Button";
+import ModalSucces from "../components/ModalSucces";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 
 function SignUp() {
+  const [isOpen, setIsOpen] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordCheck, setPasswordCheck] = useState("");
   const [validation, setValidation] = useState("none");
 
   const nameInput = useRef(null);
-
-  let navigate = useNavigate();
 
   useEffect(() => {
     nameInput.current.focus();
@@ -37,7 +36,7 @@ function SignUp() {
     setPasswordCheck(e);
   };
 
-  const snsLoginHandler = (e) => {
+  const signUpHandler = (e) => {
     e.preventDefault();
 
     // 패스워드와 패스워드 확인란이 같을 때만 회원가입 실행
@@ -46,7 +45,7 @@ function SignUp() {
         .then((userCredential) => {
           // Signed in
           const user = userCredential.user;
-          navigate('/login');
+          setIsOpen(true);
           // ...
         })
         .catch((error) => {
@@ -121,10 +120,11 @@ function SignUp() {
               <i className="fa-solid fa-user"></i>
             </div>
           </StyledInputContainer>
-          <ButtonLogin type="submit" onClick={(e) => snsLoginHandler(e)}>
+          <ButtonLogin type="submit" onClick={(e) => signUpHandler(e)}>
             가입하기
           </ButtonLogin>
         </form>
+        <ModalSucces isOpen={isOpen} setIsOpen={setIsOpen}/>
       </StyledSignUpContainer>
       <Footer />
     </>
