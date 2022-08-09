@@ -15,14 +15,6 @@ export const StudyCard = ({data}) => {
         }
         return `D-${diffDay}`;
     }
-
-    // function test(){
-    //     if(){
-    //         return '모집종료'
-    //     }else{
-    //         return '모집 중'
-    //     }
-    // }
     
     // 기술 스택명 불러오기
     const frontStacks = ["Angular", "Emotion", "GraphQL", "NextJS", "ReactJS", "VueJS", "Redux", "Recoil", 
