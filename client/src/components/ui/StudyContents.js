@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { StudyCard } from "./StudyCard";
-import { NavLink } from "react-router-dom";
-import { ButtonPrimary } from "./Button";
 import { SwitchButton } from "./SwitchButton";
 
 export const StudyContents = ({posts}) => {
@@ -16,7 +14,7 @@ export const StudyContents = ({posts}) => {
     };
 
     useEffect(() => {
-        setPostData(posts.slice(0, 12));
+        setPostData(posts);
     }, [posts]);
 
     useEffect(() => {
@@ -67,11 +65,6 @@ export const StudyContents = ({posts}) => {
                 <StudyCardList>
                     {postData.map((data, idx) => <StudyCard key={data.id} data={data} idx={idx} />)}
                 </StudyCardList>
-                <div className="button-area">
-                <NavLink to="/studyjoin">
-                    <ButtonPrimary>+ 더보기</ButtonPrimary>
-                </NavLink>
-                </div>
             </StudyList>
         </div>
     );
