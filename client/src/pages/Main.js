@@ -20,7 +20,7 @@ function Main() {
       });
       setPosts(
         studyData.sort((a, b) => {
-          return b.id - a.id;
+          return new Date(b.dateCreated) - new Date(a.dateCreated);
         })
       );
     };
