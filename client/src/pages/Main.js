@@ -4,10 +4,10 @@ import { NavLink } from "react-router-dom";
 import { ButtonPrimary } from "../components/ui/Button";
 import styled from "styled-components";
 
-function Main({posts}) {
+function Main({posts, postsTotal}) {
   return (
     <Container>
-      <AdArea posts={posts} />
+      <AdArea posts={postsTotal} />
       <ConPanel>
         <StudyContents posts={posts} />
         <div className="button-area">
