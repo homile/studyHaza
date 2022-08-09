@@ -14,7 +14,7 @@ function StudyJoin({posts}) {
   return (
     <Container>
       {isWrite ? (
-        <WriteBox />
+          <WriteBox />
       ) : (
         <>
           <CreateStudyButton onClick={onWriteClick}>

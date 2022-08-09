@@ -49,7 +49,7 @@ function App() {
           <Nav />
 
           <Routes>
-            <Route path="/" element={<Main posts={posts.slice(0, 12)}/>} />
+            <Route path="/" element={<Main posts={posts.slice(0, 12)} postsTotal={posts}/>} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/community" element={<Community />} />
