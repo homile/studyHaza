@@ -1,32 +1,43 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { useLocation } from "react-router-dom";
 import WriteCommunity from "./WriteCommunity";
-import { ButtonPrimary } from "./ui/Button";
 import WriteStudy from "./WriteStudy";
+import ViewDetailBox from "./ViewDetailBox";
 
 // 스터디 모집 글쓰기, 커뮤니티 글쓰기 컴포넌트 container
-const WriteBox = () => {
+const WriteBox = ({ setIsWrite }) => {
   const { pathname } = useLocation();
+  const [isOk, setIsOk] = useState(false);
 
   return (
     <WrapPanel>
-      <HeaderContainer>
-        {pathname === "/community" ? "커뮤니티 글쓰기" : "스터디 만들기"}
-      </HeaderContainer>
-      <WriteContainer>
-        {pathname === "/community" ? <WriteCommunity /> : <WriteStudy />}
-      </WriteContainer>
+      {!isOk ? (
+        <>
+          <HeaderContainer>
+            {pathname === "/community" ? "커뮤니티 글쓰기" : "스터디 만들기"}
+          </HeaderContainer>
+          <WriteContainer>
+            {pathname === "/community" ? (
+              <WriteCommunity />
+            ) : (
+              <WriteStudy setIsOk={setIsOk} setIsWrite={setIsWrite} />
+            )}
+          </WriteContainer>
+        </>
+      ) : (
+        <ViewDetailBox />
+      )}
     </WrapPanel>
   );
 };
 
 export default WriteBox;
 
-const WrapPanel =styled.div`
-  width:1000px;
-  margin:0 auto;
-`
+const WrapPanel = styled.div`
+  width: 1000px;
+  margin: 0 auto;
+`;
 
 const WriteContainer = styled.div`
   display: flex;
