@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { WriteInputContainer } from "./ui/WriteInput";
 import styled from "styled-components";
 import { SelectBox } from "./ui/SelectBox";
@@ -20,7 +20,7 @@ const onOffOptions = [
   { value: "off", name: "오프라인" },
 ];
 
-const WriteStudy = () => {
+const WriteStudy = ({ setIsOk, setIsWrite }) => {
   const [title, setTitle] = useState("");
   const [startDate, setStartDate] = useState(new Date());
   const [devType, setDevType] = useState("frontend");
@@ -50,8 +50,9 @@ const WriteStudy = () => {
     });
 
     alert("스터디 모집 글 작성이 완료되었습니다:)");
-  };
 
+    setIsOk(true);
+  };
   return (
     <>
       <WriteInputContainer>
@@ -134,7 +135,9 @@ const WriteStudy = () => {
         </div>
       </WriteInputContainer>
       <ButtonContainer>
-        <ButtonPrimary background="#B6B6B6">취소</ButtonPrimary>
+        <ButtonPrimary onClick={() => setIsWrite(false)} background="#B6B6B6">
+          취소
+        </ButtonPrimary>
         <ButtonPrimary onClick={createPosts}>작성완료</ButtonPrimary>
       </ButtonContainer>
     </>
