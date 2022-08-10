@@ -10,6 +10,7 @@ function StudyJoin({ posts }) {
   const onWriteClick = () => {
     setIsWrite(true);
   };
+
   return (
     <Container>
       {isWrite ? (

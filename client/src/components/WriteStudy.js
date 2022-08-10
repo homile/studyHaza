@@ -53,6 +53,7 @@ const WriteStudy = ({ setIsOk, setIsWrite }) => {
 
     setIsOk(true);
   };
+
   return (
     <>
       <WriteInputContainer>

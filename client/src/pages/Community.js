@@ -7,26 +7,24 @@ import Pagination from "../components/ui/Pagination";
 import styled from "styled-components";
 
 function Community() {
-  const [isWrite, setIsWrite] = useState(false);
+  const [isWrite2, setIsWrite2] = useState(false);
 
   const onWriteClick = () => {
-    setIsWrite(true);
+    setIsWrite2(true);
   };
-
-  // console.log("Document written with ID: ", postsCollectionRef);
 
   return (
     <Container>
-      {isWrite ? (
-        <WriteBox />
+      {isWrite2 ? (
+        <WriteBox setIsWrite2={setIsWrite2} />
       ) : (
         <ConPanel>
           <SubPageTop>
-              <TypeH2>커뮤니티</TypeH2>
-              <SearchBar/>
+            <TypeH2>커뮤니티</TypeH2>
+            <SearchBar />
           </SubPageTop>
-          
-          <BoardHeader onWriteClick={onWriteClick}/>
+
+          <BoardHeader onWriteClick={onWriteClick} />
           <BoardListContents />
           <Pagination />
         </ConPanel>
@@ -47,7 +45,7 @@ const Container = styled.div`
 const ConPanel = styled.div`
   width: 100%;
   padding: 50px 0 25px;
-`
+`;
 
 const SubPageTop = styled.div`
   display: flex;
@@ -56,9 +54,9 @@ const SubPageTop = styled.div`
   align-items: center;
   text-align: center;
   gap: 25px;
-`
+`;
 
 const TypeH2 = styled.h2`
-  font-size:40px;
-  font-family: 'Pretendard-Bold';
-`
+  font-size: 40px;
+  font-family: "Pretendard-Bold";
+`;
