@@ -4,9 +4,8 @@ import { StudyContents } from "../components/ui/StudyContents";
 import iconButton from "../images/icon_add.png";
 import styled from "styled-components";
 
-function StudyJoin({posts}) {
+function StudyJoin({ posts }) {
   const [isWrite, setIsWrite] = useState(false);
-
 
   const onWriteClick = () => {
     setIsWrite(true);
@@ -14,13 +13,13 @@ function StudyJoin({posts}) {
   return (
     <Container>
       {isWrite ? (
-          <WriteBox />
+        <WriteBox setIsWrite={setIsWrite} />
       ) : (
         <>
           <CreateStudyButton onClick={onWriteClick}>
             <div>
-                <img src={iconButton} className="icon-add" alt="" />
-                <p>나만의 스터디를 만들어보세요!</p>
+              <img src={iconButton} className="icon-add" alt="" />
+              <p>나만의 스터디를 만들어보세요!</p>
             </div>
           </CreateStudyButton>
           <ConPanel>
@@ -44,38 +43,38 @@ const Container = styled.div`
 const ConPanel = styled.div`
   width: 100%;
   padding: 50px 0 25px;
-`
+`;
 
 const CreateStudyButton = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width:100%;
-  height:185px;
-  background:#F9F9F9;
-  border:1px solid #E3E3E3;
+  width: 100%;
+  height: 185px;
+  background: #f9f9f9;
+  border: 1px solid #e3e3e3;
   border-radius: 25px;
   text-align: center;
   cursor: pointer;
 
-  .icon-add{
-    width:63px;
+  .icon-add {
+    width: 63px;
   }
 
-  p{
-    padding:6px 0;
-    font-size:20px;
-    font-family: 'Pretendard-Medium';
+  p {
+    padding: 6px 0;
+    font-size: 20px;
+    font-family: "Pretendard-Medium";
   }
 
-  &:hover{
-    background:#F4F4F4;
-    border-color:#DBDBDB;
-    .icon-add{
-      opacity: .85;
+  &:hover {
+    background: #f4f4f4;
+    border-color: #dbdbdb;
+    .icon-add {
+      opacity: 0.85;
     }
-    p{
-      color:#1879EB;
+    p {
+      color: #1879eb;
     }
   }
-`
+`;
