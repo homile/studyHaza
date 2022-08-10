@@ -51,7 +51,9 @@ function Nav() {
               </div>
               {isNameClick && (
                 <MyPageDropDown>
-                  <div>마이페이지</div>
+                  <NavLink to="mypage">
+                    <div>마이페이지</div>
+                  </NavLink>
                   <hr />
                   <div>스터디이름</div>
                   <hr />
