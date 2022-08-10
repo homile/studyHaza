@@ -1,26 +1,62 @@
 import React, { useState } from "react";
-import { ButtonPrimary } from "../components/ui/Button";
 import WriteBox from "../components/WriteBox";
+import SearchBar from "../components/ui/SearchInputBar";
+import BoardHeader from "../components/ui/BoardHeader";
+import BoardListContents from "../components/ui/BoardListContents";
+import Pagination from "../components/ui/Pagination";
+import styled from "styled-components";
 
 function Community() {
   const [isWrite2, setIsWrite2] = useState(false);
 
-  const onWriteClick2 = () => {
+  const onWriteClick = () => {
     setIsWrite2(true);
   };
 
   return (
-    <>
+    <Container>
       {isWrite2 ? (
         <WriteBox setIsWrite2={setIsWrite2} />
       ) : (
-        <>
-          <ButtonPrimary onClick={onWriteClick2}>글쓰기</ButtonPrimary>
-          <div>커뮤니티 목록</div>
-        </>
+        <ConPanel>
+          <SubPageTop>
+            <TypeH2>커뮤니티</TypeH2>
+            <SearchBar />
+          </SubPageTop>
+
+          <BoardHeader onWriteClick={onWriteClick} />
+          <BoardListContents />
+          <Pagination />
+        </ConPanel>
       )}
-    </>
+    </Container>
   );
 }
 
 export default Community;
+
+const Container = styled.div`
+  max-width: 1290px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 0 80px;
+`;
+
+const ConPanel = styled.div`
+  width: 100%;
+  padding: 50px 0 25px;
+`;
+
+const SubPageTop = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  gap: 25px;
+`;
+
+const TypeH2 = styled.h2`
+  font-size: 40px;
+  font-family: "Pretendard-Bold";
+`;

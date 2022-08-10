@@ -44,12 +44,6 @@ const Container = styled.div`
 const ConPanel = styled.div`
   width: 100%;
   padding: 50px 0 25px;
-
-  .button-area {
-    display: flex;
-    justify-content: center;
-    padding: 60px 0 30px;
-  }
 `;
 
 const CreateStudyButton = styled.div`
