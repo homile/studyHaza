@@ -23,18 +23,27 @@ const AppContainer = styled.div`
 function App() {
   // 게시물 받아와서 상태에 넣기
   const [posts, setPosts] = useState([]);
+  const [communityPosts, setCommunityPosts] = useState([]);
   // 컬렉션이름이 posts인 db데이터 가져오기
   const postsCollectionRef = collection(db, "posts");
 
   useEffect(() => {
     const getPosts = async () => {
       const data = await getDocs(postsCollectionRef);
-      const boardStudyRoot = data.docs.map((doc) => ({ ...doc.data() }));
-      const studyData = boardStudyRoot.filter((el) => {
+      const boardRoot = data.docs.map((doc) => ({ ...doc.data() }));
+      const studyData = boardRoot.filter((el) => {
         return el.board === "study";
+      });
+      const communityData = boardRoot.filter((el) => {
+        return el.board === "community";
       });
       setPosts(
         studyData.sort((a, b) => {
+          return new Date(b.dateCreated) - new Date(a.dateCreated);
+        })
+      );
+      setCommunityPosts(
+        communityData.sort((a, b) => {
           return new Date(b.dateCreated) - new Date(a.dateCreated);
         })
       );
@@ -52,7 +61,7 @@ function App() {
             <Route path="/" element={<Main posts={posts.slice(0, 12)} postsTotal={posts}/>} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<SignUp />} />
-            <Route path="/community" element={<Community />} />
+            <Route path="/community" element={<Community posts={communityPosts}/>} />
             <Route path="/studyjoin" element={<StudyJoin posts={posts}/>} />
             <Route path="/mypage" element={<MyPage />} />
           </Routes>
