@@ -1,11 +1,11 @@
 import { ButtonPrimary } from "./Button";
 import styled from "styled-components";
 
-const BoardHeader = ({onWriteClick}) => {
+const BoardHeader = ({onWriteClick, posts}) => {
     return(
       <>
       <Thead>
-        <TotalNum>1,321개의 글</TotalNum>
+        <TotalNum>{posts.length}개의 글</TotalNum>
         <ButtonPrimary onClick={onWriteClick}>글쓰기</ButtonPrimary>
       </Thead>
       </>

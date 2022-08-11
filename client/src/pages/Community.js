@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import WriteBox from "../components/WriteBox";
 import SearchBar from "../components/ui/SearchInputBar";
 import BoardHeader from "../components/ui/BoardHeader";
@@ -6,12 +6,16 @@ import BoardListContents from "../components/ui/BoardListContents";
 import Pagination from "../components/ui/Pagination";
 import styled from "styled-components";
 
-function Community() {
+function Community({ posts }) {
   const [isWrite2, setIsWrite2] = useState(false);
-
+  const [postData, setPostData] = useState([]);
   const onWriteClick = () => {
     setIsWrite2(true);
   };
+
+  useEffect(() => {
+      setPostData(posts);
+  }, [posts]);
 
   return (
     <Container>
@@ -23,9 +27,8 @@ function Community() {
             <TypeH2>커뮤니티</TypeH2>
             <SearchBar />
           </SubPageTop>
-
-          <BoardHeader onWriteClick={onWriteClick} />
-          <BoardListContents />
+          <BoardHeader onWriteClick={onWriteClick} posts={postData}/>
+          <BoardListContents posts={postData}/>
           <Pagination />
         </ConPanel>
       )}

@@ -2,30 +2,20 @@ import styled from "styled-components";
 import { ProfileImgXS } from "./ProfileImg";
 import img from "../../images/pf_sample.png";
 
-const BoardListContents = () => {
+const BoardListContents = ({posts}) => {
     return (
       <ItemGroup>
-        <Item>
-            <h4>사이드 프로젝트 리뷰 플레이스 그룹 플러터 스터디 후기🎉</h4>
-            <div className="meta-info">
-            <span className="user"><ProfileImgXS src={img} /> Minwoo-Cho</span>
-            <span className="meta"><em>2022-08-12</em> <em className="like"><i class="fa-solid fa-heart"></i>202</em></span>
-            </div>
-        </Item>
-        <Item>
-            <h4>사이드 프로젝트 리뷰 플레이스 그룹 플러터 스터디 후기🎉</h4>
-            <div className="meta-info">
-            <span className="user"><ProfileImgXS src={img} /> Minwoo-Cho</span>
-            <span className="meta"><em>2022-08-12</em> <em className="like"><i class="fa-solid fa-heart"></i>202</em></span>
-            </div>
-        </Item>
-        <Item>
-            <h4>사이드 프로젝트 리뷰 플레이스 그룹 플러터 스터디 후기🎉</h4>
-            <div className="meta-info">
-            <span className="user"><ProfileImgXS src={img} /> Minwoo-Cho</span>
-            <span className="meta"><em>2022-08-12</em> <em className="like"><i class="fa-solid fa-heart"></i>202</em></span>
-            </div>
-        </Item>
+        {posts.map((data)=> {
+            return(
+                <Item>
+                    <h4>{data.title}</h4>
+                    <div className="meta-info">
+                    <span className="user"><ProfileImgXS src={img} /> {data.nickName}</span>
+                    <span className="meta"><em>{data.dateCreated}</em> <em className="like"><i class="fa-solid fa-heart"></i>202</em></span>
+                    </div>
+                </Item>
+            )
+        })}
       </ItemGroup>
     )
   }
