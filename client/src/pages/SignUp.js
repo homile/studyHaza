@@ -13,7 +13,9 @@ function SignUp() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordCheck, setPasswordCheck] = useState("");
-  const [validation, setValidation] = useState("none");
+  const [nickName, setNickName] = useState("");
+  const [validationEmail, setValidationEmail] = useState("none");
+  const [validationPassword, setValidationPassword] = useState("none");
 
   const nameInput = useRef(null);
 
@@ -26,21 +28,46 @@ function SignUp() {
 
   const emailChange = (e) => {
     setEmail(e);
+
+    // 이메일 형식 체크 정규표현식
+    const reg =
+      /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
+    if (reg.test(email)) {
+      setValidationEmail("none");
+    } else {
+      setValidationEmail("block");
+    }
   };
 
   const passwordChange = (e) => {
     setPassword(e);
+    if (e === passwordCheck && e !== "" && passwordCheck !== "") {
+      setValidationPassword("none");
+      console.log('dsadsa')
+    } else {
+      setValidationPassword("block");
+    }
   };
 
   const passwordCheckChange = (e) => {
     setPasswordCheck(e);
+    if (password === e && password !== "" && e !== "") {
+      setValidationPassword("none");
+      console.log('dsadsa')
+    } else {
+      setValidationPassword("block");
+    }
+  };
+
+  const nickNameChange = (e) => {
+    setNickName(e);
   };
 
   const signUpHandler = (e) => {
     e.preventDefault();
 
     // 패스워드와 패스워드 확인란이 같을 때만 회원가입 실행
-    if (password === passwordCheck && password !== '' && passwordCheck !== '') {
+    if (validationPassword === "none" && validationEmail === "none") {
       createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
           // Signed in
@@ -56,9 +83,7 @@ function SignUp() {
       setEmail("");
       setPassword("");
       setPasswordCheck("");
-      setValidation("none");
-    } else {
-      setValidation("block");
+      nickNameChange("");
     }
   };
 
@@ -67,7 +92,9 @@ function SignUp() {
       <StyledSignUpContainer>
         <StyledSignUpTitle>StudyHaza</StyledSignUpTitle>
         <form>
-          <StyledInputContainer>
+          <StyledInputContainer
+            height={validationEmail === "block" ? "100px" : "90px"}
+          >
             <label htmlFor="email">이메일 계정</label>
             <div>
               <input
@@ -80,8 +107,15 @@ function SignUp() {
               />
               <i className="fa-solid fa-at" />
             </div>
+            <ValidationCheck display={validationEmail}>
+              {email === ""
+                ? "이메일을 입력해주세요."
+                : "이메일 형식이 올바르지 않습니다."}
+            </ValidationCheck>
           </StyledInputContainer>
-          <StyledInputContainer height={validation === 'block' ? "100px" : "90px"}>
+          <StyledInputContainer
+            height={validationPassword === "block" ? "100px" : "90px"}
+          >
             <label htmlFor="password">비밀번호</label>
             <div>
               <input
@@ -89,15 +123,20 @@ function SignUp() {
                 type="password"
                 placeholder="비밀번호"
                 value={password}
+                autoComplete="off"
                 onChange={(e) => passwordChange(e.target.value)}
               />
               <i className="fa-solid fa-lock"></i>
             </div>
-            <ValidationCheck display={validation}>
-              {password === '' ? "비밀번호를 입력해주세요" : "비밀번호가 일치하지 않습니다."}
+            <ValidationCheck display={validationPassword}>
+              {password === ""
+                ? "비밀번호를 입력해주세요"
+                : "비밀번호가 일치하지 않습니다."}
             </ValidationCheck>
           </StyledInputContainer>
-          <StyledInputContainer>
+          <StyledInputContainer
+            height={validationPassword === "block" ? "100px" : "90px"}
+          >
             <label htmlFor="passwordCheck">비밀번호 확인</label>
             <div>
               <input
@@ -105,18 +144,26 @@ function SignUp() {
                 type="password"
                 placeholder="비밀번호 확인"
                 value={passwordCheck}
+                autoComplete="off"
                 onChange={(e) => passwordCheckChange(e.target.value)}
               />
               <i className="fa-solid fa-lock"></i>
             </div>
-            <ValidationCheck display={validation}>
-            {password === '' ? "비밀번호를 입력해주세요" : "비밀번호가 일치하지 않습니다."}
+            <ValidationCheck display={validationPassword}>
+              {password === ""
+                ? "비밀번호를 입력해주세요"
+                : "비밀번호가 일치하지 않습니다."}
             </ValidationCheck>
           </StyledInputContainer>
           <StyledInputContainer>
             <label htmlFor="nickName">닉네임</label>
             <div>
-              <input id="nickName" placeholder="사용할 닉네임" value={email} />
+              <input
+                id="nickName"
+                placeholder="사용할 닉네임"
+                value={nickName}
+                onChange={(e) => nickNameChange(e.target.value)}
+              />
               <i className="fa-solid fa-user"></i>
             </div>
           </StyledInputContainer>
@@ -124,7 +171,7 @@ function SignUp() {
             가입하기
           </ButtonLogin>
         </form>
-        <ModalSucces isOpen={isOpen} setIsOpen={setIsOpen}/>
+        <ModalSucces isOpen={isOpen} setIsOpen={setIsOpen} />
       </StyledSignUpContainer>
       <Footer />
     </>
