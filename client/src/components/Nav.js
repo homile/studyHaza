@@ -16,6 +16,7 @@ function Nav() {
 
   // store에 있는 로그인 판별 유무 가져올 수 있음
   const isLogin = useSelector((state) => state.loginReducer.isLogin);
+  console.log(useSelector((state) => state))
 
   const onIsNameClickHandler = () => {
     setIsNameClick(!isNameClick);

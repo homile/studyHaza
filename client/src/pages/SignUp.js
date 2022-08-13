@@ -47,7 +47,6 @@ function SignUp() {
     setPassword(e);
     if (e === passwordCheck && e !== "" && passwordCheck !== "") {
       setValidationPassword("none");
-      console.log("dsadsa");
     } else {
       setValidationPassword("block");
     }
@@ -57,7 +56,6 @@ function SignUp() {
     setPasswordCheck(e);
     if (password === e && password !== "" && e !== "") {
       setValidationPassword("none");
-      console.log("dsadsa");
     } else {
       setValidationPassword("block");
     }
