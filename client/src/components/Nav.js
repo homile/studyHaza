@@ -53,7 +53,7 @@ function Nav() {
               </div>
               {isNameClick && (
                 <MyPageDropDown>
-                  <NavLink to="mypage">
+                  <NavLink to="/mypage">
                     <div>마이페이지</div>
                   </NavLink>
                   <hr />

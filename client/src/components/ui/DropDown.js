@@ -16,6 +16,10 @@ export const MyPageDropDown = styled.div`
   right: 0;
   top: 15x;
 
+  a{
+    all: unset;
+  }
+
   hr {
     width: 100%;
     border: 0.5px solid lightgray;

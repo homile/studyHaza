@@ -39,9 +39,9 @@ const SideBarContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: left;
-  width: 256px;
+  width: 230px;
   height: 340px;
-  padding: 40px 0;
+  margin-right: 26px;
 
   a{
     text-decoration: none;
