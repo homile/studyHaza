@@ -6,7 +6,10 @@ import Footer from "../components/Footer";
 import { StyledInputContainer } from "../components/ui/LoginInput";
 import { ButtonLogin } from "../components/ui/Button";
 import ModalSucces from "../components/ModalSucces";
+
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { db } from "../firebase-config";
+import { collection, addDoc } from "firebase/firestore";
 
 function SignUp() {
   const [isOpen, setIsOpen] = useState(false);
@@ -18,7 +21,8 @@ function SignUp() {
   const [validationPassword, setValidationPassword] = useState("none");
 
   const nameInput = useRef(null);
-
+  const usersCollectionRef = collection(db, "users");
+  
   useEffect(() => {
     nameInput.current.focus();
   }, []);
@@ -43,7 +47,7 @@ function SignUp() {
     setPassword(e);
     if (e === passwordCheck && e !== "" && passwordCheck !== "") {
       setValidationPassword("none");
-      console.log('dsadsa')
+      console.log("dsadsa");
     } else {
       setValidationPassword("block");
     }
@@ -53,7 +57,7 @@ function SignUp() {
     setPasswordCheck(e);
     if (password === e && password !== "" && e !== "") {
       setValidationPassword("none");
-      console.log('dsadsa')
+      console.log("dsadsa");
     } else {
       setValidationPassword("block");
     }
@@ -73,6 +77,7 @@ function SignUp() {
           // Signed in
           const user = userCredential.user;
           setIsOpen(true);
+          createUsers()
           // ...
         })
         .catch((error) => {
@@ -85,6 +90,15 @@ function SignUp() {
       setPasswordCheck("");
       nickNameChange("");
     }
+  };
+
+  // firestore에 데이터 올리기
+  const createUsers = async () => {
+    const data = await addDoc(usersCollectionRef, {
+      email,
+      nickName,
+      photoUrl: "",
+    });
   };
 
   return (
