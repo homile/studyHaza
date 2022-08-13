@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 import { ButtonLogin, ButtonSnsLogin } from "../components/ui/Button";
 import { StyledInputContainer } from "../components/ui/LoginInput";
@@ -61,15 +61,9 @@ function Login() {
         const user = userCredential.user;
         setPersistence(auth, browserSessionPersistence)
           .then(() => {
-            // Existing and future Auth states are now persisted in the current
-            // session only. Closing the window would clear any existing state even
-            // if a user forgets to sign out.
-            // ...
-            // New sign-in will be persisted with session persistence.
             return signInWithEmailAndPassword(auth, email, password);
           })
           .catch((error) => {
-            // Handle Errors here.
             const errorCode = error.code;
             const errorMessage = error.message;
           });

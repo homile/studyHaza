@@ -9,7 +9,7 @@ import ModalSucces from "../components/ModalSucces";
 
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { db } from "../firebase-config";
-import { collection, addDoc } from "firebase/firestore";
+import { collection, addDoc} from "firebase/firestore";
 
 function SignUp() {
   const [isOpen, setIsOpen] = useState(false);
@@ -19,10 +19,11 @@ function SignUp() {
   const [nickName, setNickName] = useState("");
   const [validationEmail, setValidationEmail] = useState("none");
   const [validationPassword, setValidationPassword] = useState("none");
+  const [validationNickName, setValidationNickName] = useState("none");
 
   const nameInput = useRef(null);
   const usersCollectionRef = collection(db, "users");
-  
+
   useEffect(() => {
     nameInput.current.focus();
   }, []);
@@ -63,30 +64,38 @@ function SignUp() {
 
   const nickNameChange = (e) => {
     setNickName(e);
+    if (e !== "") {
+      setValidationNickName("none");
+    } else {
+      setValidationNickName("block");
+    }
   };
 
   const signUpHandler = (e) => {
     e.preventDefault();
 
     // 패스워드와 패스워드 확인란이 같을 때만 회원가입 실행
-    if (validationPassword === "none" && validationEmail === "none") {
+    if (
+      validationPassword === "none" &&
+      validationEmail === "none" &&
+      validationNickName === "none"
+    ) {
       createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
           // Signed in
           const user = userCredential.user;
           setIsOpen(true);
-          createUsers()
-          // ...
+          createUsers();
+          setEmail("");
+          setPassword("");
+          setPasswordCheck("");
+          setNickName("");
         })
         .catch((error) => {
           const errorCode = error.code;
           const errorMessage = error.message;
           // ..
         });
-      setEmail("");
-      setPassword("");
-      setPasswordCheck("");
-      nickNameChange("");
     }
   };
 
@@ -167,7 +176,7 @@ function SignUp() {
                 : "비밀번호가 일치하지 않습니다."}
             </ValidationCheck>
           </StyledInputContainer>
-          <StyledInputContainer>
+          <StyledInputContainer height={validationNickName === "block" ? "100px" : "90px"}>
             <label htmlFor="nickName">닉네임</label>
             <div>
               <input
@@ -178,6 +187,10 @@ function SignUp() {
               />
               <i className="fa-solid fa-user"></i>
             </div>
+            <ValidationCheck display={validationNickName}>
+              {nickName === ""
+                && "닉네임을 입력해주세요."}
+            </ValidationCheck>
           </StyledInputContainer>
           <ButtonLogin type="submit" onClick={(e) => signUpHandler(e)}>
             가입하기

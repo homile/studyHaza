@@ -16,7 +16,8 @@ function Nav() {
 
   // store에 있는 로그인 판별 유무 가져올 수 있음
   const isLogin = useSelector((state) => state.loginReducer.isLogin);
-  console.log(useSelector((state) => state))
+  const nickName = useSelector((state) => state.loginReducer.nickName);
+  const photoUrl = useSelector((state) => state.loginReducer.photoUrl);
 
   const onIsNameClickHandler = () => {
     setIsNameClick(!isNameClick);
@@ -43,7 +44,7 @@ function Nav() {
           {isLogin ? (
             <UserNameDiv>
               <div className="username" onClick={onIsNameClickHandler}>
-                <ProfileImgSM src={img} /> Minwoo-Cho
+                <ProfileImgSM src={photoUrl === "" ? "https://avatars.githubusercontent.com/u/56163157?v=4" : photoUrl} /> {nickName}
                 {isNameClick ? (
                   <i className="fa-solid fa-caret-up" />
                 ) : (
