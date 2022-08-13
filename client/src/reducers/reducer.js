@@ -10,6 +10,10 @@ const loginReducer = (state = initialState, action) => {
       return {
         isLogin: !state.isLogin,
       };
+    case types.LOGIN_USER_INFO:
+      return {
+        ...state, ...action.payload
+      }
     default:
       return state;
   }

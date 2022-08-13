@@ -36,5 +36,6 @@ export const StyledInputContainer = styled.div`
     position: absolute;
     top: 1.1rem;
     left: 1rem;
+    color: ${(props) => props.color || "#CCCCCC"};
   }
 `;

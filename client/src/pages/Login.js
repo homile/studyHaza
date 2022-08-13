@@ -1,13 +1,20 @@
 import React, { useRef, useState, useEffect } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 import { ButtonLogin, ButtonSnsLogin } from "../components/ui/Button";
 import { StyledInputContainer } from "../components/ui/LoginInput";
 import ModalSoon from "../components/ModalSoon";
-import { loginSuccess } from "../actions";
-import { getAuth, setPersistence, signInWithEmailAndPassword, browserSessionPersistence  } from "firebase/auth";
+import { loginSuccess, loginUserInfo } from "../actions";
+import {
+  getAuth,
+  setPersistence,
+  signInWithEmailAndPassword,
+  browserSessionPersistence,
+} from "firebase/auth";
+import { collection, query, where, getDocs } from "firebase/firestore";
+import { db } from "../firebase-config";
 
 import naver_symbol from "../assets/naver_symbol.png";
 import facebook_symbol from "../assets/facebook_symbol.png";
@@ -18,13 +25,13 @@ function Login() {
   const [isOpen, setIsOpen] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  
-  const dispatch = useDispatch();
 
   const auth = getAuth();
+  const dispatch = useDispatch();
+  let navigate = useNavigate();
 
   const nameInput = useRef(null);
-  let navigate = useNavigate();
+  const usersRef = collection(db, "users");
 
   useEffect(() => {
     nameInput.current.focus();
@@ -33,6 +40,16 @@ function Login() {
   const snsLoginHandler = () => {
     setIsOpen(true);
   };
+
+  // 파이어베이스 쿼리문으로 로그인한 유저의 정보 가져오기
+  const getUserInfo = async () => {
+    const q = query(usersRef, where("email", "==", `${email}`));
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+      dispatch(loginUserInfo(doc.data()));
+    });
+  };
+
 
   // 로그인 버튼 클릭
   const loginHandler = (e) => {
@@ -43,22 +60,17 @@ function Login() {
         // Signed in
         const user = userCredential.user;
         setPersistence(auth, browserSessionPersistence)
-        .then(() => {
-          // Existing and future Auth states are now persisted in the current
-          // session only. Closing the window would clear any existing state even
-          // if a user forgets to sign out.
-          // ...
-          // New sign-in will be persisted with session persistence.
-          return signInWithEmailAndPassword(auth, email, password);
-        })
-        .catch((error) => {
-          // Handle Errors here.
-          const errorCode = error.code;
-          const errorMessage = error.message;
-        });
+          .then(() => {
+            return signInWithEmailAndPassword(auth, email, password);
+          })
+          .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+          });
         dispatch(loginSuccess());
-        setEmail('');
-        setPassword('');
+        getUserInfo();
+        setEmail("");
+        setPassword("");
         navigate('/');
         // ...
       })

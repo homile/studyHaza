@@ -43,6 +43,10 @@ const SideBarContainer = styled.div`
   height: 340px;
   padding: 40px 0;
 
+  a{
+    text-decoration: none;
+  }
+
   .sidebartitle {
     margin: 1rem 0;
     font-family: "Pretendard-ExtraBold";
