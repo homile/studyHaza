@@ -5,6 +5,7 @@ import { SelectBox } from "./ui/SelectBox";
 import { DatePick } from "./DatePick";
 import CheckBox from "./CheckBox";
 import { ButtonPrimary } from "./ui/Button";
+import Modal from "./Modal";
 
 import { db } from "../firebase-config";
 import { collection, addDoc } from "firebase/firestore";
@@ -30,6 +31,28 @@ const WriteStudy = ({ setIsOk, setIsWrite }) => {
   const [content, setContent] = useState("");
   const dateCreated = new Date();
 
+  const [isOpenOk, setIsOpenOk] = useState(false);
+  const [isOpenCancel, setIsOpenCancel] = useState(false);
+
+  const openModalHandler1 = () => {
+    setIsOpenOk(!isOpenOk);
+  };
+
+  const openModalHandler2 = () => {
+    setIsOpenCancel(!isOpenCancel);
+  };
+
+  const handleInit = () => {
+    setTitle("");
+    setStartDate(new Date());
+    setDevType("frontend");
+    setDevStack([]);
+    setTotalHeadCount(0);
+    setOnOff("on");
+    setContent("");
+    setIsWrite(false);
+  };
+
   const postsCollectionRef = collection(db, "posts");
 
   // firestore에 데이터 올리기
@@ -48,9 +71,6 @@ const WriteStudy = ({ setIsOk, setIsWrite }) => {
       title,
       totalHeadCount: totalHeadCount,
     });
-
-    alert("스터디 모집 글 작성이 완료되었습니다:)");
-
     setIsOk(true);
   };
 
@@ -136,10 +156,28 @@ const WriteStudy = ({ setIsOk, setIsWrite }) => {
         </div>
       </WriteInputContainer>
       <ButtonContainer>
-        <ButtonPrimary onClick={() => setIsWrite(false)} background="#B6B6B6">
+        <ButtonPrimary onClick={openModalHandler2} background="#B6B6B6">
           취소
         </ButtonPrimary>
-        <ButtonPrimary onClick={createPosts}>작성완료</ButtonPrimary>
+        {isOpenCancel && (
+          <Modal
+            isOpen={isOpenCancel}
+            handleModal={handleInit}
+            setIsOpen={setIsOpenCancel}
+          >
+            등록을 취소하시겠습니까?
+          </Modal>
+        )}
+        <ButtonPrimary onClick={openModalHandler1}>작성완료</ButtonPrimary>
+        {isOpenOk && (
+          <Modal
+            isOpen={isOpenOk}
+            handleModal={createPosts}
+            setIsOpen={setIsOpenOk}
+          >
+            스터디 모집 글을 등록하시겠습니까?
+          </Modal>
+        )}
       </ButtonContainer>
     </>
   );
