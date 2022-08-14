@@ -4,7 +4,6 @@ import styled from "styled-components";
 function Modal({ handleModal, children, isOpen, setIsOpen }) {
   const openModalHandler = () => {
     setIsOpen(false);
-    console.log(isOpen);
   };
 
   return (

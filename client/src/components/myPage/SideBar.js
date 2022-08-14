@@ -1,7 +1,37 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
+import Modal from "../Modal";
+
+import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { logoutUserInfo } from "../../actions";
+
+import { db } from "../../firebase-config";
+import { getAuth, deleteUser } from "firebase/auth";
+import { doc, deleteDoc } from "firebase/firestore";
 
 const SideBar = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const id = useSelector((state) => state.loginReducer.id);
+
+  const auth = getAuth();
+  const user = auth.currentUser;
+  const dispatch = useDispatch();
+  let navigate = useNavigate();
+
+  const signOutHandler = () => {
+    deleteUser(user).then(() => {
+      dispatch(logoutUserInfo());
+      deleteDoc(doc(db, "users", id));
+      navigate('/');
+    }).catch((error) => {
+    });
+  };
+
+  const signOutClick = () => {
+    setIsOpen(!isOpen);
+  }
+
   return (
     <SideBarContainer>
       <div className="sidebartitle">
@@ -23,12 +53,22 @@ const SideBar = () => {
           </SideBarText>
         </div>
         <div>
-          <SideBarText>
+          <SideBarText onClick={signOutClick}>
             <i className="fa-solid fa-shoe-prints" />
             회원탈퇴
           </SideBarText>
         </div>
       </div>
+      {isOpen && (
+        <Modal
+          handleModal={signOutHandler}
+          isOpen={isOpen}
+          setIsOpen={setIsOpen}
+        >
+          회원을 탈퇴하면 작성한 게시물에 접근할 수 없습니다. 정말로
+          탈퇴하시겠습니까?
+        </Modal>
+      )}
     </SideBarContainer>
   );
 };
@@ -43,7 +83,7 @@ const SideBarContainer = styled.div`
   height: 340px;
   margin-right: 26px;
 
-  a{
+  a {
     text-decoration: none;
   }
 
@@ -56,7 +96,7 @@ const SideBarContainer = styled.div`
     font-size: 30px;
   }
 
-  .sidebarcontent{
+  .sidebarcontent {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
