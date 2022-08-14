@@ -11,6 +11,8 @@ import { db } from "../firebase-config";
 import { collection, addDoc } from "firebase/firestore";
 import uuid from "react-uuid";
 
+import { useSelector } from "react-redux";
+
 const devTypeOptions = [
   { value: "frontend", name: "프론트엔드" },
   { value: "backend", name: "백엔드" },
@@ -30,6 +32,7 @@ const WriteStudy = ({ setIsOk, setIsWrite }) => {
   const [onOff, setOnOff] = useState("on");
   const [content, setContent] = useState("");
   const dateCreated = new Date();
+  const nickName = useSelector((state) => state.loginReducer.nickName);
 
   const [isOpenOk, setIsOpenOk] = useState(false);
   const [isOpenCancel, setIsOpenCancel] = useState(false);
@@ -65,7 +68,7 @@ const WriteStudy = ({ setIsOk, setIsWrite }) => {
       devType,
       haveHeadCount: 0,
       id: uuid(),
-      nickName: "haza",
+      nickName,
       onOff,
       startDate: startDate.toLocaleDateString(),
       title,
