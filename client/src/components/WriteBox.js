@@ -6,7 +6,7 @@ import WriteStudy from "./WriteStudy";
 import ViewDetailBox from "./ViewDetailBox";
 
 // 스터디 모집 글쓰기, 커뮤니티 글쓰기 컴포넌트 container
-const WriteBox = ({ setIsWrite, setIsWrite2 }) => {
+const WriteBox = ({ setIsWrite }) => {
   const { pathname } = useLocation();
   const [isOk, setIsOk] = useState(false);
 
@@ -19,14 +19,14 @@ const WriteBox = ({ setIsWrite, setIsWrite2 }) => {
           </HeaderContainer>
           <WriteContainer>
             {pathname === "/community" ? (
-              <WriteCommunity setIsOk={setIsOk} setIsWrite={setIsWrite2} />
+              <WriteCommunity setIsOk={setIsOk} setIsWrite={setIsWrite} />
             ) : (
               <WriteStudy setIsOk={setIsOk} setIsWrite={setIsWrite} />
             )}
           </WriteContainer>
         </>
       ) : (
-        <ViewDetailBox />
+        <ViewDetailBox setIsWrite={setIsWrite} />
       )}
     </WrapPanel>
   );

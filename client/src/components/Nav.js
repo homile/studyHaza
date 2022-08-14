@@ -7,7 +7,6 @@ import { ProfileImgSM } from "./ui/ProfileImg";
 import logo from "../images/logo.png";
 import { useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
-import img from "../images/pf_sample.png";
 import Search from "./ui/SearchInput";
 
 function Nav() {
@@ -44,7 +43,14 @@ function Nav() {
           {isLogin ? (
             <UserNameDiv>
               <div className="username" onClick={onIsNameClickHandler}>
-                <ProfileImgSM src={photoUrl === "" ? "https://avatars.githubusercontent.com/u/56163157?v=4" : photoUrl} /> {nickName}
+                <ProfileImgSM
+                  src={
+                    photoUrl === ""
+                      ? "https://avatars.githubusercontent.com/u/56163157?v=4"
+                      : photoUrl
+                  }
+                />{" "}
+                {nickName}
                 {isNameClick ? (
                   <i className="fa-solid fa-caret-up" />
                 ) : (

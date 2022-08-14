@@ -1,29 +1,36 @@
 import React, { useState } from "react";
-import { WriteInputContainer } from "./ui/WriteInput";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
+
+import { WriteInputContainer } from "./ui/WriteInput";
 import { ButtonPrimary } from "./ui/Button";
+import Modal from "./Modal";
 
 import { db } from "../firebase-config";
 import { collection, addDoc } from "firebase/firestore";
 import uuid from "react-uuid";
-import Modal from "./Modal";
 
-function WriteCommunity({ setIsOk, setIsWrite }) {
+function WriteCommunity({ setIsOk, setIsWrite, setIsView }) {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const dateCreated = new Date();
+  const nickName = useSelector((state) => state.loginReducer.nickName);
 
   const [isOpenOk, setIsOpenOk] = useState(false);
   const [isOpenCancel, setIsOpenCancel] = useState(false);
 
+  // 완료 버튼 클릭시
   const openModalHandler1 = () => {
     setIsOpenOk(!isOpenOk);
+    setIsView(true);
   };
 
+  // 취소 버튼 클릭시
   const openModalHandler2 = () => {
     setIsOpenCancel(!isOpenCancel);
   };
 
+  // 글 내용 초기화
   const handleInit = () => {
     setTitle("");
     setContent("");
@@ -39,7 +46,7 @@ function WriteCommunity({ setIsOk, setIsWrite }) {
       content,
       dateCreated: dateCreated.toLocaleDateString(),
       id: uuid(),
-      nickName: "Heza",
+      nickName,
       title,
     });
     setIsOk(true);
