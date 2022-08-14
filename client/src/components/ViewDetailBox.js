@@ -11,8 +11,14 @@ const ViewDetailBox = ({ setIsWrite }) => {
 
   return (
     <WrapPanel>
-      <ViewContainer>
-        {pathname === "/community" ? <ViewCommunity /> : <ViewStudy />}
+      <ViewContainer
+        style={{ height: pathname === "/community" ? "700px" : "1000px" }}
+      >
+        {pathname === "/community" ? (
+          <ViewCommunity />
+        ) : (
+          <ViewStudy height="1000px" />
+        )}
       </ViewContainer>
       <ButtonContainer>
         <ButtonSecondary width="126px" onClick={() => setIsWrite(false)}>
@@ -38,7 +44,6 @@ const ViewContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: 700px;
   box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.05);
   border-radius: 30px;
   margin-bottom: 1rem;
