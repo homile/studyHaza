@@ -105,6 +105,7 @@ const WriteStudy = ({ setIsOk, setIsWrite }) => {
               options={devTypeOptions}
               devTypeOptions={devTypeOptions}
               setDevType={setDevType}
+              setDevStack={setDevStack}
             ></SelectBox>
           </div>
         </WriteInputContainer>
