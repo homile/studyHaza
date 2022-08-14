@@ -59,14 +59,14 @@ function Login() {
       .then((userCredential) => {
         // Signed in
         const user = userCredential.user;
-        setPersistence(auth, browserSessionPersistence)
-          .then(() => {
-            return signInWithEmailAndPassword(auth, email, password);
-          })
-          .catch((error) => {
-            const errorCode = error.code;
-            const errorMessage = error.message;
-          });
+        // setPersistence(auth, browserSessionPersistence)
+        //   .then(() => {
+        //     return signInWithEmailAndPassword(auth, email, password);
+        //   })
+        //   .catch((error) => {
+        //     const errorCode = error.code;
+        //     const errorMessage = error.message;
+        //   });
         dispatch(loginSuccess());
         getUserInfo();
         setEmail("");

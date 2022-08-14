@@ -6,11 +6,13 @@ import { MyPageDropDown } from "./ui/DropDown";
 import { ProfileImgSM } from "./ui/ProfileImg";
 import logo from "../images/logo.png";
 import { useLocation } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { logoutUserInfo } from "../actions";
 import Search from "./ui/SearchInput";
 
 function Nav() {
   const { pathname } = useLocation();
+  const dispatch = useDispatch();
   const [isNameClick, setIsNameClick] = useState(false);
 
   // store에 있는 로그인 판별 유무 가져올 수 있음
@@ -20,6 +22,11 @@ function Nav() {
 
   const onIsNameClickHandler = () => {
     setIsNameClick(!isNameClick);
+  };
+
+  const logoutHandler = () => {
+    dispatch(logoutUserInfo());
+    window.location.reload();
   };
 
   return (
@@ -65,7 +72,7 @@ function Nav() {
                   <hr />
                   <div>스터디이름</div>
                   <hr />
-                  <div>로그아웃</div>
+                  <div onClick={logoutHandler}>로그아웃</div>
                 </MyPageDropDown>
               )}
             </UserNameDiv>
