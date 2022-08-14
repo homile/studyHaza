@@ -4,6 +4,7 @@ import img from "../../images/down_arrow.png";
 export const SelectBox = (props) => {
   const onChangeDevType = (e) => {
     props.setDevType(e.target.value);
+    props.setDevStack([]);
     console.log(e.target.value);
   };
 

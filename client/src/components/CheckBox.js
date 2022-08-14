@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import img1 from "../images/check_icon1.png";
 import img2 from "../images/check_icon2.png";
@@ -43,6 +43,8 @@ const CheckBox = ({ devStack, devType, setDevStack }) => {
       setDevStack(devStack.filter((el) => el !== id));
     }
   };
+
+  console.log(devStack);
 
   const checkList = (devType === "frontend" ? FRONT_LIST : BACK_LIST).map(
     (item) => {
