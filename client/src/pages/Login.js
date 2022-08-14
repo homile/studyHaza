@@ -46,7 +46,7 @@ function Login() {
     const q = query(usersRef, where("email", "==", `${email}`));
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
-      dispatch(loginUserInfo(doc.data()));
+      dispatch(loginUserInfo({...doc.data(), id:doc.id}));
     });
   };
 
