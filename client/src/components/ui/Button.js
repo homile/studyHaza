@@ -28,7 +28,7 @@ export const ButtonPrimary = styled.button`
   color: ${(props) => props.color || "white"};
   border-radius: 50px;
   width: ${(props) => props.width || "143px"};
-  height: ${(props) => props.width || "50px"};
+  height: ${(props) => props.height || "50px"};
   transition-duration: 0.4s;
   font-size: 20px;
   font-weight: 600;
@@ -50,7 +50,7 @@ export const ButtonSecondary = styled.button`
   border: 1px solid;
   border-color: ${(props) => props.color || "#2584F4"};
   width: ${(props) => props.width || "91px"};
-  height: ${(props) => props.width || "44px"};
+  height: ${(props) => props.height || "44px"};
   transition-duration: 0.4s;
   font-size: 20px;
   font-weight: 600;
@@ -63,7 +63,6 @@ export const ButtonSecondary = styled.button`
       0 17px 50px 0 rgba(0, 0, 0, 0.19);
   }
 `;
-
 
 // 로그인 및 회원가입 버튼
 export const ButtonLogin = styled.button`

@@ -9,7 +9,7 @@ import uuid from "react-uuid";
 import Modal from "./Modal";
 import { useSelector } from "react-redux";
 
-function WriteCommunity({ setIsOk, setIsWrite }) {
+function WriteCommunity({ setIsOk, setIsWrite, setIsView }) {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const dateCreated = new Date();
@@ -20,6 +20,7 @@ function WriteCommunity({ setIsOk, setIsWrite }) {
 
   const openModalHandler1 = () => {
     setIsOpenOk(!isOpenOk);
+    setIsView(true);
   };
 
   const openModalHandler2 = () => {
