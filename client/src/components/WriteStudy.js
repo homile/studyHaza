@@ -1,6 +1,8 @@
 import React, { useState } from "react";
-import { WriteInputContainer } from "./ui/WriteInput";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
+
+import { WriteInputContainer } from "./ui/WriteInput";
 import { SelectBox } from "./ui/SelectBox";
 import { DatePick } from "./DatePick";
 import CheckBox from "./CheckBox";
@@ -10,8 +12,6 @@ import Modal from "./Modal";
 import { db } from "../firebase-config";
 import { collection, addDoc } from "firebase/firestore";
 import uuid from "react-uuid";
-
-import { useSelector } from "react-redux";
 
 const devTypeOptions = [
   { value: "frontend", name: "프론트엔드" },

@@ -9,26 +9,27 @@ import styled from "styled-components";
 function Community({ posts }) {
   const [isWrite2, setIsWrite2] = useState(false);
   const [postData, setPostData] = useState([]);
+
   const onWriteClick = () => {
     setIsWrite2(true);
   };
 
   useEffect(() => {
-      setPostData(posts);
+    setPostData(posts);
   }, [posts]);
 
   return (
     <Container>
       {isWrite2 ? (
-        <WriteBox setIsWrite2={setIsWrite2} />
+        <WriteBox setIsWrite={setIsWrite2} />
       ) : (
         <ConPanel>
           <SubPageTop>
             <TypeH2>커뮤니티</TypeH2>
             <SearchBar />
           </SubPageTop>
-          <BoardHeader onWriteClick={onWriteClick} posts={postData}/>
-          <BoardListContents posts={postData}/>
+          <BoardHeader onWriteClick={onWriteClick} posts={postData} />
+          <BoardListContents posts={postData} />
           <Pagination />
         </ConPanel>
       )}
