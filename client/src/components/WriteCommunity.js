@@ -7,11 +7,13 @@ import { db } from "../firebase-config";
 import { collection, addDoc } from "firebase/firestore";
 import uuid from "react-uuid";
 import Modal from "./Modal";
+import { useSelector } from "react-redux";
 
 function WriteCommunity({ setIsOk, setIsWrite }) {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const dateCreated = new Date();
+  const nickName = useSelector((state) => state.loginReducer.nickName);
 
   const [isOpenOk, setIsOpenOk] = useState(false);
   const [isOpenCancel, setIsOpenCancel] = useState(false);
@@ -39,7 +41,7 @@ function WriteCommunity({ setIsOk, setIsWrite }) {
       content,
       dateCreated: dateCreated.toLocaleDateString(),
       id: uuid(),
-      nickName: "Heza",
+      nickName,
       title,
     });
     setIsOk(true);
