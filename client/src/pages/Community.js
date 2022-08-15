@@ -9,7 +9,9 @@ import styled from "styled-components";
 function Community({ posts }) {
   const [isWrite2, setIsWrite2] = useState(false);
   const [postData, setPostData] = useState([]);
-
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postsPerPage, setPostsPerPage] = useState(10);
+  
   const onWriteClick = () => {
     setIsWrite2(true);
   };
@@ -17,6 +19,14 @@ function Community({ posts }) {
   useEffect(() => {
     setPostData(posts);
   }, [posts]);
+
+  const indexOfLast = currentPage * postsPerPage;
+  const indexOfFirst = indexOfLast - postsPerPage;
+  const currentPosts = (posts) => {
+    let currentPosts = 0;
+    currentPosts = posts.slice(indexOfFirst, indexOfLast);
+    return currentPosts;
+  };
 
   return (
     <Container>
@@ -29,8 +39,12 @@ function Community({ posts }) {
             <SearchBar />
           </SubPageTop>
           <BoardHeader onWriteClick={onWriteClick} posts={postData} />
-          <BoardListContents posts={postData} />
-          <Pagination />
+          <BoardListContents posts={currentPosts(postData)} />
+          <Pagination
+            postsPerPage={postsPerPage}
+            totalPosts={posts.length}
+            paginate={setCurrentPage}
+          ></Pagination>
         </ConPanel>
       )}
     </Container>
