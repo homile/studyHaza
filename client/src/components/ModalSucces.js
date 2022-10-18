@@ -4,11 +4,8 @@ import styled from "styled-components";
 import ImgObject from "../images/icon_team3.png";
 
 const ModalSucces = ({ isOpen, setIsOpen }) => {
-  const navigate = useNavigate();
-
   const openModalHandler = () => {
     setIsOpen(!isOpen);
-    navigate("/login");
   };
 
   return (
@@ -52,6 +49,7 @@ const StyledModal = styled.div`
   bottom: 0;
   left: 0;
   background: rgba(0, 0, 0, 0.75);
+  z-index: 10;
 `;
 const StyledModalCon = styled.div`
   position: relative;
