@@ -62,9 +62,14 @@ export const StudyContents = ({posts}) => {
                 </SwitchGroup>
             </ConSortArea>
             <StudyList>
-                <StudyCardList>
-                    {postData.map((data, idx) => <StudyCard key={data.id} data={data} idx={idx} />)}
-                </StudyCardList>
+                {postData ?
+                    <StudyCardList>
+                        {postData.map((data, idx) => <StudyCard key={data.id} data={data} idx={idx} />)}
+                    </StudyCardList>
+                :
+                <p>멍미</p>
+                }
+                
             </StudyList>
         </div>
     );
