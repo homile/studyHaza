@@ -41,6 +41,8 @@ function Login() {
     setIsOpen(true);
   };
 
+// console.log(auth.currentUser.accessToken)
+
   // 파이어베이스 쿼리문으로 로그인한 유저의 정보 가져오기
   const getUserInfo = async () => {
     const q = query(usersRef, where("email", "==", `${email}`));
@@ -59,14 +61,15 @@ function Login() {
       .then((userCredential) => {
         // Signed in
         const user = userCredential.user;
-        // setPersistence(auth, browserSessionPersistence)
-        //   .then(() => {
-        //     return signInWithEmailAndPassword(auth, email, password);
-        //   })
-        //   .catch((error) => {
-        //     const errorCode = error.code;
-        //     const errorMessage = error.message;
-        //   });
+        setPersistence(auth, browserSessionPersistence)
+          .then(() => {
+            return signInWithEmailAndPassword(auth, email, password);
+          })
+          .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+          });
+        console.log(user)
         dispatch(loginSuccess());
         getUserInfo();
         setEmail("");
