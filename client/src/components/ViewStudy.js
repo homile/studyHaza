@@ -1,18 +1,42 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 
 import { ProfileImgXS } from "./ui/ProfileImg";
 import { ButtonPrimary } from "./ui/Button";
 
+import { db } from "../firebase-config";
+import { getDoc, doc } from "firebase/firestore";
+import { useParams } from "react-router-dom";
+
 function ViewStudy() {
+  const { id } = useParams();
+  const [data, setData] = useState({});
+
   const nickName = useSelector((state) => state.loginReducer.nickName);
   const photoUrl = useSelector((state) => state.loginReducer.photoUrl);
+
+  const getPosts = async () => {
+    const docRef = doc(db, "posts", id);
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists()) {
+      console.log("Document data:", docSnap.data());
+      setData(docSnap.data());
+    } else {
+      console.log("No such document!");
+    }
+    return null;
+  };
+
+  console.log(data);
+  useEffect(() => {
+    getPosts();
+  }, []);
 
   return (
     <>
       <ViewContainer>
-        <Title>사이드 프로젝트 리뷰 플레이스 그룹 플러터</Title>
+        <Title>{data.title}</Title>
         <Info>
           <ProfileImgXS
             src={
@@ -23,45 +47,37 @@ function ViewStudy() {
           />
           <Writer>{nickName}</Writer>
           <hr />
-          <Date>2022.08.14</Date>
+          <Date>{data.dateCreated}</Date>
         </Info>
         <DevInfo>
           <InnerBox>
             <ListLine>
-              <List>모집 구분 • 프론트엔드</List>
-              <List>모집 인원 • 1/10</List>
+              <List>
+                모집 구분 •{" "}
+                {data.devType === "frontend" ? "프론트엔드" : "백엔드"}
+              </List>
+              <List>
+                모집 인원 • {data.haveHeadCount}/{data.totalHeadCount}
+              </List>
             </ListLine>
 
             <ListLine>
-              <List>시작 일시 • 2022.08.20</List>
-              <List>진행 방법 • 오프라인</List>
+              <List>시작 일시 • {data.startDate}</List>
+              <List>
+                진행 방법 • {data.onOff === "on" ? "온라인" : "오프라인"}
+              </List>
             </ListLine>
           </InnerBox>
           <InnerBox>
             <ListLine>
               <List>
                 <p>주요 기술</p>
-                <p>❤️🧡💛💚💙💜🖤</p>
+                <p>{data.devStack}</p>
               </List>
             </ListLine>
           </InnerBox>
         </DevInfo>
-        <Content>
-          스터디 모집 페이지 구성을 진행할 생각입니다. 우선적으로 프론트엔드만
-          구성을 할 것이며 추가적으로 작성을한다면
-          <br />
-          파이어베이스를 백엔드로 사용하여 서버까지 해보면 좋지 않을까 하는
-          생각입니다. <br /> <br /> 이 스터디의 목적은 프론트엔드끼리의 협업이
-          가장 큰 목표이고, React를 잘 사용할 수 있도록 <br />
-          개개인의 능력을 향상하는 것이 궁극적인 목표입니다. <br /> <br />
-          앞으로 누가 같이 하실지는 모르겠지만 시간은 조금 걸리더라도 흥미를
-          느끼시고 <br />
-          열심히 하시는 분이었으면 좋겠습니다. <br /> <br />
-          참여 신청 및 개인 댓글 주시면 연락드리도록 하겠습니다. <br /> <br />
-          개인 댓글 양식은 자신이 사용할 수 있는 언어 및 프레임워크,
-          라이브러리를 작성해 주시고 <br />
-          진행해봤던 프로젝트 포트폴리오 링크를 작성해주시면 되겠습니다.!
-        </Content>
+        <Content>{data.content}</Content>
         <ButtonBox>
           <ButtonPrimary background="#2863FB">참여하기</ButtonPrimary>
         </ButtonBox>
@@ -73,6 +89,7 @@ function ViewStudy() {
 export default ViewStudy;
 
 const ViewContainer = styled.div`
+  min-height: 100vh;
   hr {
     width: 100%;
     border: thin solid #747474;
@@ -124,7 +141,7 @@ const Content = styled.div`
 `;
 
 const Info = styled.div`
-  width: 200px;
+  width: 210px;
   display: flex;
   justify-content: space-between;
   align-items: center;
