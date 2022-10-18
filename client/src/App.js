@@ -12,6 +12,7 @@ import SignUp from "./pages/SignUp";
 import MyPage from "./pages/MyPage";
 import { db } from "./firebase-config";
 import { collection, getDocs } from "firebase/firestore";
+import useUserInfo from "./apis/user/userInfo";
 
 const AppContainer = styled.div`
   display: flex;
@@ -26,7 +27,8 @@ function App() {
   const [communityPosts, setCommunityPosts] = useState([]);
   // 컬렉션이름이 posts인 db데이터 가져오기
   const postsCollectionRef = collection(db, "posts");
-
+  useUserInfo();
+  
   useEffect(() => {
     const getPosts = async () => {
       const data = await getDocs(postsCollectionRef);
