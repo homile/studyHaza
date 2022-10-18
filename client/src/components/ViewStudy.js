@@ -89,6 +89,7 @@ function ViewStudy() {
 export default ViewStudy;
 
 const ViewContainer = styled.div`
+  min-height: 100vh;
   hr {
     width: 100%;
     border: thin solid #747474;
