@@ -12,6 +12,7 @@ import Modal from "./Modal";
 import { db } from "../firebase-config";
 import { collection, addDoc } from "firebase/firestore";
 import uuid from "react-uuid";
+import { useNavigate } from "react-router-dom";
 
 const devTypeOptions = [
   { value: "frontend", name: "프론트엔드" },
@@ -24,6 +25,7 @@ const onOffOptions = [
 ];
 
 const WriteStudy = ({ setIsOk, setIsWrite }) => {
+  const navigate = useNavigate();
   const [title, setTitle] = useState("");
   const [startDate, setStartDate] = useState(new Date());
   const [devType, setDevType] = useState("frontend");
@@ -72,8 +74,9 @@ const WriteStudy = ({ setIsOk, setIsWrite }) => {
       onOff,
       startDate: startDate.toLocaleDateString(),
       title,
-      totalHeadCount: totalHeadCount,
+      totalHeadCount,
     });
+    navigate(`/studyjoin/detail/${data.id}`);
     setIsOk(true);
   };
 

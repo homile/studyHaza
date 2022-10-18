@@ -1,4 +1,4 @@
-import React, { useEffect, useState }  from "react";
+import React, { useEffect, useState } from "react";
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Nav from "./components/Nav";
@@ -10,6 +10,7 @@ import Login from "./pages/Login";
 import styled from "styled-components";
 import SignUp from "./pages/SignUp";
 import MyPage from "./pages/MyPage";
+import ViewStudy from "./components/ViewStudy";
 import { db } from "./firebase-config";
 import { collection, getDocs } from "firebase/firestore";
 
@@ -58,11 +59,21 @@ function App() {
           <Nav />
 
           <Routes>
-            <Route path="/" element={<Main posts={posts.slice(0, 12)} postsTotal={posts}/>} />
+            <Route
+              path="/"
+              element={<Main posts={posts.slice(0, 12)} postsTotal={posts} />}
+            />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<SignUp />} />
-            <Route path="/community" element={<Community posts={communityPosts}/>} />
-            <Route path="/studyjoin" element={<StudyJoin posts={posts}/>} />
+            <Route
+              path="/community"
+              element={<Community posts={communityPosts} />}
+            />
+            <Route path="/studyjoin" element={<StudyJoin posts={posts} />} />
+            <Route
+              path="/studyjoin/detail/:id"
+              element={<ViewStudy posts={posts} />}
+            />
             <Route path="/mypage" element={<MyPage />} />
           </Routes>
 
