@@ -24,7 +24,11 @@ function StudyJoin({ posts }) {
             </div>
           </CreateStudyButton>
           <ConPanel>
-            <StudyContents posts={posts} />
+            {posts ? 
+              <StudyContents posts={posts} />
+            :
+             <p>멍멍</p>
+            }
           </ConPanel>
         </>
       )}
@@ -43,6 +47,7 @@ const Container = styled.div`
 
 const ConPanel = styled.div`
   width: 100%;
+  min-height:100vh;
   padding: 50px 0 25px;
 `;
 
