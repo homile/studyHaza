@@ -14,6 +14,8 @@ import ViewStudy from "./components/ViewStudy";
 import { db } from "./firebase-config";
 import { collection, getDocs } from "firebase/firestore";
 import useUserInfo from "./apis/user/userInfo";
+import { loginUserInfo } from "./actions";
+import { useDispatch } from "react-redux";
 
 const AppContainer = styled.div`
   display: flex;
@@ -23,13 +25,14 @@ const AppContainer = styled.div`
 `;
 
 function App() {
+  const dispatch = useDispatch();
   // 게시물 받아와서 상태에 넣기
   const [posts, setPosts] = useState([]);
   const [communityPosts, setCommunityPosts] = useState([]);
   // 컬렉션이름이 posts인 db데이터 가져오기
   const postsCollectionRef = collection(db, "posts");
   useUserInfo();
-  
+
   useEffect(() => {
     const getPosts = async () => {
       const data = await getDocs(postsCollectionRef);
@@ -52,6 +55,21 @@ function App() {
       );
     };
     getPosts();
+    const user = JSON.parse(
+      sessionStorage.getItem(
+        `firebase:authUser:${process.env.REACT_APP_FIREBASE_API_KEY}:[DEFAULT]`
+      )
+    );
+    if (user !== null) {
+      dispatch(
+        loginUserInfo({
+          isLogin: true,
+          email: user.email,
+          nickName: user.displayName,
+          photoUrl: `${user.photoURL !== null ? user.photoURL : ""}`,
+        })
+      );
+    }
   }, []);
 
   return (
