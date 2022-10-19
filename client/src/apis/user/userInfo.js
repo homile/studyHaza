@@ -1,6 +1,6 @@
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useDispatch } from "react-redux";
-import { loginUserInfo } from "../../actions";
+import { loginUserInfo, logoutUserInfo } from "../../actions";
 
 const auth = getAuth();
 
@@ -17,6 +17,7 @@ export const UserInfo = async () => {
         })
       );
     } else {
+      dispatch(logoutUserInfo());
     }
   });
 };
