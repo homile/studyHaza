@@ -32,6 +32,11 @@ function App() {
   // 컬렉션이름이 posts인 db데이터 가져오기
   const postsCollectionRef = collection(db, "posts");
   useUserInfo();
+  const user = JSON.parse(
+    sessionStorage.getItem(
+      `firebase:authUser:${process.env.REACT_APP_FIREBASE_API_KEY}:[DEFAULT]`
+    )
+  );
 
   useEffect(() => {
     const getPosts = async () => {
@@ -55,11 +60,9 @@ function App() {
       );
     };
     getPosts();
-    const user = JSON.parse(
-      sessionStorage.getItem(
-        `firebase:authUser:${process.env.REACT_APP_FIREBASE_API_KEY}:[DEFAULT]`
-      )
-    );
+  }, []);
+
+  useEffect(() => {
     if (user !== null) {
       dispatch(
         loginUserInfo({
@@ -70,7 +73,7 @@ function App() {
         })
       );
     }
-  }, []);
+  }, [user]);
 
   return (
     <>
