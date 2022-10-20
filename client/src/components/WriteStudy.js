@@ -62,6 +62,7 @@ const WriteStudy = ({ setIsOk, setIsWrite }) => {
 
   // firestore에 데이터 올리기
   const createPosts = async () => {
+    const id = uuid();
     const data = await addDoc(postsCollectionRef, {
       board: "study",
       content,
@@ -69,14 +70,14 @@ const WriteStudy = ({ setIsOk, setIsWrite }) => {
       devStack,
       devType,
       haveHeadCount: 0,
-      id: uuid(),
+      id,
       nickName,
       onOff,
       startDate: startDate.toLocaleDateString(),
       title,
       totalHeadCount,
     });
-    navigate(`/studyjoin/detail/${data.id}`);
+    navigate(`/studyjoin/detail/${id}`);
     setIsOk(true);
   };
 

@@ -6,7 +6,14 @@ import { ProfileImgXS } from "./ui/ProfileImg";
 import { ButtonPrimary } from "./ui/Button";
 
 import { db } from "../firebase-config";
-import { getDoc, doc } from "firebase/firestore";
+import {
+  getDoc,
+  doc,
+  query,
+  collection,
+  where,
+  getDocs,
+} from "firebase/firestore";
 import { useParams } from "react-router-dom";
 
 function ViewStudy() {
@@ -17,18 +24,14 @@ function ViewStudy() {
   const photoUrl = useSelector((state) => state.loginReducer.photoUrl);
 
   const getPosts = async () => {
-    const docRef = doc(db, "posts", id);
-    const docSnap = await getDoc(docRef);
-    if (docSnap.exists()) {
-      console.log("Document data:", docSnap.data());
-      setData(docSnap.data());
-    } else {
-      console.log("No such document!");
-    }
-    return null;
+    const q = query(collection(db, "posts"), where("id", "==", id));
+
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+      setData(doc.data());
+    });
   };
 
-  console.log(data);
   useEffect(() => {
     getPosts();
   }, []);
@@ -57,7 +60,7 @@ function ViewStudy() {
                 {data.devType === "frontend" ? "프론트엔드" : "백엔드"}
               </List>
               <List>
-                모집 인원 • {data.haveHeadCount}/{data.totalHeadCount}
+                모집 인원 • {data.haveHeadCount} / {data.totalHeadCount}
               </List>
             </ListLine>
 
@@ -89,7 +92,15 @@ function ViewStudy() {
 export default ViewStudy;
 
 const ViewContainer = styled.div`
-  min-height: 100vh;
+  height: 800px;
+  background: #ffffff;
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.05);
+  border-radius: 30px;
+  margin: 2rem 0;
+  padding: 3rem;
+  display: flex;
+  flex-direction: column;
+
   hr {
     width: 100%;
     border: thin solid #747474;
@@ -109,7 +120,7 @@ const Title = styled.h1`
 const DevInfo = styled.div`
   display: flex;
   flex-direction: column;
-  width: 890px;
+  width: 100%;
   height: 188px;
   background: #f9f9f9;
   border: 1px solid #e1e1e1;
@@ -132,12 +143,13 @@ const List = styled.span`
 `;
 
 const Content = styled.div`
+  height: 40%;
   font-family: "Pretendard-Regular";
   font-weight: 400;
   font-size: 18px;
   line-height: 30px;
-  margin-top: 39px;
-  margin-left: 8px;
+  margin-top: 1rem;
+  padding-left: 3px;
 `;
 
 const Info = styled.div`
@@ -172,7 +184,7 @@ const Date = styled.span`
 const ButtonBox = styled.div`
   display: flex;
   justify-content: center;
-  margin-top: 5rem;
+  margin-top: 1rem;
 `;
 
 const InnerBox = styled.div`
