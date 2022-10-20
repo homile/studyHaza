@@ -58,6 +58,7 @@ function Login() {
         setEmail("");
         setPassword("");
         navigate('/');
+        window.location.reload();
         // ...
       })
       .catch((error) => {
