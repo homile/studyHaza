@@ -10,7 +10,7 @@ import Login from "./pages/Login";
 import styled from "styled-components";
 import SignUp from "./pages/SignUp";
 import MyPage from "./pages/MyPage";
-import ViewStudy from "./components/ViewStudy";
+import Detail from "./pages/Detail";
 import { db } from "./firebase-config";
 import { collection, getDocs } from "firebase/firestore";
 import useUserInfo from "./apis/user/userInfo";
@@ -95,7 +95,7 @@ function App() {
             <Route path="/studyjoin" element={<StudyJoin posts={posts} />} />
             <Route
               path="/studyjoin/detail/:id"
-              element={<ViewStudy posts={posts} />}
+              element={<Detail posts={posts} />}
             />
             <Route path="/mypage" element={<MyPage />} />
           </Routes>
