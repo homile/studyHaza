@@ -6,7 +6,14 @@ import { ProfileImgXS } from "./ui/ProfileImg";
 import { ButtonPrimary } from "./ui/Button";
 
 import { db } from "../firebase-config";
-import { getDoc, doc } from "firebase/firestore";
+import {
+  getDoc,
+  doc,
+  query,
+  collection,
+  where,
+  getDocs,
+} from "firebase/firestore";
 import { useParams } from "react-router-dom";
 
 function ViewStudy() {
@@ -17,18 +24,14 @@ function ViewStudy() {
   const photoUrl = useSelector((state) => state.loginReducer.photoUrl);
 
   const getPosts = async () => {
-    const docRef = doc(db, "posts", id);
-    const docSnap = await getDoc(docRef);
-    if (docSnap.exists()) {
-      console.log("Document data:", docSnap.data());
-      setData(docSnap.data());
-    } else {
-      console.log("No such document!");
-    }
-    return null;
+    const q = query(collection(db, "posts"), where("id", "==", id));
+
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+      setData(doc.data());
+    });
   };
 
-  console.log(data);
   useEffect(() => {
     getPosts();
   }, []);
