@@ -37,6 +37,7 @@ export default WriteBox;
 const WrapPanel = styled.div`
   width: 1000px;
   margin: 0 auto;
+  background-color: #fff;
 `;
 
 const WriteContainer = styled.div`
