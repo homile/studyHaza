@@ -1,16 +1,37 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
 import { ProfileImgXS } from "./ui/ProfileImg";
+import { query, collection, where, getDocs } from "firebase/firestore";
+import { db } from "../firebase-config";
+import { useParams } from "react-router-dom";
 
 function ViewCommunity() {
+  const { id } = useParams();
+  const [data, setData] = useState({});
+
   const nickName = useSelector((state) => state.loginReducer.nickName);
   const photoUrl = useSelector((state) => state.loginReducer.photoUrl);
+
+  const getPosts = async () => {
+    const q = query(collection(db, "posts"), where("id", "==", id));
+
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+      setData(doc.data());
+    });
+  };
+
+  console.log(data);
+
+  useEffect(() => {
+    getPosts();
+  }, []);
 
   return (
     <>
       <ViewContainer>
-        <Title>스터디하자 후기!</Title>
+        <Title>{data.title}</Title>
         <Info>
           <ProfileImgXS
             src={
@@ -21,17 +42,10 @@ function ViewCommunity() {
           />
           <Writer>{nickName}</Writer>
           <hr />
-          <Date>2022.08.14</Date>
+          <Date>{data.dateCreated}</Date>
         </Info>
         <hr />
-        <Content>
-          여기는 자유게시판이니까 진짜 아무말이나 작성할게요 <br />
-          ㅎㅇㅎㅇㅎㅇㅎㅇㅎㅇ 저는 정말 잘 하지는 못합니다. 타고난 것도 아니고
-          진짜 노력파입니다. <br />
-          노력없이는 이렇게 까지 못하지 않았을까 싶네요. <br />
-          지금은 좋은 스터디원 분들을 만나서 재미있게 공부를 하고 있어서 너무
-          행복합니다.
-        </Content>
+        <Content>{data.content}</Content>
       </ViewContainer>
     </>
   );
@@ -40,6 +54,15 @@ function ViewCommunity() {
 export default ViewCommunity;
 
 const ViewContainer = styled.div`
+  height: 650px;
+  background: #ffffff;
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.05);
+  border-radius: 30px;
+  margin: 2rem 0;
+  padding: 3rem;
+  display: flex;
+  flex-direction: column;
+
   hr {
     width: 100%;
     border: thin solid #747474;
@@ -61,12 +84,11 @@ const Content = styled.div`
   font-weight: 400;
   font-size: 18px;
   line-height: 30px;
-  margin-top: 39px;
   margin-left: 8px;
 `;
 
 const Info = styled.div`
-  width: 200px;
+  width: 210px;
   display: flex;
   justify-content: space-between;
   align-items: center;

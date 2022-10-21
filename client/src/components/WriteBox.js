@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useLocation } from "react-router-dom";
 import WriteCommunity from "./WriteCommunity";
 import WriteStudy from "./WriteStudy";
-import ViewDetailBox from "./ViewDetailBox";
+import Detail from "../pages/Detail";
 
 // 스터디 모집 글쓰기, 커뮤니티 글쓰기 컴포넌트 container
 const WriteBox = ({ setIsWrite }) => {
@@ -17,6 +17,7 @@ const WriteBox = ({ setIsWrite }) => {
           <HeaderContainer>
             {pathname === "/community" ? "커뮤니티 글쓰기" : "스터디 만들기"}
           </HeaderContainer>
+
           <WriteContainer>
             {pathname === "/community" ? (
               <WriteCommunity setIsOk={setIsOk} setIsWrite={setIsWrite} />
@@ -26,7 +27,7 @@ const WriteBox = ({ setIsWrite }) => {
           </WriteContainer>
         </>
       ) : (
-        <ViewDetailBox setIsWrite={setIsWrite} />
+        <Detail setIsWrite={setIsWrite} />
       )}
     </WrapPanel>
   );

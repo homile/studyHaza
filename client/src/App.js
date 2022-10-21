@@ -92,6 +92,10 @@ function App() {
               path="/community"
               element={<Community posts={communityPosts} />}
             />
+            <Route
+              path="/community/detail/:id"
+              element={<Detail communityPosts={communityPosts} />}
+            />
             <Route path="/studyjoin" element={<StudyJoin posts={posts} />} />
             <Route
               path="/studyjoin/detail/:id"
