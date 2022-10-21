@@ -92,7 +92,6 @@ export const StudyCard = ({ data }) => {
             <ul className="skill-area">
               {data.devStack.map((el, idx) => {
                 return (
-                  // <li key={idx}><img src={process.env.PUBLIC_URL + `/skill/${devStackWord(`${el}`)}.png`} alt="" /></li>
                   <li key={idx}>
                     <img
                       src={

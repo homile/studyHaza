@@ -9,8 +9,11 @@ import Modal from "./Modal";
 import { db } from "../firebase-config";
 import { collection, addDoc } from "firebase/firestore";
 import uuid from "react-uuid";
+import { useNavigate } from "react-router-dom";
 
 function WriteCommunity({ setIsOk, setIsWrite, setIsView }) {
+  const navigate = useNavigate();
+
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const dateCreated = new Date();
@@ -41,14 +44,16 @@ function WriteCommunity({ setIsOk, setIsWrite, setIsView }) {
 
   // firestore에 데이터 올리기
   const createPosts = async () => {
+    const id = uuid();
     const data = await addDoc(postsCollectionRef, {
       board: "community",
       content,
       dateCreated: dateCreated.toLocaleDateString(),
-      id: uuid(),
+      id,
       nickName,
       title,
     });
+    navigate(`/community/detail/${id}`);
     setIsOk(true);
   };
 

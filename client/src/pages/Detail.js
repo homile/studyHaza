@@ -2,13 +2,29 @@ import React from "react";
 import styled from "styled-components";
 import ViewStudy from "../components/ViewStudy";
 import { ButtonSecondary } from "../components/ui/Button";
+import { useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
+import ViewCommunity from "../components/ViewCommunity";
 
-function Detail({ posts }) {
+function Detail() {
+  const navigate = useNavigate();
+
+  const pathName = useLocation().pathname.split("/")[1];
+
   return (
     <Container>
-      <ViewStudy />
+      {pathName === "community" ? <ViewCommunity /> : <ViewStudy />}
       <ButtonContainer>
-        <ButtonSecondary width="126px">목록으로</ButtonSecondary>
+        <ButtonSecondary
+          width="126px"
+          onClick={() => {
+            pathName === "community"
+              ? navigate("/community")
+              : navigate("/studyjoin");
+          }}
+        >
+          목록으로
+        </ButtonSecondary>
         <ButtonRightBox>
           <ButtonSecondary>수정</ButtonSecondary>
           <ButtonSecondary>삭제</ButtonSecondary>
