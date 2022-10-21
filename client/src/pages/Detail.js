@@ -2,13 +2,17 @@ import React from "react";
 import styled from "styled-components";
 import ViewStudy from "../components/ViewStudy";
 import { ButtonSecondary } from "../components/ui/Button";
+import { useNavigate } from "react-router-dom";
 
 function Detail({ posts }) {
+  const navigate = useNavigate();
   return (
     <Container>
       <ViewStudy />
       <ButtonContainer>
-        <ButtonSecondary width="126px">목록으로</ButtonSecondary>
+        <ButtonSecondary width="126px" onClick={() => navigate("/studyjoin")}>
+          목록으로
+        </ButtonSecondary>
         <ButtonRightBox>
           <ButtonSecondary>수정</ButtonSecondary>
           <ButtonSecondary>삭제</ButtonSecondary>
