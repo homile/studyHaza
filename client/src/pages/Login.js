@@ -6,15 +6,13 @@ import { useDispatch } from "react-redux";
 import { ButtonLogin, ButtonSnsLogin } from "../components/ui/Button";
 import { StyledInputContainer } from "../components/ui/LoginInput";
 import ModalSoon from "../components/ModalSoon";
-import { loginSuccess, loginUserInfo } from "../actions";
+import { loginSuccess } from "../actions";
 import {
   getAuth,
   setPersistence,
   signInWithEmailAndPassword,
   browserSessionPersistence,
 } from "firebase/auth";
-import { collection, query, where, getDocs } from "firebase/firestore";
-import { db } from "../firebase-config";
 
 import naver_symbol from "../assets/naver_symbol.png";
 import facebook_symbol from "../assets/facebook_symbol.png";
@@ -31,7 +29,6 @@ function Login() {
   let navigate = useNavigate();
 
   const nameInput = useRef(null);
-  const usersRef = collection(db, "users");
 
   useEffect(() => {
     nameInput.current.focus();
@@ -41,16 +38,6 @@ function Login() {
     setIsOpen(true);
   };
 
-  // 파이어베이스 쿼리문으로 로그인한 유저의 정보 가져오기
-  const getUserInfo = async () => {
-    const q = query(usersRef, where("email", "==", `${email}`));
-    const querySnapshot = await getDocs(q);
-    querySnapshot.forEach((doc) => {
-      dispatch(loginUserInfo({...doc.data(), id:doc.id}));
-    });
-  };
-
-
   // 로그인 버튼 클릭
   const loginHandler = (e) => {
     e.preventDefault();
@@ -59,19 +46,19 @@ function Login() {
       .then((userCredential) => {
         // Signed in
         const user = userCredential.user;
-        // setPersistence(auth, browserSessionPersistence)
-        //   .then(() => {
-        //     return signInWithEmailAndPassword(auth, email, password);
-        //   })
-        //   .catch((error) => {
-        //     const errorCode = error.code;
-        //     const errorMessage = error.message;
-        //   });
+        setPersistence(auth, browserSessionPersistence)
+          .then(() => {
+            return signInWithEmailAndPassword(auth, email, password);
+          })
+          .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+          });
         dispatch(loginSuccess());
-        getUserInfo();
         setEmail("");
         setPassword("");
         navigate('/');
+        window.location.reload();
         // ...
       })
       .catch((error) => {
@@ -79,6 +66,7 @@ function Login() {
         const errorMessage = error.message;
       });
   };
+
 
   const emailChange = (e) => {
     setEmail(e);

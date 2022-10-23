@@ -9,6 +9,7 @@ import { useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { logoutUserInfo } from "../actions";
 import Search from "./ui/SearchInput";
+import { getAuth } from "firebase/auth";
 
 function Nav() {
   const { pathname } = useLocation();
@@ -26,6 +27,7 @@ function Nav() {
 
   const logoutHandler = () => {
     dispatch(logoutUserInfo());
+    getAuth().signOut();
     window.location.reload();
   };
 

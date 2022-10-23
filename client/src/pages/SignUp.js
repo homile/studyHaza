@@ -7,11 +7,17 @@ import { StyledInputContainer } from "../components/ui/LoginInput";
 import { ButtonLogin } from "../components/ui/Button";
 import ModalSucces from "../components/ModalSucces";
 
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  updateProfile,
+} from "firebase/auth";
 import { db } from "../firebase-config";
-import { collection, addDoc} from "firebase/firestore";
+import { collection, addDoc } from "firebase/firestore";
+import { useNavigate } from "react-router-dom";
 
 function SignUp() {
+  const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -71,7 +77,7 @@ function SignUp() {
     }
   };
 
-  const signUpHandler = (e) => {
+  const signUpHandler = async (e) => {
     e.preventDefault();
 
     // 패스워드와 패스워드 확인란이 같을 때만 회원가입 실행
@@ -80,16 +86,18 @@ function SignUp() {
       validationEmail === "none" &&
       validationNickName === "none"
     ) {
-      createUserWithEmailAndPassword(auth, email, password)
+      await createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
           // Signed in
           const user = userCredential.user;
+          updateProfile(user, { displayName: nickName });
           setIsOpen(true);
           createUsers();
           setEmail("");
           setPassword("");
           setPasswordCheck("");
           setNickName("");
+          navigate("/login");
         })
         .catch((error) => {
           const errorCode = error.code;
@@ -176,7 +184,9 @@ function SignUp() {
                 : "비밀번호가 일치하지 않습니다."}
             </ValidationCheck>
           </StyledInputContainer>
-          <StyledInputContainer height={validationNickName === "block" ? "100px" : "90px"}>
+          <StyledInputContainer
+            height={validationNickName === "block" ? "100px" : "90px"}
+          >
             <label htmlFor="nickName">닉네임</label>
             <div>
               <input
@@ -188,8 +198,7 @@ function SignUp() {
               <i className="fa-solid fa-user"></i>
             </div>
             <ValidationCheck display={validationNickName}>
-              {nickName === ""
-                && "닉네임을 입력해주세요."}
+              {nickName === "" && "닉네임을 입력해주세요."}
             </ValidationCheck>
           </StyledInputContainer>
           <ButtonLogin type="submit" onClick={(e) => signUpHandler(e)}>

@@ -1,18 +1,121 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
-
 import { ProfileImgXS } from "./ui/ProfileImg";
 import { ButtonPrimary } from "./ui/Button";
+import { db } from "../firebase-config";
+import { query, collection, where, getDocs } from "firebase/firestore";
+import { useParams } from "react-router-dom";
+
+const frontStacks = [
+  "Angular",
+  "Emotion",
+  "GraphQL",
+  "NextJS",
+  "ReactJS",
+  "VueJS",
+  "Redux",
+  "Recoil",
+  "Storybook",
+  "StyledComponent",
+  "HTML",
+  "CSS",
+  "JavaScript",
+  "TypeScript",
+];
+
+const backStacks = [
+  "Apollo",
+  "AWS",
+  "ExpressJS",
+  "Django",
+  "NestJS",
+  "NodeJS",
+  "Spring",
+  "SpringBoot",
+  "Python",
+  "Java",
+  "JavaScript",
+];
+
+const stackBackgrounds = [
+  { stack: "Angular", color: "#DD0031" },
+  { stack: "Emotion", color: "#E19EDC" },
+  { stack: "GraphQL", color: "#E10098" },
+  { stack: "NextJS", color: "#000000" },
+  { stack: "ReactJS", color: "#61DAFB" },
+  { stack: "VueJS", color: "#4FC08D" },
+  { stack: "Redux", color: "#764ABC" },
+  { stack: "Recoil", color: "#007AF4" },
+  { stack: "Storybook", color: "#FF4785" },
+  { stack: "StyledComponent", color: "#DB7093" },
+  { stack: "HTML", color: "#E34F26" },
+  { stack: "CSS", color: "#1572B6" },
+  { stack: "JavaScript", color: "#F7DF1E" },
+  { stack: "TypeScript", color: "#3178C6" },
+  { stack: "Apollo", color: "#311C87" },
+  { stack: "AWS", color: "#232F3E" },
+  { stack: "ExpressJS", color: "#000000" },
+  { stack: "Django", color: "#092E20" },
+  { stack: "NestJS", color: "#000000" },
+  { stack: "NodeJS", color: "#339933" },
+  { stack: "Spring", color: "#6DB33F" },
+  { stack: "SpringBoot", color: "#6DB33F" },
+  { stack: "Python", color: "#3776AB" },
+  { stack: "Java", color: "#D9D9D9" },
+];
 
 function ViewStudy() {
+  const { id } = useParams();
+  const [data, setData] = useState({});
+
   const nickName = useSelector((state) => state.loginReducer.nickName);
   const photoUrl = useSelector((state) => state.loginReducer.photoUrl);
+
+  const getPosts = async () => {
+    const q = query(collection(db, "posts"), where("id", "==", id));
+
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+      setData(doc.data());
+    });
+  };
+
+  useEffect(() => {
+    getPosts();
+  }, []);
+
+  const pick = (i) => {
+    const filtered = stackBackgrounds
+      .filter((el) => el.stack === i)
+      .map((el) => el.color);
+    return filtered;
+  };
+
+  const devStackWord = (devType, skill) => {
+    let a = "";
+    let idx = "";
+    if (devType === "frontend") {
+      idx = frontStacks.findIndex((el) => el === skill);
+      a = "fe";
+    }
+
+    if (devType === "backend") {
+      idx = backStacks.findIndex((el) => el === skill);
+      a = "be";
+    }
+
+    if (idx >= 9) {
+      return `sk_${a}${idx + 1}`;
+    } else {
+      return `sk_${a}${idx + 1}`;
+    }
+  };
 
   return (
     <>
       <ViewContainer>
-        <Title>사이드 프로젝트 리뷰 플레이스 그룹 플러터</Title>
+        <Title>{data.title}</Title>
         <Info>
           <ProfileImgXS
             src={
@@ -23,45 +126,64 @@ function ViewStudy() {
           />
           <Writer>{nickName}</Writer>
           <hr />
-          <Date>2022.08.14</Date>
+          <Date>{data.dateCreated}</Date>
         </Info>
         <DevInfo>
           <InnerBox>
             <ListLine>
-              <List>모집 구분 • 프론트엔드</List>
-              <List>모집 인원 • 1/10</List>
+              <List>
+                모집 구분 <Dot>•</Dot>{" "}
+                <span>
+                  {data.devType === "frontend" ? "프론트엔드" : "백엔드"}
+                </span>
+              </List>
+              <List>
+                모집 인원 <Dot>•</Dot>{" "}
+                <span>
+                  {data.haveHeadCount} / {data.totalHeadCount}
+                </span>
+              </List>
             </ListLine>
 
             <ListLine>
-              <List>시작 일시 • 2022.08.20</List>
-              <List>진행 방법 • 오프라인</List>
-            </ListLine>
-          </InnerBox>
-          <InnerBox>
-            <ListLine>
               <List>
-                <p>주요 기술</p>
-                <p>❤️🧡💛💚💙💜🖤</p>
+                시작 일시 <Dot>•</Dot> <span>{data.startDate}</span>
+              </List>
+              <List>
+                진행 방법 <Dot>•</Dot>{" "}
+                <span>{data.onOff === "on" ? "온라인" : "오프라인"}</span>
               </List>
             </ListLine>
           </InnerBox>
+          <DevInnerBox>
+            <ListLine>
+              <DevList>
+                <div>주요 기술</div>
+                <DevStackList>
+                  {data.devStack &&
+                    data.devStack.map((el, idx) => {
+                      return (
+                        <li key={idx} style={{ background: pick(el) }}>
+                          <img
+                            src={
+                              process.env.PUBLIC_URL +
+                              `/skill/${devStackWord(
+                                data.devType,
+                                `${el}`
+                              )}.png`
+                            }
+                            alt=""
+                          />
+                          <div>{el}</div>
+                        </li>
+                      );
+                    })}
+                </DevStackList>
+              </DevList>
+            </ListLine>
+          </DevInnerBox>
         </DevInfo>
-        <Content>
-          스터디 모집 페이지 구성을 진행할 생각입니다. 우선적으로 프론트엔드만
-          구성을 할 것이며 추가적으로 작성을한다면
-          <br />
-          파이어베이스를 백엔드로 사용하여 서버까지 해보면 좋지 않을까 하는
-          생각입니다. <br /> <br /> 이 스터디의 목적은 프론트엔드끼리의 협업이
-          가장 큰 목표이고, React를 잘 사용할 수 있도록 <br />
-          개개인의 능력을 향상하는 것이 궁극적인 목표입니다. <br /> <br />
-          앞으로 누가 같이 하실지는 모르겠지만 시간은 조금 걸리더라도 흥미를
-          느끼시고 <br />
-          열심히 하시는 분이었으면 좋겠습니다. <br /> <br />
-          참여 신청 및 개인 댓글 주시면 연락드리도록 하겠습니다. <br /> <br />
-          개인 댓글 양식은 자신이 사용할 수 있는 언어 및 프레임워크,
-          라이브러리를 작성해 주시고 <br />
-          진행해봤던 프로젝트 포트폴리오 링크를 작성해주시면 되겠습니다.!
-        </Content>
+        <Content>{data.content}</Content>
         <ButtonBox>
           <ButtonPrimary background="#2863FB">참여하기</ButtonPrimary>
         </ButtonBox>
@@ -73,6 +195,15 @@ function ViewStudy() {
 export default ViewStudy;
 
 const ViewContainer = styled.div`
+  height: 800px;
+  background: #ffffff;
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.05);
+  border-radius: 30px;
+  margin: 2rem 0;
+  padding: 3rem;
+  display: flex;
+  flex-direction: column;
+
   hr {
     width: 100%;
     border: thin solid #747474;
@@ -92,7 +223,7 @@ const Title = styled.h1`
 const DevInfo = styled.div`
   display: flex;
   flex-direction: column;
-  width: 890px;
+  width: 100%;
   height: 188px;
   background: #f9f9f9;
   border: 1px solid #e1e1e1;
@@ -109,22 +240,28 @@ const ListLine = styled.div`
 const List = styled.span`
   margin-right: 3rem;
   margin-bottom: 1.5rem;
+
   p {
     margin-bottom: 10px;
+  }
+
+  span {
+    font-weight: bold;
   }
 `;
 
 const Content = styled.div`
+  height: 40%;
   font-family: "Pretendard-Regular";
   font-weight: 400;
   font-size: 18px;
   line-height: 30px;
-  margin-top: 39px;
-  margin-left: 8px;
+  margin-top: 1rem;
+  padding-left: 3px;
 `;
 
 const Info = styled.div`
-  width: 200px;
+  width: 210px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -155,9 +292,43 @@ const Date = styled.span`
 const ButtonBox = styled.div`
   display: flex;
   justify-content: center;
-  margin-top: 5rem;
+  margin-top: 1rem;
 `;
 
 const InnerBox = styled.div`
   display: flex;
+`;
+
+const DevInnerBox = styled.div``;
+
+const DevList = styled.div`
+  div {
+    margin-bottom: 7px;
+  }
+
+  img {
+    width: 30px;
+  }
+`;
+
+const DevStackList = styled.ul`
+  width: 100%;
+  display: flex;
+  gap: 10px;
+
+  li {
+    display: flex;
+    align-items: center;
+    color: white;
+    border-radius: 8px;
+    font-weight: bold;
+
+    div {
+      padding: 5px 10px 0 0;
+    }
+  }
+`;
+
+const Dot = styled.span`
+  color: #e1e1e1;
 `;
