@@ -1,15 +1,21 @@
 import React from "react";
 import styled from "styled-components";
+import Loading from "../Loading";
 import CommunityCard from "./CommunityCard";
 
 const BoardListContents = ({ posts }) => {
   return (
     <>
-      <ItemGroup>
-        {posts.map((data, idx) => (
-          <CommunityCard key={data.id} data={data} idx={idx} />
-        ))}
-      </ItemGroup>
+      {posts[0] !== undefined ? 
+        <ItemGroup>
+          {posts.map((data, idx) => (
+            <CommunityCard key={data.id} data={data} idx={idx} />
+          ))}
+        </ItemGroup>
+      :
+        <Loading />
+      }
+      
     </>
   );
 };

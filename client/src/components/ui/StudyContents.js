@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { StudyCard } from "./StudyCard";
 import { SwitchButton } from "./SwitchButton";
+import Loading from "../Loading";
 
 export const StudyContents = ({ posts }) => {
   const [currentTab, setCurrentTab] = useState(0);
@@ -76,14 +77,14 @@ export const StudyContents = ({ posts }) => {
         </SwitchGroup>
       </ConSortArea>
       <StudyList>
-        {postData ? (
+        {postData[0] !== undefined ? (
           <StudyCardList>
             {postData.map((data, idx) => (
               <StudyCard key={data.id} data={data} idx={idx} />
             ))}
           </StudyCardList>
         ) : (
-          <p>멍미</p>
+          <Loading />
         )}
       </StudyList>
     </div>
