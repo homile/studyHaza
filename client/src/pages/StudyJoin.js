@@ -24,7 +24,7 @@ function StudyJoin({ posts }) {
             </div>
           </CreateStudyButton>
           <ConPanel>
-            {posts ? 
+            {posts !== 0 ? 
               <StudyContents posts={posts} />
             :
              <p>멍멍</p>
