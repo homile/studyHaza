@@ -29,6 +29,12 @@ function App() {
   // 게시물 받아와서 상태에 넣기
   const [posts, setPosts] = useState([]);
   const [communityPosts, setCommunityPosts] = useState([]);
+
+  const [isEdit, setIsEdit] = useState(false);
+  const toggleIsEdit = () => {
+    setIsEdit(!isEdit);
+  };
+
   // 컬렉션이름이 posts인 db데이터 가져오기
   const postsCollectionRef = collection(db, "posts");
   useUserInfo();
@@ -92,14 +98,11 @@ function App() {
               path="/community"
               element={<Community posts={communityPosts} />}
             />
-            <Route
-              path="/community/detail/:id"
-              element={<Detail communityPosts={communityPosts} />}
-            />
+            <Route path="/community/detail/:id" element={<Detail />} />
             <Route path="/studyjoin" element={<StudyJoin posts={posts} />} />
             <Route
               path="/studyjoin/detail/:id"
-              element={<Detail posts={posts} />}
+              element={<Detail isEdit={isEdit} toggleIsEdit={toggleIsEdit} />}
             />
             <Route path="/mypage" element={<MyPage />} />
           </Routes>

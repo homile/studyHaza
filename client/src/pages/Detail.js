@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 import ViewStudy from "../components/ViewStudy";
 import { ButtonSecondary } from "../components/ui/Button";
@@ -11,21 +12,43 @@ import {
   collection,
   where,
   getDocs,
+  updateDoc,
 } from "firebase/firestore";
 import { db } from "../firebase-config";
 import { useParams } from "react-router-dom";
 import Modal from "../components/Modal";
+import PostEditor from "../components/PostEditor";
 
-function Detail() {
+function Detail({ isEdit, toggleIsEdit }) {
   const { id } = useParams();
   const navigate = useNavigate();
+
+  const [data, setData] = useState({});
 
   const pathName = useLocation().pathname.split("/")[1];
 
   const [isOpenOk, setIsOpenOk] = useState(false);
+  const [isOpenCancel, setIsOpenCancel] = useState(false);
 
-  const openModalHandler = () => {
+  const getPosts = async () => {
+    const q = query(collection(db, "posts"), where("id", "==", id));
+
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+      setData(doc.data());
+    });
+  };
+
+  useEffect(() => {
+    getPosts();
+  }, []);
+
+  const openModalHandler1 = () => {
     setIsOpenOk(!isOpenOk);
+  };
+
+  const openModalHandler2 = () => {
+    setIsOpenCancel(!isOpenCancel);
   };
 
   const deletePost = async () => {
@@ -42,34 +65,82 @@ function Detail() {
     }
   };
 
+  const onUpdatePost = async (el) => {
+    console.log(el);
+    const q = query(collection(db, "posts"), where("id", "==", id));
+    const data = await getDocs(q);
+    try {
+      if (data.docs.length !== 0) {
+        await updateDoc(data.docs[0].ref, el);
+      }
+      toggleIsEdit();
+      window.location.reload();
+    } catch {
+      console.log("Not Update");
+    }
+  };
+
+  // const handleQuitEdit = () => {
+  //   setEditData(initialData);
+  //   // toggleIsEdit(false);
+  // };
+
   return (
     <Container>
-      {pathName === "community" ? <ViewCommunity /> : <ViewStudy />}
-      <ButtonContainer>
-        <ButtonSecondary
-          width="126px"
-          onClick={() => {
-            pathName === "community"
-              ? navigate("/community")
-              : navigate("/studyjoin");
-          }}
-        >
-          목록으로
-        </ButtonSecondary>
-        <ButtonRightBox>
-          <ButtonSecondary>수정</ButtonSecondary>
-          <ButtonSecondary onClick={openModalHandler}>삭제</ButtonSecondary>
-          {isOpenOk && (
-            <Modal
-              isOpen={isOpenOk}
-              handleModal={deletePost}
-              setIsOpen={setIsOpenOk}
-            >
-              정말로 글을 삭제하시겠습니까?
-            </Modal>
+      {isEdit ? (
+        <PostEditor
+          isEdit={isEdit}
+          data={data}
+          onUpdatePost={onUpdatePost}
+          toggleIsEdit={toggleIsEdit}
+        />
+      ) : (
+        <>
+          {pathName === "community" ? (
+            <ViewCommunity />
+          ) : (
+            <ViewStudy data={data} id={id} />
           )}
-        </ButtonRightBox>
-      </ButtonContainer>
+        </>
+      )}
+      {!isEdit && (
+        <ButtonContainer>
+          <ButtonSecondary
+            width="126px"
+            onClick={() => {
+              pathName === "community"
+                ? navigate("/community")
+                : navigate("/studyjoin");
+            }}
+          >
+            목록으로
+          </ButtonSecondary>
+          <ButtonRightBox>
+            <ButtonSecondary onClick={toggleIsEdit}>수정</ButtonSecondary>
+            <ButtonSecondary onClick={openModalHandler1}>삭제</ButtonSecondary>
+
+            {isOpenCancel && (
+              <Modal
+                isOpen={isOpenCancel}
+                // handleModal={handleQuitEdit}
+                setIsOpen={setIsOpenCancel}
+              >
+                수정을 취소하시겠습니까?
+              </Modal>
+            )}
+
+            {isOpenOk && (
+              <Modal
+                isOpen={isOpenOk}
+                handleModal={deletePost}
+                setIsOpen={setIsOpenOk}
+              >
+                정말로 글을 삭제하시겠습니까?
+              </Modal>
+            )}
+          </ButtonRightBox>
+        </ButtonContainer>
+      )}
     </Container>
   );
 }

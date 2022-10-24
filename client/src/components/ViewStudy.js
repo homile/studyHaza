@@ -1,11 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 import { ProfileImgXS } from "./ui/ProfileImg";
 import { ButtonPrimary } from "./ui/Button";
-import { db } from "../firebase-config";
-import { query, collection, where, getDocs } from "firebase/firestore";
-import { useParams } from "react-router-dom";
 
 const frontStacks = [
   "Angular",
@@ -65,25 +62,9 @@ const stackBackgrounds = [
   { stack: "Java", color: "#D9D9D9" },
 ];
 
-function ViewStudy() {
-  const { id } = useParams();
-  const [data, setData] = useState({});
-
+function ViewStudy({ data }) {
   const nickName = useSelector((state) => state.loginReducer.nickName);
   const photoUrl = useSelector((state) => state.loginReducer.photoUrl);
-
-  const getPosts = async () => {
-    const q = query(collection(db, "posts"), where("id", "==", id));
-
-    const querySnapshot = await getDocs(q);
-    querySnapshot.forEach((doc) => {
-      setData(doc.data());
-    });
-  };
-
-  useEffect(() => {
-    getPosts();
-  }, []);
 
   const pick = (i) => {
     const filtered = stackBackgrounds
