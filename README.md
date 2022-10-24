@@ -14,3 +14,4 @@
 |Front-end|Front-end|Front-end|Back-end|Back-end|
 
 ## ✏️ 사용스택
+![studyHaza-stack](https://user-images.githubusercontent.com/56163157/197424928-0b0de322-713a-4b41-be46-ca5bc5524873.png)
