@@ -1,8 +1,8 @@
 # Study Haza
 ## 개발자 사이드 프로젝트 모집 서비스
->배포링크: https://deploy-test-chi.vercel.app/
->프로젝트 문서: [문서 바로가기](https://cho-min-woo.notion.site/StudyHaza-1973422692b64e159d7051de0f50f2d6)
->개발기간: 2022년 07월 28일 ~ 2022년 08월 17일 (약 3주)
+>배포링크: https://deploy-test-chi.vercel.app/  
+>프로젝트 문서: [문서 바로가기](https://cho-min-woo.notion.site/StudyHaza-1973422692b64e159d7051de0f50f2d6)  
+>개발기간: 2022년 07월 28일 ~ 2022년 08월 17일 (약 3주)  
 
 ## 📌 Intro
 사이드 프로젝트를 하고 싶은 개발자들의 모임
