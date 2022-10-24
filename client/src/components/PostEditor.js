@@ -139,7 +139,7 @@ const PostEditor = ({ data, onUpdatePost, toggleIsEdit }) => {
           devType={editDevType}
           devStack={editDevStack}
         />
-        <WriteInputContainer height="400px">
+        <WriteInputContainer height="300px">
           <label htmlFor="content">모집 상세</label>
           <div>
             <textarea
@@ -185,7 +185,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: 1100px;
+  height: 1050px;
   box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.05);
   border-radius: 30px;
   margin-bottom: 2rem;

@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 import { ProfileImgXS } from "./ui/ProfileImg";
 import { ButtonPrimary } from "./ui/Button";
+import ModalSoon from "./ModalSoon";
 
 const frontStacks = [
   "Angular",
@@ -65,6 +66,12 @@ const stackBackgrounds = [
 function ViewStudy({ data }) {
   const nickName = useSelector((state) => state.loginReducer.nickName);
   const photoUrl = useSelector((state) => state.loginReducer.photoUrl);
+
+  const [isOpen, setIsOpen] = useState(false);
+
+  const modalSoonHandler = () => {
+    setIsOpen(true);
+  };
 
   const pick = (i) => {
     const filtered = stackBackgrounds
@@ -166,7 +173,12 @@ function ViewStudy({ data }) {
         </DevInfo>
         <Content>{data.content}</Content>
         <ButtonBox>
-          <ButtonPrimary background="#2863FB">참여하기</ButtonPrimary>
+          <ButtonPrimary background="#2863FB" onClick={modalSoonHandler}>
+            참여하기
+          </ButtonPrimary>
+          <ModalSoon isOpen={isOpen} setIsOpen={setIsOpen}>
+            참여하기 기능
+          </ModalSoon>
         </ButtonBox>
       </ViewContainer>
     </>
