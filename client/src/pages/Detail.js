@@ -12,7 +12,7 @@ import {
   collection,
   where,
   getDocs,
-  updateDoc,
+  updateDoc
 } from "firebase/firestore";
 import { db } from "../firebase-config";
 import { useParams } from "react-router-dom";
@@ -21,6 +21,7 @@ import PostEditor from "../components/PostEditor";
 
 function Detail({ isEdit, toggleIsEdit }) {
   const nickName = useSelector((state) => state.loginReducer.nickName);
+
   const { id } = useParams();
   const navigate = useNavigate();
   const pathName = useLocation().pathname.split("/")[1];
