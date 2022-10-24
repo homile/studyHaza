@@ -20,15 +20,14 @@ import Modal from "../components/Modal";
 import PostEditor from "../components/PostEditor";
 
 function Detail({ isEdit, toggleIsEdit }) {
+  const nickName = useSelector((state) => state.loginReducer.nickName);
   const { id } = useParams();
   const navigate = useNavigate();
-
-  const [data, setData] = useState({});
-
   const pathName = useLocation().pathname.split("/")[1];
 
+  const [data, setData] = useState({});
   const [isOpenOk, setIsOpenOk] = useState(false);
-  const [isOpenCancel, setIsOpenCancel] = useState(false);
+  const [isShow, setIsShow] = useState(false);
 
   const getPosts = async () => {
     const q = query(collection(db, "posts"), where("id", "==", id));
@@ -43,15 +42,21 @@ function Detail({ isEdit, toggleIsEdit }) {
     getPosts();
   }, []);
 
+  // 글쓴이만 수정, 삭제 버튼보이도록
+  useEffect(() => {
+    if (nickName === data.nickName) {
+      setIsShow(true);
+    } else {
+      setIsShow(false);
+    }
+  }, [data.nickName, nickName]);
+
   const openModalHandler1 = () => {
     setIsOpenOk(!isOpenOk);
   };
 
-  const openModalHandler2 = () => {
-    setIsOpenCancel(!isOpenCancel);
-  };
-
-  const deletePost = async () => {
+  // 글 삭제
+  const onDeletePost = async () => {
     const q = query(collection(db, "posts"), where("id", "==", id));
     const data = await getDocs(q);
     try {
@@ -65,6 +70,7 @@ function Detail({ isEdit, toggleIsEdit }) {
     }
   };
 
+  // 글 수정
   const onUpdatePost = async (el) => {
     console.log(el);
     const q = query(collection(db, "posts"), where("id", "==", id));
@@ -79,11 +85,6 @@ function Detail({ isEdit, toggleIsEdit }) {
       console.log("Not Update");
     }
   };
-
-  // const handleQuitEdit = () => {
-  //   setEditData(initialData);
-  //   // toggleIsEdit(false);
-  // };
 
   return (
     <Container>
@@ -115,30 +116,27 @@ function Detail({ isEdit, toggleIsEdit }) {
           >
             목록으로
           </ButtonSecondary>
-          <ButtonRightBox>
-            <ButtonSecondary onClick={toggleIsEdit}>수정</ButtonSecondary>
-            <ButtonSecondary onClick={openModalHandler1}>삭제</ButtonSecondary>
 
-            {isOpenCancel && (
-              <Modal
-                isOpen={isOpenCancel}
-                // handleModal={handleQuitEdit}
-                setIsOpen={setIsOpenCancel}
-              >
-                수정을 취소하시겠습니까?
-              </Modal>
-            )}
+          {isShow && (
+            <>
+              <ButtonRightBox>
+                <ButtonSecondary onClick={toggleIsEdit}>수정</ButtonSecondary>
+                <ButtonSecondary onClick={openModalHandler1}>
+                  삭제
+                </ButtonSecondary>
 
-            {isOpenOk && (
-              <Modal
-                isOpen={isOpenOk}
-                handleModal={deletePost}
-                setIsOpen={setIsOpenOk}
-              >
-                정말로 글을 삭제하시겠습니까?
-              </Modal>
-            )}
-          </ButtonRightBox>
+                {isOpenOk && (
+                  <Modal
+                    isOpen={isOpenOk}
+                    handleModal={onDeletePost}
+                    setIsOpen={setIsOpenOk}
+                  >
+                    정말로 글을 삭제하시겠습니까?
+                  </Modal>
+                )}
+              </ButtonRightBox>
+            </>
+          )}
         </ButtonContainer>
       )}
     </Container>
