@@ -1,11 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 import { ProfileImgXS } from "./ui/ProfileImg";
 import { ButtonPrimary } from "./ui/Button";
-import { db } from "../firebase-config";
-import { query, collection, where, getDocs } from "firebase/firestore";
-import { useParams } from "react-router-dom";
+import ModalSoon from "./ModalSoon";
 
 const frontStacks = [
   "Angular",
@@ -65,25 +63,15 @@ const stackBackgrounds = [
   { stack: "Java", color: "#D9D9D9" },
 ];
 
-function ViewStudy() {
-  const { id } = useParams();
-  const [data, setData] = useState({});
-
+function ViewStudy({ data }) {
   const nickName = useSelector((state) => state.loginReducer.nickName);
   const photoUrl = useSelector((state) => state.loginReducer.photoUrl);
 
-  const getPosts = async () => {
-    const q = query(collection(db, "posts"), where("id", "==", id));
+  const [isOpen, setIsOpen] = useState(false);
 
-    const querySnapshot = await getDocs(q);
-    querySnapshot.forEach((doc) => {
-      setData(doc.data());
-    });
+  const modalSoonHandler = () => {
+    setIsOpen(true);
   };
-
-  useEffect(() => {
-    getPosts();
-  }, []);
 
   const pick = (i) => {
     const filtered = stackBackgrounds
@@ -185,7 +173,12 @@ function ViewStudy() {
         </DevInfo>
         <Content>{data.content}</Content>
         <ButtonBox>
-          <ButtonPrimary background="#2863FB">참여하기</ButtonPrimary>
+          <ButtonPrimary background="#2863FB" onClick={modalSoonHandler}>
+            참여하기
+          </ButtonPrimary>
+          <ModalSoon isOpen={isOpen} setIsOpen={setIsOpen}>
+            참여하기 기능
+          </ModalSoon>
         </ButtonBox>
       </ViewContainer>
     </>

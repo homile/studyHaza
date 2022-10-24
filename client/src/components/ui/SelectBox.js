@@ -18,6 +18,7 @@ export const SelectBox = (props) => {
       onChange={
         props.options === props.devTypeOptions ? onChangeDevType : onChangeOnOff
       }
+      value={props.defaultValue}
     >
       {props.options.map((option) => (
         <option key={option.value} value={option.value}>

@@ -1,18 +1,16 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
-
+import { useNavigate } from "react-router-dom";
 import { WriteInputContainer } from "./ui/WriteInput";
 import { SelectBox } from "./ui/SelectBox";
 import { DatePick } from "./DatePick";
 import CheckBox from "./CheckBox";
 import { ButtonPrimary } from "./ui/Button";
 import Modal from "./Modal";
-
 import { db } from "../firebase-config";
 import { collection, addDoc } from "firebase/firestore";
 import uuid from "react-uuid";
-import { useNavigate } from "react-router-dom";
 
 const devTypeOptions = [
   { value: "frontend", name: "프론트엔드" },
@@ -24,7 +22,7 @@ const onOffOptions = [
   { value: "off", name: "오프라인" },
 ];
 
-const WriteStudy = ({ setIsOk, setIsWrite }) => {
+const WriteStudy = ({ setIsOk, setIsWrite, isEdit }) => {
   const navigate = useNavigate();
   const [title, setTitle] = useState("");
   const [startDate, setStartDate] = useState(new Date());
@@ -60,10 +58,10 @@ const WriteStudy = ({ setIsOk, setIsWrite }) => {
 
   const postsCollectionRef = collection(db, "posts");
 
-  // firestore에 데이터 올리기
+  // firestore에 데이터 업로드
   const createPosts = async () => {
     const id = uuid();
-    const data = await addDoc(postsCollectionRef, {
+    const res = await addDoc(postsCollectionRef, {
       board: "study",
       content,
       dateCreated: dateCreated.toLocaleDateString(),
@@ -163,30 +161,34 @@ const WriteStudy = ({ setIsOk, setIsWrite }) => {
           />
         </div>
       </WriteInputContainer>
-      <ButtonContainer>
-        <ButtonPrimary onClick={openModalHandler2} background="#B6B6B6">
-          취소
-        </ButtonPrimary>
-        {isOpenCancel && (
-          <Modal
-            isOpen={isOpenCancel}
-            handleModal={handleInit}
-            setIsOpen={setIsOpenCancel}
-          >
-            등록을 취소하시겠습니까?
-          </Modal>
-        )}
-        <ButtonPrimary onClick={openModalHandler1}>작성완료</ButtonPrimary>
-        {isOpenOk && (
-          <Modal
-            isOpen={isOpenOk}
-            handleModal={createPosts}
-            setIsOpen={setIsOpenOk}
-          >
-            스터디 모집 글을 등록하시겠습니까?
-          </Modal>
-        )}
-      </ButtonContainer>
+      {!isEdit && (
+        <ButtonContainer>
+          <ButtonPrimary onClick={openModalHandler2} background="#B6B6B6">
+            취소
+          </ButtonPrimary>
+          <ButtonPrimary onClick={openModalHandler1}>작성완료</ButtonPrimary>
+        </ButtonContainer>
+      )}
+
+      {isOpenCancel && (
+        <Modal
+          isOpen={isOpenCancel}
+          handleModal={handleInit}
+          setIsOpen={setIsOpenCancel}
+        >
+          등록을 취소하시겠습니까?
+        </Modal>
+      )}
+
+      {isOpenOk && (
+        <Modal
+          isOpen={isOpenOk}
+          handleModal={createPosts}
+          setIsOpen={setIsOpenOk}
+        >
+          스터디 모집 글을 등록하시겠습니까?
+        </Modal>
+      )}
     </>
   );
 };

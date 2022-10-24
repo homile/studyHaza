@@ -4,7 +4,7 @@ import { StudyContents } from "../components/ui/StudyContents";
 import iconButton from "../images/icon_add.png";
 import styled from "styled-components";
 
-function StudyJoin({ posts }) {
+function StudyJoin({ posts, isEdit }) {
   const [isWrite, setIsWrite] = useState(false);
 
   const onWriteClick = () => {
@@ -14,7 +14,7 @@ function StudyJoin({ posts }) {
   return (
     <Container>
       {isWrite ? (
-        <WriteBox setIsWrite={setIsWrite} />
+        <WriteBox setIsWrite={setIsWrite} isEdit={isEdit} />
       ) : (
         <>
           <CreateStudyButton onClick={onWriteClick}>
@@ -24,11 +24,7 @@ function StudyJoin({ posts }) {
             </div>
           </CreateStudyButton>
           <ConPanel>
-            {posts !== 0 ? 
-              <StudyContents posts={posts} />
-            :
-             <p>멍멍</p>
-            }
+            {posts !== 0 ? <StudyContents posts={posts} /> : <p>멍멍</p>}
           </ConPanel>
         </>
       )}
@@ -47,7 +43,7 @@ const Container = styled.div`
 
 const ConPanel = styled.div`
   width: 100%;
-  min-height:90vh;
+  min-height: 90vh;
   padding: 50px 0 25px;
 `;
 

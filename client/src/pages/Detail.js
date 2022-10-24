@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 import ViewStudy from "../components/ViewStudy";
 import { ButtonSecondary } from "../components/ui/Button";
@@ -11,24 +12,52 @@ import {
   collection,
   where,
   getDocs,
+  updateDoc
 } from "firebase/firestore";
 import { db } from "../firebase-config";
 import { useParams } from "react-router-dom";
 import Modal from "../components/Modal";
+import PostEditor from "../components/PostEditor";
 
-function Detail() {
+function Detail({ isEdit, toggleIsEdit }) {
+  const nickName = useSelector((state) => state.loginReducer.nickName);
+
   const { id } = useParams();
   const navigate = useNavigate();
-
   const pathName = useLocation().pathname.split("/")[1];
 
+  const [data, setData] = useState({});
   const [isOpenOk, setIsOpenOk] = useState(false);
+  const [isShow, setIsShow] = useState(false);
 
-  const openModalHandler = () => {
+  const getPosts = async () => {
+    const q = query(collection(db, "posts"), where("id", "==", id));
+
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+      setData(doc.data());
+    });
+  };
+
+  useEffect(() => {
+    getPosts();
+  }, []);
+
+  // 글쓴이만 수정, 삭제 버튼보이도록
+  useEffect(() => {
+    if (nickName === data.nickName) {
+      setIsShow(true);
+    } else {
+      setIsShow(false);
+    }
+  }, [data.nickName, nickName]);
+
+  const openModalHandler1 = () => {
     setIsOpenOk(!isOpenOk);
   };
 
-  const deletePost = async () => {
+  // 글 삭제
+  const onDeletePost = async () => {
     const q = query(collection(db, "posts"), where("id", "==", id));
     const data = await getDocs(q);
     try {
@@ -42,34 +71,75 @@ function Detail() {
     }
   };
 
+  // 글 수정
+  const onUpdatePost = async (el) => {
+    console.log(el);
+    const q = query(collection(db, "posts"), where("id", "==", id));
+    const data = await getDocs(q);
+    try {
+      if (data.docs.length !== 0) {
+        await updateDoc(data.docs[0].ref, el);
+      }
+      toggleIsEdit();
+      window.location.reload();
+    } catch {
+      console.log("Not Update");
+    }
+  };
+
   return (
     <Container>
-      {pathName === "community" ? <ViewCommunity /> : <ViewStudy />}
-      <ButtonContainer>
-        <ButtonSecondary
-          width="126px"
-          onClick={() => {
-            pathName === "community"
-              ? navigate("/community")
-              : navigate("/studyjoin");
-          }}
-        >
-          목록으로
-        </ButtonSecondary>
-        <ButtonRightBox>
-          <ButtonSecondary>수정</ButtonSecondary>
-          <ButtonSecondary onClick={openModalHandler}>삭제</ButtonSecondary>
-          {isOpenOk && (
-            <Modal
-              isOpen={isOpenOk}
-              handleModal={deletePost}
-              setIsOpen={setIsOpenOk}
-            >
-              정말로 글을 삭제하시겠습니까?
-            </Modal>
+      {isEdit ? (
+        <PostEditor
+          isEdit={isEdit}
+          data={data}
+          onUpdatePost={onUpdatePost}
+          toggleIsEdit={toggleIsEdit}
+        />
+      ) : (
+        <>
+          {pathName === "community" ? (
+            <ViewCommunity />
+          ) : (
+            <ViewStudy data={data} id={id} />
           )}
-        </ButtonRightBox>
-      </ButtonContainer>
+        </>
+      )}
+      {!isEdit && (
+        <ButtonContainer>
+          <ButtonSecondary
+            width="126px"
+            onClick={() => {
+              pathName === "community"
+                ? navigate("/community")
+                : navigate("/studyjoin");
+            }}
+          >
+            목록으로
+          </ButtonSecondary>
+
+          {isShow && (
+            <>
+              <ButtonRightBox>
+                <ButtonSecondary onClick={toggleIsEdit}>수정</ButtonSecondary>
+                <ButtonSecondary onClick={openModalHandler1}>
+                  삭제
+                </ButtonSecondary>
+
+                {isOpenOk && (
+                  <Modal
+                    isOpen={isOpenOk}
+                    handleModal={onDeletePost}
+                    setIsOpen={setIsOpenOk}
+                  >
+                    정말로 글을 삭제하시겠습니까?
+                  </Modal>
+                )}
+              </ButtonRightBox>
+            </>
+          )}
+        </ButtonContainer>
+      )}
     </Container>
   );
 }
