@@ -25,7 +25,6 @@ function WriteCommunity({ setIsOk, setIsWrite, setIsView }) {
   // 완료 버튼 클릭시
   const openModalHandler1 = () => {
     setIsOpenOk(!isOpenOk);
-    setIsView(true);
   };
 
   // 취소 버튼 클릭시
@@ -72,7 +71,7 @@ function WriteCommunity({ setIsOk, setIsWrite, setIsView }) {
         <hr />
       </WriteInputContainer>
 
-      <WriteInputContainer>
+      <WriteInputContainer height="350px">
         <label htmlFor="content">내용</label>
         <div>
           <textarea

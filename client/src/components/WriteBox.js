@@ -18,7 +18,7 @@ const WriteBox = ({ setIsWrite }) => {
             {pathname === "/community" ? "커뮤니티 글쓰기" : "스터디 만들기"}
           </HeaderContainer>
 
-          <WriteContainer>
+          <WriteContainer community={pathname === "/community" ? true : false}>
             {pathname === "/community" ? (
               <WriteCommunity setIsOk={setIsOk} setIsWrite={setIsWrite} />
             ) : (
@@ -45,7 +45,7 @@ const WriteContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: 1250px;
+  height: ${(props) => (props.community ? "700px" : "1230px")};
   border: 1px solid #e3e3e3;
   border-radius: 0 0 30px 30px;
   margin-bottom: 6rem;
