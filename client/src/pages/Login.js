@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from "react";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
 import { ButtonLogin, ButtonSnsLogin } from "../components/ui/Button";
@@ -53,20 +53,26 @@ function Login() {
           .catch((error) => {
             const errorCode = error.code;
             const errorMessage = error.message;
+            console.log(errorCode, errorMessage);
           });
         dispatch(loginSuccess());
         setEmail("");
         setPassword("");
-        navigate('/');
+        navigate("/");
         window.location.reload();
         // ...
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
+        if (errorCode === "auth/user-not-found") {
+          alert("존재하지 않는 이메일입니다.");
+        }
+        if (errorCode === "auth/wrong-password") {
+          alert("비밀번호가 틀렸습니다.");
+        }
       });
   };
-
 
   const emailChange = (e) => {
     setEmail(e);
@@ -115,7 +121,9 @@ function Login() {
           </span>
           <span>|</span>
           <span>
-            <em>회원가입</em>
+            <StyledLink to="/signup">
+              <em>회원가입</em>
+            </StyledLink>
           </span>
         </StyledUtilContainer>
         <hr></hr>
@@ -214,4 +222,9 @@ const SnsButtonContainer = styled.div`
     height: 43px;
     left: 1rem;
   }
+`;
+
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: black;
 `;
