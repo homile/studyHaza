@@ -12,12 +12,13 @@ import {
   collection,
   where,
   getDocs,
-  updateDoc
+  updateDoc,
 } from "firebase/firestore";
 import { db } from "../firebase-config";
 import { useParams } from "react-router-dom";
 import Modal from "../components/Modal";
 import PostEditor from "../components/PostEditor";
+import EditCommunity from "../components/EditCommunity";
 
 function Detail({ isEdit, toggleIsEdit }) {
   const nickName = useSelector((state) => state.loginReducer.nickName);
@@ -64,7 +65,8 @@ function Detail({ isEdit, toggleIsEdit }) {
       if (data.docs.length !== 0) {
         await deleteDoc(data.docs[0].ref);
       }
-      navigate("/");
+      pathName === "community" ? navigate("/community") : navigate("/");
+
       window.location.reload();
     } catch {
       console.log("Not delete");
@@ -86,16 +88,26 @@ function Detail({ isEdit, toggleIsEdit }) {
       console.log("Not Update");
     }
   };
-
   return (
     <Container>
       {isEdit ? (
-        <PostEditor
-          isEdit={isEdit}
-          data={data}
-          onUpdatePost={onUpdatePost}
-          toggleIsEdit={toggleIsEdit}
-        />
+        <>
+          {pathName === "community" ? (
+            <EditCommunity
+              isEdit={isEdit}
+              data={data}
+              onUpdatePost={onUpdatePost}
+              toggleIsEdit={toggleIsEdit}
+            />
+          ) : (
+            <PostEditor
+              isEdit={isEdit}
+              data={data}
+              onUpdatePost={onUpdatePost}
+              toggleIsEdit={toggleIsEdit}
+            />
+          )}
+        </>
       ) : (
         <>
           {pathName === "community" ? (

@@ -43,7 +43,7 @@ const PostEditor = ({ data, onUpdatePost, toggleIsEdit }) => {
     dateUpdated,
   };
 
-  // 수정 버튼
+  // 수정 완료 버튼
   const handleEdit = () => {
     onUpdatePost(editData);
   };
