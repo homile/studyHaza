@@ -9,7 +9,7 @@ function SearchBar() {
     const onChange = (e) => {
       setSearch(e.target.value);
       if (e.target.value.length !== 0) {
-        console.log("have value!!!");
+      //   console.log("have value!!!");
       }
       // setLength(e.target.value.length);
     };
@@ -22,7 +22,7 @@ function SearchBar() {
                 value={search}
                 onChange={onChange}
                 onClick={() => {
-                console.log(search);
+                // console.log(search);
                 }}
             ></i>
             </Icon>
@@ -35,7 +35,7 @@ function SearchBar() {
             autoComplete="off"
             onKeyUp={(e) => {
                 if (e.key === "Enter") {
-                console.log(e.target.value);
+                // console.log(e.target.value);
                 }
             }}
             />

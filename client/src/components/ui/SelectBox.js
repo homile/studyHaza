@@ -5,12 +5,12 @@ export const SelectBox = (props) => {
   const onChangeDevType = (e) => {
     props.setDevType(e.target.value);
     props.setDevStack([]);
-    console.log(e.target.value);
+    // console.log(e.target.value);
   };
 
   const onChangeOnOff = (e) => {
     props.setOnOff(e.target.value);
-    console.log(e.target.value);
+    // console.log(e.target.value);
   };
 
   return (

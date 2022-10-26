@@ -5,7 +5,6 @@ import { ButtonPrimary } from "../components/ui/Button";
 import styled from "styled-components";
 
 function Main({posts, postsTotal}) {
-  console.log(posts);
   return (
     <Container>
       <AdArea posts={postsTotal} />
