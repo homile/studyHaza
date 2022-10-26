@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { ButtonPrimary } from "./ui/Button";
 import { MyPageDropDown } from "./ui/DropDown";
 import { ProfileImgSM } from "./ui/ProfileImg";
@@ -12,6 +12,7 @@ import Search from "./ui/SearchInput";
 import { getAuth } from "firebase/auth";
 
 function Nav() {
+  const navigate = useNavigate();
   const { pathname } = useLocation();
   const dispatch = useDispatch();
   const [isNameClick, setIsNameClick] = useState(false);
@@ -28,6 +29,7 @@ function Nav() {
   const logoutHandler = () => {
     dispatch(logoutUserInfo());
     getAuth().signOut();
+    navigate("/");
     window.location.reload();
   };
 
