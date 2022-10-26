@@ -22,7 +22,6 @@ function ViewCommunity() {
     });
   };
 
-
   useEffect(() => {
     getPosts();
   }, []);
@@ -39,7 +38,7 @@ function ViewCommunity() {
                 : photoUrl
             }
           />
-          <Writer>{nickName}</Writer>
+          <Writer>{data.nickName}</Writer>
           <hr />
           <Date>{data.dateCreated}</Date>
         </Info>
