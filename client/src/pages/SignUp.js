@@ -102,7 +102,12 @@ function SignUp() {
         .catch((error) => {
           const errorCode = error.code;
           const errorMessage = error.message;
-          // ..
+          if (errorCode === "auth/weak-password") {
+            alert("비밀번호는 숫자,영문,특수문자를 포함한 8자리 이상입니다.");
+          }
+          if (errorCode === "auth/email-already-in-use") {
+            alert("이미 사용중인 이메일입니다.");
+          }
         });
     }
   };
