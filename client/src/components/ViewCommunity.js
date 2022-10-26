@@ -22,7 +22,6 @@ function ViewCommunity() {
     });
   };
 
-  console.log(data);
 
   useEffect(() => {
     getPosts();
