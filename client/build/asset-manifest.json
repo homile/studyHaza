@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.css": "/static/css/main.50b6ea94.css",
+    "main.js": "/static/js/main.3bd59e4d.js",
+    "static/js/787.c4e7f8f9.chunk.js": "/static/js/787.c4e7f8f9.chunk.js",
+    "static/media/Pretendard-Light.ttf": "/static/media/Pretendard-Light.3711e13d79704d388100.ttf",
+    "static/media/Pretendard-Regular.ttf": "/static/media/Pretendard-Regular.7c20008ec8c0968904c4.ttf",
+    "static/media/Pretendard-Medium.ttf": "/static/media/Pretendard-Medium.a55315616a247a625bea.ttf",
+    "static/media/Pretendard-ExtraBold.ttf": "/static/media/Pretendard-ExtraBold.7ca47a8c0824d1f740dc.ttf",
+    "static/media/Pretendard-Bold.ttf": "/static/media/Pretendard-Bold.3657cde72d6af8de8bfb.ttf",
+    "static/media/spinner.gif": "/static/media/spinner.12fce3b2abdc8c8a701c.gif",
+    "static/media/facebook_symbol.png": "/static/media/facebook_symbol.e93a6976eaeef5227143.png",
+    "static/media/pf_sample.png": "/static/media/pf_sample.81078f52f1fc4265efcf.png",
+    "static/media/icon_team3.png": "/static/media/icon_team3.50d9cc2f585024ba2a8d.png",
+    "static/media/icon_team.png": "/static/media/icon_team.6aff71c4075fa055f915.png",
+    "static/media/google_symbol.png": "/static/media/google_symbol.96fb3bd9ad5962e307ee.png",
+    "index.html": "/index.html",
+    "main.50b6ea94.css.map": "/static/css/main.50b6ea94.css.map",
+    "main.3bd59e4d.js.map": "/static/js/main.3bd59e4d.js.map",
+    "787.c4e7f8f9.chunk.js.map": "/static/js/787.c4e7f8f9.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.50b6ea94.css",
+    "static/js/main.3bd59e4d.js"
+  ]
+}

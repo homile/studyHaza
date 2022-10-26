@@ -69,13 +69,13 @@ function Detail({ isEdit, toggleIsEdit }) {
 
       window.location.reload();
     } catch {
-      console.log("Not delete");
+      // console.log("Not delete");
     }
   };
 
   // 글 수정
   const onUpdatePost = async (el) => {
-    console.log(el);
+    // console.log(el);
     const q = query(collection(db, "posts"), where("id", "==", id));
     const data = await getDocs(q);
     try {
@@ -85,7 +85,7 @@ function Detail({ isEdit, toggleIsEdit }) {
       toggleIsEdit();
       window.location.reload();
     } catch {
-      console.log("Not Update");
+      // console.log("Not Update");
     }
   };
   return (
