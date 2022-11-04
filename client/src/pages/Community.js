@@ -1,17 +1,17 @@
-import React, { useState, useEffect } from "react";
-import WriteBox from "../components/WriteBox";
-import SearchBar from "../components/ui/SearchInputBar";
-import BoardHeader from "../components/ui/BoardHeader";
-import BoardListContents from "../components/ui/BoardListContents";
-import Pagination from "../components/ui/Pagination";
-import styled from "styled-components";
+import React, { useState, useEffect } from 'react';
+import WriteBox from '../components/Post/PostBox';
+import SearchBar from '../components/UI/SearchInputBar';
+import BoardHeader from '../components/UI/BoardHeader';
+import BoardListContents from '../components/UI/BoardListContents';
+import Pagination from '../components/UI/Pagination';
+import styled from 'styled-components';
 
 function Community({ posts }) {
   const [isWrite2, setIsWrite2] = useState(false);
   const [postData, setPostData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage, setPostsPerPage] = useState(10);
-  
+
   const onWriteClick = () => {
     setIsWrite2(true);
   };
@@ -62,7 +62,7 @@ const Container = styled.div`
 
 const ConPanel = styled.div`
   width: 100%;
-  min-height:90vh;
+  min-height: 90vh;
   padding: 50px 0 25px;
 `;
 
@@ -77,5 +77,5 @@ const SubPageTop = styled.div`
 
 const TypeH2 = styled.h2`
   font-size: 40px;
-  font-family: "Pretendard-Bold";
+  font-family: 'Pretendard-Bold';
 `;

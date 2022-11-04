@@ -1,7 +1,5 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
-import ImgObject from "../images/icon_team3.png";
+import styled from 'styled-components';
+import ImgObject from '../../../images/icon_team3.png';
 
 const ModalSucces = ({ isOpen, setIsOpen }) => {
   const openModalHandler = () => {
@@ -10,27 +8,28 @@ const ModalSucces = ({ isOpen, setIsOpen }) => {
 
   return (
     <>
-    {isOpen &&
-      <StyledModal className="modal" onClick={openModalHandler}>
-        <StyledModalCon onClick={(e) => e.stopPropagation()}>
-          <div className="modal-body soon">
-            <div>
-              <b>회원가입 완료</b>
-              <p>스터디하자에 오신것을 환영합니다!</p>
-              <img className="icon-team3" src={ImgObject} alt=""></img>
+      {isOpen && (
+        <StyledModal className="modal" onClick={openModalHandler}>
+          <StyledModalCon onClick={(e) => e.stopPropagation()}>
+            <div className="modal-body soon">
+              <div>
+                <b>회원가입 완료</b>
+                <p>스터디하자에 오신것을 환영합니다!</p>
+                <img className="icon-team3" src={ImgObject} alt=""></img>
+              </div>
             </div>
-          </div>
-          <StyledModalFooter>
-            <button
-              type="button"
-              className="btn-modal cta"
-              onClick={openModalHandler}
-            >
-              확인
-            </button>
-          </StyledModalFooter>
-        </StyledModalCon>
-      </StyledModal>}
+            <StyledModalFooter>
+              <button
+                type="button"
+                className="btn-modal cta"
+                onClick={openModalHandler}
+              >
+                확인
+              </button>
+            </StyledModalFooter>
+          </StyledModalCon>
+        </StyledModal>
+      )}
     </>
   );
 };
@@ -71,7 +70,7 @@ const StyledModalCon = styled.div`
       display: inline-block;
       padding-bottom: 16px;
       font-size: 40px;
-      font-family: "Pretendard-ExtraBold";
+      font-family: 'Pretendard-ExtraBold';
     }
     p,
     strong {

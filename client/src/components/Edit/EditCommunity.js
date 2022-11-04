@@ -1,15 +1,8 @@
-import React, { useState } from "react";
-import { useSelector } from "react-redux";
-import styled from "styled-components";
-
-import { WriteInputContainer } from "./ui/WriteInput";
-import { ButtonSecondary } from "./ui/Button";
-import Modal from "./Modal";
-
-import { db } from "../firebase-config";
-import { collection, addDoc } from "firebase/firestore";
-import uuid from "react-uuid";
-import { useNavigate } from "react-router-dom";
+import { useState } from 'react';
+import styled from 'styled-components';
+import { WriteInputContainer } from '../Post/ui/PostInput';
+import { ButtonSecondary } from '../UI/Button/Button';
+import Modal from '../UI/Modal/Modal';
 
 const EditCommunity = ({ data, onUpdatePost, toggleIsEdit }) => {
   const [editTitle, setEditTitle] = useState(data.title);

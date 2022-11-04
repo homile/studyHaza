@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import img from "../../images/down_arrow.png";
+import styled from 'styled-components';
+import img from '../../../images/down_arrow.png';
 
 export const SelectBox = (props) => {
   const onChangeDevType = (e) => {

@@ -1,19 +1,19 @@
-import { StudyContents } from "../components/ui/StudyContents";
-import { AdArea } from "../components/ui/AdArea";
-import { NavLink } from "react-router-dom";
-import { ButtonPrimary } from "../components/ui/Button";
-import styled from "styled-components";
+import { StudyContents } from '../components/UI/StudyContents';
+import { AdArea } from '../components/UI/AdArea';
+import { NavLink } from 'react-router-dom';
+import { ButtonPrimary } from '../components/UI/Button/Button';
+import styled from 'styled-components';
 
-function Main({posts, postsTotal}) {
+function Main({ posts, postsTotal }) {
   return (
     <Container>
       <AdArea posts={postsTotal} />
       <ConPanel>
-          <StudyContents posts={posts} />
-          
+        <StudyContents posts={posts} />
+
         <div className="button-area">
           <NavLink to="/studyjoin">
-              <ButtonPrimary>+ 더보기</ButtonPrimary>
+            <ButtonPrimary>+ 더보기</ButtonPrimary>
           </NavLink>
         </div>
       </ConPanel>

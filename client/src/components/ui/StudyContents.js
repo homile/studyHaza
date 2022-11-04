@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
-import styled from "styled-components";
-import { StudyCard } from "./StudyCard";
-import { SwitchButton } from "./SwitchButton";
-import Loading from "../Loading";
+import { useEffect, useState } from 'react';
+import styled from 'styled-components';
+import { StudyCard } from './StudyCard';
+import { SwitchButton } from './Button/SwitchButton';
+import Loading from '../Layout/Loading';
 
 export const StudyContents = ({ posts }) => {
   const [currentTab, setCurrentTab] = useState(0);
@@ -10,8 +10,8 @@ export const StudyContents = ({ posts }) => {
   const [postData, setPostData] = useState([]);
 
   const filtered = {
-    menuTab: ["전체", "프론트엔드", "백엔드"],
-    skillTab: ["전체", "frontend", "backend"],
+    menuTab: ['전체', '프론트엔드', '백엔드'],
+    skillTab: ['전체', 'frontend', 'backend'],
   };
 
   useEffect(() => {
@@ -29,7 +29,7 @@ export const StudyContents = ({ posts }) => {
           setPostData(
             filterdData.filter((data) => {
               return data.devType === filtered.skillTab[i];
-            })
+            }),
           );
         }
       }
@@ -40,7 +40,7 @@ export const StudyContents = ({ posts }) => {
           setPostData(
             posts.filter((data) => {
               return data.devType === filtered.skillTab[i];
-            })
+            }),
           );
         }
       }
@@ -63,7 +63,7 @@ export const StudyContents = ({ posts }) => {
             return (
               <li
                 key={idx}
-                className={`${idx === currentTab ? "active" : null}`}
+                className={`${idx === currentTab ? 'active' : null}`}
                 onClick={() => activeMenuHandler(idx)}
               >
                 {el}
@@ -97,7 +97,7 @@ const TabMenu = styled.ul`
 
   li {
     font-size: 1.25rem;
-    font-family: "Pretendard-Medium";
+    font-family: 'Pretendard-Medium';
     background: #f0f0f0;
     padding: 15px 20px;
     border-radius: 12px;
@@ -108,16 +108,16 @@ const TabMenu = styled.ul`
     }
 
     &:before {
-      font-family: "FontAwesome";
+      font-family: 'FontAwesome';
       margin-right: 5px;
     }
 
     &:nth-child(2):before {
-      content: "\f1b2";
+      content: '\f1b2';
     }
 
     &:nth-child(3):before {
-      content: "\f233";
+      content: '\f233';
     }
   }
 `;
@@ -138,7 +138,7 @@ const SwitchGroup = styled.div`
   display: flex;
   align-items: center;
   font-size: 20px;
-  font-family: "Pretendard-Medium";
+  font-family: 'Pretendard-Medium';
   gap: 5px;
 `;
 

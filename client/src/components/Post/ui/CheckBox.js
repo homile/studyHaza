@@ -1,37 +1,37 @@
-import React from "react";
-import styled from "styled-components";
-import img1 from "../images/check_icon1.png";
-import img2 from "../images/check_icon2.png";
+import React from 'react';
+import styled from 'styled-components';
+import img1 from '../../../images/check_icon1.png';
+import img2 from '../../../images/check_icon2.png';
 
 const FRONT_LIST = [
-  { id: "Angular", data: "Angular" },
-  { id: "Emotion", data: "Emotion" },
-  { id: "GraphQL", data: "GraphQL" },
-  { id: "NextJS", data: "NextJS" },
-  { id: "ReactJS", data: "ReactJS" },
-  { id: "VueJS", data: "VueJS" },
-  { id: "Redux", data: "Redux" },
-  { id: "Recoil", data: "Recoil" },
-  { id: "Storybook", data: "Storybook" },
-  { id: "StyledComponent", data: "StyledComponent" },
-  { id: "HTML", data: "HTML" },
-  { id: "CSS", data: "CSS" },
-  { id: "JavaScript", data: "JavaScript" },
-  { id: "TypeScript", data: "TypeScript" },
+  { id: 'Angular', data: 'Angular' },
+  { id: 'Emotion', data: 'Emotion' },
+  { id: 'GraphQL', data: 'GraphQL' },
+  { id: 'NextJS', data: 'NextJS' },
+  { id: 'ReactJS', data: 'ReactJS' },
+  { id: 'VueJS', data: 'VueJS' },
+  { id: 'Redux', data: 'Redux' },
+  { id: 'Recoil', data: 'Recoil' },
+  { id: 'Storybook', data: 'Storybook' },
+  { id: 'StyledComponent', data: 'StyledComponent' },
+  { id: 'HTML', data: 'HTML' },
+  { id: 'CSS', data: 'CSS' },
+  { id: 'JavaScript', data: 'JavaScript' },
+  { id: 'TypeScript', data: 'TypeScript' },
 ];
 
 const BACK_LIST = [
-  { id: "Apollo", data: "Apollo" },
-  { id: "AWS", data: "AWS" },
-  { id: "ExpressJS", data: "ExpressJS" },
-  { id: "Django", data: "Django" },
-  { id: "NestJS", data: "NestJS" },
-  { id: "NodeJS", data: "NodeJS" },
-  { id: "Spring", data: "Spring" },
-  { id: "SpringBoot", data: "SpringBoot" },
-  { id: "Python", data: "Python" },
-  { id: "Java", data: "Java" },
-  { id: "JavaScript", data: "JavaScript" },
+  { id: 'Apollo', data: 'Apollo' },
+  { id: 'AWS', data: 'AWS' },
+  { id: 'ExpressJS', data: 'ExpressJS' },
+  { id: 'Django', data: 'Django' },
+  { id: 'NestJS', data: 'NestJS' },
+  { id: 'NodeJS', data: 'NodeJS' },
+  { id: 'Spring', data: 'Spring' },
+  { id: 'SpringBoot', data: 'SpringBoot' },
+  { id: 'Python', data: 'Python' },
+  { id: 'Java', data: 'Java' },
+  { id: 'JavaScript', data: 'JavaScript' },
 ];
 
 const CheckBox = ({ devStack, devType, setDevStack }) => {
@@ -44,7 +44,7 @@ const CheckBox = ({ devStack, devType, setDevStack }) => {
     }
   };
 
-  const checkList = (devType === "frontend" ? FRONT_LIST : BACK_LIST).map(
+  const checkList = (devType === 'frontend' ? FRONT_LIST : BACK_LIST).map(
     (item) => {
       return (
         <CheckBoxItem key={item.id}>
@@ -60,7 +60,7 @@ const CheckBox = ({ devStack, devType, setDevStack }) => {
           <label htmlFor={item.id}>{item.data}</label>
         </CheckBoxItem>
       );
-    }
+    },
   );
 
   return (
@@ -84,7 +84,7 @@ const CheckBoxContainer = styled.div`
 
   label {
     font-size: 17px;
-    font-family: "Pretendard-Medium";
+    font-family: 'Pretendard-Medium';
     margin-bottom: 0.2rem;
   }
 
@@ -116,7 +116,7 @@ const CheckBoxItem = styled.div`
     margin-left: 0.5rem;
   }
 
-  input[type="checkbox"] {
+  input[type='checkbox'] {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
@@ -129,27 +129,27 @@ const CheckBoxItem = styled.div`
     transition: none;
   }
 
-  input[type="checkbox"]::after {
+  input[type='checkbox']::after {
     background: url(${img2}) no-repeat 10% 100%/25px auto;
-    content: "";
+    content: '';
     display: none;
     width: 28px;
     height: 28px;
     position: relative;
   }
 
-  input[type="checkbox"]:checked {
+  input[type='checkbox']:checked {
     background: #2584f4;
     border: 1px solid #2584f4;
     animation: none;
   }
 
-  input[type="checkbox"]:checked::after {
+  input[type='checkbox']:checked::after {
     display: block;
   }
 
   label {
     font-size: 17px;
-    font-family: "Pretendard-Medium";
+    font-family: 'Pretendard-Medium';
   }
 `;

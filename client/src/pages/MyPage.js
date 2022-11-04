@@ -1,8 +1,8 @@
-import React from 'react'
+import React from 'react';
 import styled from 'styled-components';
-import SideBar from '../components/myPage/SideBar';
+import SideBar from '../components/MyPage/SideBar';
 
-import Content from '../components/myPage/Content';
+import Content from '../components/MyPage/Content';
 
 const MyPage = () => {
   return (
@@ -10,11 +10,10 @@ const MyPage = () => {
       <SideBar></SideBar>
       <Content></Content>
     </MyPageContainer>
-  )
-}
+  );
+};
 
 export default MyPage;
-
 
 const MyPageContainer = styled.div`
   display: flex;

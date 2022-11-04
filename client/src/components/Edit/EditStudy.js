@@ -1,20 +1,20 @@
-import React, { useState } from "react";
-import styled from "styled-components";
-import { ButtonSecondary } from "../components/ui/Button";
-import { WriteInputContainer } from "./ui/WriteInput";
-import { SelectBox } from "./ui/SelectBox";
-import { DatePick } from "./DatePick";
-import CheckBox from "./CheckBox";
-import Modal from "./Modal";
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import { ButtonSecondary } from '../UI/Button/Button';
+import { WriteInputContainer } from '../Post/ui/PostInput';
+import { SelectBox } from '../Post/ui/SelectBox';
+import { DatePick } from '../Post/ui/DatePick';
+import CheckBox from '../Post/ui/CheckBox';
+import Modal from '../UI/Modal/Modal';
 
 const devTypeOptions = [
-  { value: "frontend", name: "프론트엔드" },
-  { value: "backend", name: "백엔드" },
+  { value: 'frontend', name: '프론트엔드' },
+  { value: 'backend', name: '백엔드' },
 ];
 
 const onOffOptions = [
-  { value: "on", name: "온라인" },
-  { value: "off", name: "오프라인" },
+  { value: 'on', name: '온라인' },
+  { value: 'off', name: '오프라인' },
 ];
 
 const PostEditor = ({ data, onUpdatePost, toggleIsEdit }) => {
@@ -23,7 +23,7 @@ const PostEditor = ({ data, onUpdatePost, toggleIsEdit }) => {
   const [editDevType, setEditDevType] = useState(data.devType);
   const [editDevStack, setEditDevStack] = useState(data.devStack);
   const [editTotalHeadCount, setEditTotalHeadCount] = useState(
-    data.totalHeadCount
+    data.totalHeadCount,
   );
   const [editOnOff, setEditOnOff] = useState(data.onOff);
   const [editContent, setEditContent] = useState(data.content);
