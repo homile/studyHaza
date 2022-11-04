@@ -1,28 +1,28 @@
-import React, { useRef, useState, useEffect } from "react";
-import styled from "styled-components";
-import { Link, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import React, { useRef, useState, useEffect } from 'react';
+import styled from 'styled-components';
+import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
-import { ButtonLogin, ButtonSnsLogin } from "../components/ui/Button";
-import { StyledInputContainer } from "../components/ui/LoginInput";
-import ModalSoon from "../components/ModalSoon";
-import { loginSuccess } from "../actions";
+import { ButtonLogin, ButtonSnsLogin } from '../components/UI/Button/Button';
+import { StyledInputContainer } from '../components/UI/LoginInput';
+import ModalSoon from '../components/UI/Modal/ModalSoon';
+import { loginSuccess } from '../actions';
 import {
   getAuth,
   setPersistence,
   signInWithEmailAndPassword,
   browserSessionPersistence,
-} from "firebase/auth";
+} from 'firebase/auth';
 
-import naver_symbol from "../assets/naver_symbol.png";
-import facebook_symbol from "../assets/facebook_symbol.png";
-import kakao_symbol from "../assets/kakao_symbol.png";
-import google_symbol from "../assets/google_symbol.png";
+import naver_symbol from '../assets/naver_symbol.png';
+import facebook_symbol from '../assets/facebook_symbol.png';
+import kakao_symbol from '../assets/kakao_symbol.png';
+import google_symbol from '../assets/google_symbol.png';
 
 function Login() {
   const [isOpen, setIsOpen] = useState(false);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   const auth = getAuth();
   const dispatch = useDispatch();
@@ -56,20 +56,20 @@ function Login() {
             // console.log(errorCode, errorMessage);
           });
         dispatch(loginSuccess());
-        setEmail("");
-        setPassword("");
-        navigate("/");
+        setEmail('');
+        setPassword('');
+        navigate('/');
         window.location.reload();
         // ...
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        if (errorCode === "auth/user-not-found") {
-          alert("존재하지 않는 이메일입니다.");
+        if (errorCode === 'auth/user-not-found') {
+          alert('존재하지 않는 이메일입니다.');
         }
-        if (errorCode === "auth/wrong-password") {
-          alert("비밀번호가 틀렸습니다.");
+        if (errorCode === 'auth/wrong-password') {
+          alert('비밀번호가 틀렸습니다.');
         }
       });
   };

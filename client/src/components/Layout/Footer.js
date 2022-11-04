@@ -1,6 +1,6 @@
-import React from "react";
-import styled from "styled-components";
-import logo from "../images/logo_wh.png";
+import React from 'react';
+import styled from 'styled-components';
+import logo from '../../images/logo_wh.png';
 
 const StyledFooter = styled.footer`
   width: 100%;
@@ -23,8 +23,8 @@ const StyledFooter = styled.footer`
 `;
 const LogoImage = styled.img`
   height: 22px;
-  opacity: .4;
-  margin-top:-2px;
+  opacity: 0.4;
+  margin-top: -2px;
 `;
 
 function Footer() {

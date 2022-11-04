@@ -1,66 +1,66 @@
-import React, { useState } from "react";
-import { useSelector } from "react-redux";
-import styled from "styled-components";
-import { ProfileImgXS } from "./ui/ProfileImg";
-import { ButtonPrimary } from "./ui/Button";
-import ModalSoon from "./ModalSoon";
+import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
+import styled from 'styled-components';
+import { ProfileImgXS } from '../UI/ProfileImg';
+import { ButtonPrimary } from '../UI/Button/Button';
+import ModalSoon from '../UI/Modal/ModalSoon';
 
 const frontStacks = [
-  "Angular",
-  "Emotion",
-  "GraphQL",
-  "NextJS",
-  "ReactJS",
-  "VueJS",
-  "Redux",
-  "Recoil",
-  "Storybook",
-  "StyledComponent",
-  "HTML",
-  "CSS",
-  "JavaScript",
-  "TypeScript",
+  'Angular',
+  'Emotion',
+  'GraphQL',
+  'NextJS',
+  'ReactJS',
+  'VueJS',
+  'Redux',
+  'Recoil',
+  'Storybook',
+  'StyledComponent',
+  'HTML',
+  'CSS',
+  'JavaScript',
+  'TypeScript',
 ];
 
 const backStacks = [
-  "Apollo",
-  "AWS",
-  "ExpressJS",
-  "Django",
-  "NestJS",
-  "NodeJS",
-  "Spring",
-  "SpringBoot",
-  "Python",
-  "Java",
-  "JavaScript",
+  'Apollo',
+  'AWS',
+  'ExpressJS',
+  'Django',
+  'NestJS',
+  'NodeJS',
+  'Spring',
+  'SpringBoot',
+  'Python',
+  'Java',
+  'JavaScript',
 ];
 
 const stackBackgrounds = [
-  { stack: "Angular", color: "#DD0031" },
-  { stack: "Emotion", color: "#E19EDC" },
-  { stack: "GraphQL", color: "#E10098" },
-  { stack: "NextJS", color: "#000000" },
-  { stack: "ReactJS", color: "#61DAFB" },
-  { stack: "VueJS", color: "#4FC08D" },
-  { stack: "Redux", color: "#764ABC" },
-  { stack: "Recoil", color: "#007AF4" },
-  { stack: "Storybook", color: "#FF4785" },
-  { stack: "StyledComponent", color: "#DB7093" },
-  { stack: "HTML", color: "#E34F26" },
-  { stack: "CSS", color: "#1572B6" },
-  { stack: "JavaScript", color: "#F7DF1E" },
-  { stack: "TypeScript", color: "#3178C6" },
-  { stack: "Apollo", color: "#311C87" },
-  { stack: "AWS", color: "#232F3E" },
-  { stack: "ExpressJS", color: "#000000" },
-  { stack: "Django", color: "#092E20" },
-  { stack: "NestJS", color: "#000000" },
-  { stack: "NodeJS", color: "#339933" },
-  { stack: "Spring", color: "#6DB33F" },
-  { stack: "SpringBoot", color: "#6DB33F" },
-  { stack: "Python", color: "#3776AB" },
-  { stack: "Java", color: "#D9D9D9" },
+  { stack: 'Angular', color: '#DD0031' },
+  { stack: 'Emotion', color: '#E19EDC' },
+  { stack: 'GraphQL', color: '#E10098' },
+  { stack: 'NextJS', color: '#000000' },
+  { stack: 'ReactJS', color: '#61DAFB' },
+  { stack: 'VueJS', color: '#4FC08D' },
+  { stack: 'Redux', color: '#764ABC' },
+  { stack: 'Recoil', color: '#007AF4' },
+  { stack: 'Storybook', color: '#FF4785' },
+  { stack: 'StyledComponent', color: '#DB7093' },
+  { stack: 'HTML', color: '#E34F26' },
+  { stack: 'CSS', color: '#1572B6' },
+  { stack: 'JavaScript', color: '#F7DF1E' },
+  { stack: 'TypeScript', color: '#3178C6' },
+  { stack: 'Apollo', color: '#311C87' },
+  { stack: 'AWS', color: '#232F3E' },
+  { stack: 'ExpressJS', color: '#000000' },
+  { stack: 'Django', color: '#092E20' },
+  { stack: 'NestJS', color: '#000000' },
+  { stack: 'NodeJS', color: '#339933' },
+  { stack: 'Spring', color: '#6DB33F' },
+  { stack: 'SpringBoot', color: '#6DB33F' },
+  { stack: 'Python', color: '#3776AB' },
+  { stack: 'Java', color: '#D9D9D9' },
 ];
 
 function ViewStudy({ data }) {
@@ -81,16 +81,16 @@ function ViewStudy({ data }) {
   };
 
   const devStackWord = (devType, skill) => {
-    let a = "";
-    let idx = "";
-    if (devType === "frontend") {
+    let a = '';
+    let idx = '';
+    if (devType === 'frontend') {
       idx = frontStacks.findIndex((el) => el === skill);
-      a = "fe";
+      a = 'fe';
     }
 
-    if (devType === "backend") {
+    if (devType === 'backend') {
       idx = backStacks.findIndex((el) => el === skill);
-      a = "be";
+      a = 'be';
     }
 
     if (idx >= 9) {
@@ -107,8 +107,8 @@ function ViewStudy({ data }) {
         <Info>
           <ProfileImgXS
             src={
-              photoUrl === ""
-                ? "https://avatars.githubusercontent.com/u/56163157?v=4"
+              photoUrl === ''
+                ? 'https://avatars.githubusercontent.com/u/56163157?v=4'
                 : photoUrl
             }
           />
@@ -120,13 +120,13 @@ function ViewStudy({ data }) {
           <InnerBox>
             <ListLine>
               <List>
-                모집 구분 <Dot>•</Dot>{" "}
+                모집 구분 <Dot>•</Dot>{' '}
                 <span>
-                  {data.devType === "frontend" ? "프론트엔드" : "백엔드"}
+                  {data.devType === 'frontend' ? '프론트엔드' : '백엔드'}
                 </span>
               </List>
               <List>
-                모집 인원 <Dot>•</Dot>{" "}
+                모집 인원 <Dot>•</Dot>{' '}
                 <span>
                   {data.haveHeadCount} / {data.totalHeadCount}
                 </span>
@@ -138,8 +138,8 @@ function ViewStudy({ data }) {
                 시작 일시 <Dot>•</Dot> <span>{data.startDate}</span>
               </List>
               <List>
-                진행 방법 <Dot>•</Dot>{" "}
-                <span>{data.onOff === "on" ? "온라인" : "오프라인"}</span>
+                진행 방법 <Dot>•</Dot>{' '}
+                <span>{data.onOff === 'on' ? '온라인' : '오프라인'}</span>
               </List>
             </ListLine>
           </InnerBox>
@@ -157,7 +157,7 @@ function ViewStudy({ data }) {
                               process.env.PUBLIC_URL +
                               `/skill/${devStackWord(
                                 data.devType,
-                                `${el}`
+                                `${el}`,
                               )}.png`
                             }
                             alt=""
@@ -206,7 +206,7 @@ const ViewContainer = styled.div`
 `;
 
 const Title = styled.h1`
-  font-family: "Pretendard-Regular";
+  font-family: 'Pretendard-Regular';
   font-weight: 700;
   font-size: 40px;
   line-height: 48px;
@@ -245,7 +245,7 @@ const List = styled.span`
 
 const Content = styled.div`
   height: 40%;
-  font-family: "Pretendard-Regular";
+  font-family: 'Pretendard-Regular';
   font-weight: 400;
   font-size: 18px;
   line-height: 30px;

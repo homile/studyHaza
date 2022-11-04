@@ -1,34 +1,34 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from 'react';
 
-import styled from "styled-components";
+import styled from 'styled-components';
 
-import Footer from "../components/Footer";
-import { StyledInputContainer } from "../components/ui/LoginInput";
-import { ButtonLogin } from "../components/ui/Button";
-import ModalSucces from "../components/ModalSucces";
+import Footer from '../components/Layout/Footer';
+import { StyledInputContainer } from '../components/UI/LoginInput';
+import { ButtonLogin } from '../components/UI/Button/Button';
+import ModalSucces from '../components/UI/Modal/ModalSucces';
 
 import {
   getAuth,
   createUserWithEmailAndPassword,
   updateProfile,
-} from "firebase/auth";
-import { db } from "../firebase-config";
-import { collection, addDoc } from "firebase/firestore";
-import { useNavigate } from "react-router-dom";
+} from 'firebase/auth';
+import { db } from '../firebase-config';
+import { collection, addDoc } from 'firebase/firestore';
+import { useNavigate } from 'react-router-dom';
 
 function SignUp() {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [passwordCheck, setPasswordCheck] = useState("");
-  const [nickName, setNickName] = useState("");
-  const [validationEmail, setValidationEmail] = useState("none");
-  const [validationPassword, setValidationPassword] = useState("none");
-  const [validationNickName, setValidationNickName] = useState("none");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [passwordCheck, setPasswordCheck] = useState('');
+  const [nickName, setNickName] = useState('');
+  const [validationEmail, setValidationEmail] = useState('none');
+  const [validationPassword, setValidationPassword] = useState('none');
+  const [validationNickName, setValidationNickName] = useState('none');
 
   const nameInput = useRef(null);
-  const usersCollectionRef = collection(db, "users");
+  const usersCollectionRef = collection(db, 'users');
 
   useEffect(() => {
     nameInput.current.focus();
@@ -44,36 +44,36 @@ function SignUp() {
     const reg =
       /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
     if (reg.test(email)) {
-      setValidationEmail("none");
+      setValidationEmail('none');
     } else {
-      setValidationEmail("block");
+      setValidationEmail('block');
     }
   };
 
   const passwordChange = (e) => {
     setPassword(e);
-    if (e === passwordCheck && e !== "" && passwordCheck !== "") {
-      setValidationPassword("none");
+    if (e === passwordCheck && e !== '' && passwordCheck !== '') {
+      setValidationPassword('none');
     } else {
-      setValidationPassword("block");
+      setValidationPassword('block');
     }
   };
 
   const passwordCheckChange = (e) => {
     setPasswordCheck(e);
-    if (password === e && password !== "" && e !== "") {
-      setValidationPassword("none");
+    if (password === e && password !== '' && e !== '') {
+      setValidationPassword('none');
     } else {
-      setValidationPassword("block");
+      setValidationPassword('block');
     }
   };
 
   const nickNameChange = (e) => {
     setNickName(e);
-    if (e !== "") {
-      setValidationNickName("none");
+    if (e !== '') {
+      setValidationNickName('none');
     } else {
-      setValidationNickName("block");
+      setValidationNickName('block');
     }
   };
 
@@ -82,9 +82,9 @@ function SignUp() {
 
     // 패스워드와 패스워드 확인란이 같을 때만 회원가입 실행
     if (
-      validationPassword === "none" &&
-      validationEmail === "none" &&
-      validationNickName === "none"
+      validationPassword === 'none' &&
+      validationEmail === 'none' &&
+      validationNickName === 'none'
     ) {
       await createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
@@ -93,20 +93,20 @@ function SignUp() {
           updateProfile(user, { displayName: nickName });
           setIsOpen(true);
           createUsers();
-          setEmail("");
-          setPassword("");
-          setPasswordCheck("");
-          setNickName("");
-          navigate("/login");
+          setEmail('');
+          setPassword('');
+          setPasswordCheck('');
+          setNickName('');
+          navigate('/login');
         })
         .catch((error) => {
           const errorCode = error.code;
           const errorMessage = error.message;
-          if (errorCode === "auth/weak-password") {
-            alert("비밀번호는 숫자,영문,특수문자를 포함한 8자리 이상입니다.");
+          if (errorCode === 'auth/weak-password') {
+            alert('비밀번호는 숫자,영문,특수문자를 포함한 8자리 이상입니다.');
           }
-          if (errorCode === "auth/email-already-in-use") {
-            alert("이미 사용중인 이메일입니다.");
+          if (errorCode === 'auth/email-already-in-use') {
+            alert('이미 사용중인 이메일입니다.');
           }
         });
     }
@@ -117,7 +117,7 @@ function SignUp() {
     const data = await addDoc(usersCollectionRef, {
       email,
       nickName,
-      photoUrl: "",
+      photoUrl: '',
     });
   };
 
@@ -127,7 +127,7 @@ function SignUp() {
         <StyledSignUpTitle>StudyHaza</StyledSignUpTitle>
         <form>
           <StyledInputContainer
-            height={validationEmail === "block" ? "100px" : "90px"}
+            height={validationEmail === 'block' ? '100px' : '90px'}
           >
             <label htmlFor="email">이메일 계정</label>
             <div>
@@ -142,13 +142,13 @@ function SignUp() {
               <i className="fa-solid fa-at" />
             </div>
             <ValidationCheck display={validationEmail}>
-              {email === ""
-                ? "이메일을 입력해주세요."
-                : "이메일 형식이 올바르지 않습니다."}
+              {email === ''
+                ? '이메일을 입력해주세요.'
+                : '이메일 형식이 올바르지 않습니다.'}
             </ValidationCheck>
           </StyledInputContainer>
           <StyledInputContainer
-            height={validationPassword === "block" ? "100px" : "90px"}
+            height={validationPassword === 'block' ? '100px' : '90px'}
           >
             <label htmlFor="password">비밀번호</label>
             <div>
@@ -163,13 +163,13 @@ function SignUp() {
               <i className="fa-solid fa-lock"></i>
             </div>
             <ValidationCheck display={validationPassword}>
-              {password === ""
-                ? "비밀번호를 입력해주세요"
-                : "비밀번호가 일치하지 않습니다."}
+              {password === ''
+                ? '비밀번호를 입력해주세요'
+                : '비밀번호가 일치하지 않습니다.'}
             </ValidationCheck>
           </StyledInputContainer>
           <StyledInputContainer
-            height={validationPassword === "block" ? "100px" : "90px"}
+            height={validationPassword === 'block' ? '100px' : '90px'}
           >
             <label htmlFor="passwordCheck">비밀번호 확인</label>
             <div>
@@ -184,13 +184,13 @@ function SignUp() {
               <i className="fa-solid fa-lock"></i>
             </div>
             <ValidationCheck display={validationPassword}>
-              {password === ""
-                ? "비밀번호를 입력해주세요"
-                : "비밀번호가 일치하지 않습니다."}
+              {password === ''
+                ? '비밀번호를 입력해주세요'
+                : '비밀번호가 일치하지 않습니다.'}
             </ValidationCheck>
           </StyledInputContainer>
           <StyledInputContainer
-            height={validationNickName === "block" ? "100px" : "90px"}
+            height={validationNickName === 'block' ? '100px' : '90px'}
           >
             <label htmlFor="nickName">닉네임</label>
             <div>
@@ -203,7 +203,7 @@ function SignUp() {
               <i className="fa-solid fa-user"></i>
             </div>
             <ValidationCheck display={validationNickName}>
-              {nickName === "" && "닉네임을 입력해주세요."}
+              {nickName === '' && '닉네임을 입력해주세요.'}
             </ValidationCheck>
           </StyledInputContainer>
           <ButtonLogin type="submit" onClick={(e) => signUpHandler(e)}>
@@ -250,7 +250,7 @@ const StyledSignUpTitle = styled.h1`
 `;
 
 const ValidationCheck = styled.label`
-  display: ${(props) => props.display || "none"};
+  display: ${(props) => props.display || 'none'};
   color: red;
   margin-top: -0.5rem;
 `;

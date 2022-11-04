@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import { useSelector } from "react-redux";
-import styled from "styled-components";
-import { UserInfoContainer } from "../ui/LoginInput";
-import { ButtonPrimary } from "../ui/Button";
+import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
+import styled from 'styled-components';
+import { UserInfoContainer } from '../UI/LoginInput';
+import { ButtonPrimary } from '../UI/Button/Button';
 
 const Content = () => {
   // 로그인 중인 유저정보
@@ -14,9 +14,9 @@ const Content = () => {
     setNickName(e);
   };
 
-  const PWChange = () => {};
+  // const PWChange = () => {};
 
-  const PWCheckChange = () => {};
+  // const PWCheckChange = () => {};
 
   return (
     <Container>
@@ -125,7 +125,7 @@ const ButtonContainer = styled.div`
 `;
 
 const ValidationCheck = styled.label`
-  display: ${(props) => props.display || "none"};
+  display: ${(props) => props.display || 'none'};
   color: red;
   margin-top: -0.5rem;
 `;

@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import WriteBox from "../components/WriteBox";
-import { StudyContents } from "../components/ui/StudyContents";
-import iconButton from "../images/icon_add.png";
-import styled from "styled-components";
+import React, { useState } from 'react';
+import WriteBox from '../components/Post/PostBox';
+import { StudyContents } from '../components/UI/StudyContents';
+import iconButton from '../images/icon_add.png';
+import styled from 'styled-components';
 
 function StudyJoin({ posts, isEdit }) {
   const [isWrite, setIsWrite] = useState(false);
@@ -66,7 +66,7 @@ const CreateStudyButton = styled.div`
   p {
     padding: 6px 0;
     font-size: 20px;
-    font-family: "Pretendard-Medium";
+    font-family: 'Pretendard-Medium';
   }
 
   &:hover {

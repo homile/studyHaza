@@ -1,36 +1,36 @@
-import React, { useState } from "react";
-import { useSelector } from "react-redux";
-import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
-import { WriteInputContainer } from "./ui/WriteInput";
-import { SelectBox } from "./ui/SelectBox";
-import { DatePick } from "./DatePick";
-import CheckBox from "./CheckBox";
-import { ButtonPrimary } from "./ui/Button";
-import Modal from "./Modal";
-import { db } from "../firebase-config";
-import { collection, addDoc } from "firebase/firestore";
-import uuid from "react-uuid";
+import { useState } from 'react';
+import { useSelector } from 'react-redux';
+import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
+import { WriteInputContainer } from './ui/PostInput';
+import { SelectBox } from './ui/SelectBox';
+import { DatePick } from './ui/DatePick';
+import CheckBox from './ui/CheckBox';
+import { ButtonPrimary } from '../UI/Button/Button';
+import Modal from '../UI/Modal/Modal';
+import { db } from '../../firebase-config';
+import { collection, addDoc } from 'firebase/firestore';
+import uuid from 'react-uuid';
 
 const devTypeOptions = [
-  { value: "frontend", name: "프론트엔드" },
-  { value: "backend", name: "백엔드" },
+  { value: 'frontend', name: '프론트엔드' },
+  { value: 'backend', name: '백엔드' },
 ];
 
 const onOffOptions = [
-  { value: "on", name: "온라인" },
-  { value: "off", name: "오프라인" },
+  { value: 'on', name: '온라인' },
+  { value: 'off', name: '오프라인' },
 ];
 
 const WriteStudy = ({ setIsOk, setIsWrite, isEdit }) => {
   const navigate = useNavigate();
-  const [title, setTitle] = useState("");
+  const [title, setTitle] = useState('');
   const [startDate, setStartDate] = useState(new Date());
-  const [devType, setDevType] = useState("frontend");
+  const [devType, setDevType] = useState('frontend');
   const [devStack, setDevStack] = useState([]);
   const [totalHeadCount, setTotalHeadCount] = useState(0);
-  const [onOff, setOnOff] = useState("on");
-  const [content, setContent] = useState("");
+  const [onOff, setOnOff] = useState('on');
+  const [content, setContent] = useState('');
   const dateCreated = new Date();
   const nickName = useSelector((state) => state.loginReducer.nickName);
 
@@ -46,23 +46,23 @@ const WriteStudy = ({ setIsOk, setIsWrite, isEdit }) => {
   };
 
   const handleInit = () => {
-    setTitle("");
+    setTitle('');
     setStartDate(new Date());
-    setDevType("frontend");
+    setDevType('frontend');
     setDevStack([]);
     setTotalHeadCount(0);
-    setOnOff("on");
-    setContent("");
+    setOnOff('on');
+    setContent('');
     setIsWrite(false);
   };
 
-  const postsCollectionRef = collection(db, "posts");
+  const postsCollectionRef = collection(db, 'posts');
 
   // firestore에 데이터 업로드
   const createPosts = async () => {
     const id = uuid();
     const res = await addDoc(postsCollectionRef, {
-      board: "study",
+      board: 'study',
       content,
       dateCreated: dateCreated.toLocaleDateString(),
       devStack,

@@ -1,20 +1,20 @@
-import React, { useEffect, useState } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Nav from "./components/Nav";
-import Footer from "./components/Footer";
-import Main from "./pages/Main";
-import StudyJoin from "./pages/StudyJoin";
-import Community from "./pages/Community";
-import Login from "./pages/Login";
-import styled from "styled-components";
-import SignUp from "./pages/SignUp";
-import MyPage from "./pages/MyPage";
-import Detail from "./pages/Detail";
-import { db } from "./firebase-config";
-import { collection, getDocs } from "firebase/firestore";
-import useUserInfo from "./apis/user/userInfo";
-import { loginUserInfo } from "./actions";
-import { useDispatch } from "react-redux";
+import React, { useEffect, useState } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Nav from './components/Layout/Nav/Nav';
+import Footer from './components/Layout/Footer';
+import Main from './pages/Main';
+import StudyJoin from './pages/StudyJoin';
+import Community from './pages/Community';
+import Login from './pages/Login';
+import styled from 'styled-components';
+import SignUp from './pages/SignUp';
+import MyPage from './pages/MyPage';
+import Detail from './pages/Detail';
+import { db } from './firebase-config';
+import { collection, getDocs } from 'firebase/firestore';
+import useUserInfo from './apis/user/userInfo';
+import { loginUserInfo } from './actions';
+import { useDispatch } from 'react-redux';
 
 const AppContainer = styled.div`
   display: flex;
@@ -35,12 +35,12 @@ function App() {
   };
 
   // 컬렉션이름이 posts인 db데이터 가져오기
-  const postsCollectionRef = collection(db, "posts");
+  const postsCollectionRef = collection(db, 'posts');
   useUserInfo();
   const user = JSON.parse(
     sessionStorage.getItem(
-      `firebase:authUser:${process.env.REACT_APP_FIREBASE_API_KEY}:[DEFAULT]`
-    )
+      `firebase:authUser:${process.env.REACT_APP_FIREBASE_API_KEY}:[DEFAULT]`,
+    ),
   );
 
   useEffect(() => {
@@ -48,20 +48,20 @@ function App() {
       const data = await getDocs(postsCollectionRef);
       const boardRoot = data.docs.map((doc) => ({ ...doc.data() }));
       const studyData = boardRoot.filter((el) => {
-        return el.board === "study";
+        return el.board === 'study';
       });
       const communityData = boardRoot.filter((el) => {
-        return el.board === "community";
+        return el.board === 'community';
       });
       setPosts(
         studyData.sort((a, b) => {
           return new Date(b.dateCreated) - new Date(a.dateCreated);
-        })
+        }),
       );
       setCommunityPosts(
         communityData.sort((a, b) => {
           return new Date(b.dateCreated) - new Date(a.dateCreated);
-        })
+        }),
       );
     };
     getPosts();
@@ -74,8 +74,8 @@ function App() {
           isLogin: true,
           email: user.email,
           nickName: user.displayName,
-          photoUrl: `${user.photoURL !== null ? user.photoURL : ""}`,
-        })
+          photoUrl: `${user.photoURL !== null ? user.photoURL : ''}`,
+        }),
       );
     }
   }, [user]);

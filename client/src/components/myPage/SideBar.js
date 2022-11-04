@@ -1,14 +1,14 @@
-import React, { useState } from "react";
-import styled from "styled-components";
-import Modal from "../Modal";
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import Modal from '../UI/Modal/Modal';
 
-import { useNavigate } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { logoutUserInfo } from "../../actions";
+import { useNavigate } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { logoutUserInfo } from '../../actions';
 
-import { db } from "../../firebase-config";
-import { getAuth, deleteUser } from "firebase/auth";
-import { doc, deleteDoc } from "firebase/firestore";
+import { db } from '../../firebase-config';
+import { getAuth, deleteUser } from 'firebase/auth';
+import { doc, deleteDoc } from 'firebase/firestore';
 
 const SideBar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -20,17 +20,20 @@ const SideBar = () => {
   let navigate = useNavigate();
 
   const signOutHandler = () => {
-    deleteUser(user).then(() => {
-      dispatch(logoutUserInfo());
-      deleteDoc(doc(db, "users", id));
-      navigate('/');
-    }).catch((error) => {
-    });
+    deleteUser(user)
+      .then(() => {
+        dispatch(logoutUserInfo());
+        deleteDoc(doc(db, 'users', id));
+        navigate('/');
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   const signOutClick = () => {
     setIsOpen(!isOpen);
-  }
+  };
 
   return (
     <SideBarContainer>
@@ -89,7 +92,7 @@ const SideBarContainer = styled.div`
 
   .sidebartitle {
     margin: 1rem 0;
-    font-family: "Pretendard-ExtraBold";
+    font-family: 'Pretendard-ExtraBold';
   }
 
   span {
@@ -109,7 +112,7 @@ const SideBarText = styled.div`
   align-items: center;
   align-content: center;
   height: 40px;
-  font-family: "Pretendard-Medium";
+  font-family: 'Pretendard-Medium';
   border-radius: 0 0.5rem 0.5rem 0;
   cursor: pointer;
 

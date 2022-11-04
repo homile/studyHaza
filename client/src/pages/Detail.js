@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
-import styled from "styled-components";
-import ViewStudy from "../components/ViewStudy";
-import { ButtonSecondary } from "../components/ui/Button";
-import { useNavigate } from "react-router-dom";
-import { useLocation } from "react-router-dom";
-import ViewCommunity from "../components/ViewCommunity";
+import { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import styled from 'styled-components';
+import ViewStudy from '../components/Detail/DetailStudy';
+import { ButtonSecondary } from '../components/UI/Button/Button';
+import { useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
+import ViewCommunity from '../components/Detail/DetailCommunity';
 import {
   deleteDoc,
   query,
@@ -13,26 +13,26 @@ import {
   where,
   getDocs,
   updateDoc,
-} from "firebase/firestore";
-import { db } from "../firebase-config";
-import { useParams } from "react-router-dom";
-import Modal from "../components/Modal";
-import PostEditor from "../components/PostEditor";
-import EditCommunity from "../components/EditCommunity";
+} from 'firebase/firestore';
+import { db } from '../firebase-config';
+import { useParams } from 'react-router-dom';
+import Modal from '../components/UI/Modal/Modal';
+import PostEditor from '../components/Edit/EditStudy';
+import EditCommunity from '../components/Edit/EditCommunity';
 
 function Detail({ isEdit, toggleIsEdit }) {
   const nickName = useSelector((state) => state.loginReducer.nickName);
 
   const { id } = useParams();
   const navigate = useNavigate();
-  const pathName = useLocation().pathname.split("/")[1];
+  const pathName = useLocation().pathname.split('/')[1];
 
   const [data, setData] = useState({});
   const [isOpenOk, setIsOpenOk] = useState(false);
   const [isShow, setIsShow] = useState(false);
 
   const getPosts = async () => {
-    const q = query(collection(db, "posts"), where("id", "==", id));
+    const q = query(collection(db, 'posts'), where('id', '==', id));
 
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
@@ -59,13 +59,13 @@ function Detail({ isEdit, toggleIsEdit }) {
 
   // 글 삭제
   const onDeletePost = async () => {
-    const q = query(collection(db, "posts"), where("id", "==", id));
+    const q = query(collection(db, 'posts'), where('id', '==', id));
     const data = await getDocs(q);
     try {
       if (data.docs.length !== 0) {
         await deleteDoc(data.docs[0].ref);
       }
-      pathName === "community" ? navigate("/community") : navigate("/");
+      pathName === 'community' ? navigate('/community') : navigate('/');
 
       window.location.reload();
     } catch {
@@ -76,7 +76,7 @@ function Detail({ isEdit, toggleIsEdit }) {
   // 글 수정
   const onUpdatePost = async (el) => {
     // console.log(el);
-    const q = query(collection(db, "posts"), where("id", "==", id));
+    const q = query(collection(db, 'posts'), where('id', '==', id));
     const data = await getDocs(q);
     try {
       if (data.docs.length !== 0) {
@@ -92,7 +92,7 @@ function Detail({ isEdit, toggleIsEdit }) {
     <Container>
       {isEdit ? (
         <>
-          {pathName === "community" ? (
+          {pathName === 'community' ? (
             <EditCommunity
               isEdit={isEdit}
               data={data}
@@ -110,7 +110,7 @@ function Detail({ isEdit, toggleIsEdit }) {
         </>
       ) : (
         <>
-          {pathName === "community" ? (
+          {pathName === 'community' ? (
             <ViewCommunity />
           ) : (
             <ViewStudy data={data} id={id} />
@@ -122,9 +122,9 @@ function Detail({ isEdit, toggleIsEdit }) {
           <ButtonSecondary
             width="126px"
             onClick={() => {
-              pathName === "community"
-                ? navigate("/community")
-                : navigate("/studyjoin");
+              pathName === 'community'
+                ? navigate('/community')
+                : navigate('/studyjoin');
             }}
           >
             목록으로

@@ -1,9 +1,9 @@
-import React, { useState } from "react";
-import styled from "styled-components";
-import { useLocation } from "react-router-dom";
-import WriteCommunity from "./WriteCommunity";
-import WriteStudy from "./WriteStudy";
-import Detail from "../pages/Detail";
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import { useLocation } from 'react-router-dom';
+import WriteCommunity from './PostCommunity';
+import WriteStudy from './PostStudy';
+import Detail from '../../pages/Detail';
 
 // 스터디 모집 글쓰기, 커뮤니티 글쓰기 컴포넌트 container
 const WriteBox = ({ setIsWrite }) => {
@@ -15,11 +15,11 @@ const WriteBox = ({ setIsWrite }) => {
       {!isOk ? (
         <>
           <HeaderContainer>
-            {pathname === "/community" ? "커뮤니티 글쓰기" : "스터디 만들기"}
+            {pathname === '/community' ? '커뮤니티 글쓰기' : '스터디 만들기'}
           </HeaderContainer>
 
-          <WriteContainer community={pathname === "/community" ? true : false}>
-            {pathname === "/community" ? (
+          <WriteContainer community={pathname === '/community' ? true : false}>
+            {pathname === '/community' ? (
               <WriteCommunity setIsOk={setIsOk} setIsWrite={setIsWrite} />
             ) : (
               <WriteStudy setIsOk={setIsOk} setIsWrite={setIsWrite} />
@@ -45,7 +45,7 @@ const WriteContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: ${(props) => (props.community ? "700px" : "1230px")};
+  height: ${(props) => (props.community ? '700px' : '1230px')};
   border: 1px solid #e3e3e3;
   border-radius: 0 0 30px 30px;
   margin-bottom: 6rem;
@@ -60,7 +60,7 @@ const HeaderContainer = styled.div`
   background-color: #2584f4;
   border-radius: 30px 30px 0 0;
   color: white;
-  font-family: "Pretendard-Bold";
+  font-family: 'Pretendard-Bold';
   font-size: 35px;
   padding-left: 55px;
   padding-bottom: 29px;

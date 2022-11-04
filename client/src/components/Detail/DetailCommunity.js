@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
-import styled from "styled-components";
-import { useSelector } from "react-redux";
-import { ProfileImgXS } from "./ui/ProfileImg";
-import { query, collection, where, getDocs } from "firebase/firestore";
-import { db } from "../firebase-config";
-import { useParams } from "react-router-dom";
+import React, { useState, useEffect } from 'react';
+import styled from 'styled-components';
+import { useSelector } from 'react-redux';
+import { ProfileImgXS } from '../UI/ProfileImg';
+import { query, collection, where, getDocs } from 'firebase/firestore';
+import { db } from '../../firebase-config';
+import { useParams } from 'react-router-dom';
 
 function ViewCommunity() {
   const { id } = useParams();
@@ -14,7 +14,7 @@ function ViewCommunity() {
   const photoUrl = useSelector((state) => state.loginReducer.photoUrl);
 
   const getPosts = async () => {
-    const q = query(collection(db, "posts"), where("id", "==", id));
+    const q = query(collection(db, 'posts'), where('id', '==', id));
 
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
@@ -33,8 +33,8 @@ function ViewCommunity() {
         <Info>
           <ProfileImgXS
             src={
-              photoUrl === ""
-                ? "https://avatars.githubusercontent.com/u/56163157?v=4"
+              photoUrl === ''
+                ? 'https://avatars.githubusercontent.com/u/56163157?v=4'
                 : photoUrl
             }
           />
@@ -70,7 +70,7 @@ const ViewContainer = styled.div`
 `;
 
 const Title = styled.h1`
-  font-family: "Pretendard-Regular";
+  font-family: 'Pretendard-Regular';
   font-weight: 700;
   font-size: 40px;
   line-height: 48px;
@@ -78,7 +78,7 @@ const Title = styled.h1`
 `;
 
 const Content = styled.div`
-  font-family: "Pretendard-Regular";
+  font-family: 'Pretendard-Regular';
   font-weight: 400;
   font-size: 18px;
   line-height: 30px;

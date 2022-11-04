@@ -1,15 +1,15 @@
-import React, { useState } from "react";
-import styled from "styled-components";
-import { NavLink, useNavigate } from "react-router-dom";
-import { ButtonPrimary } from "./ui/Button";
-import { MyPageDropDown } from "./ui/DropDown";
-import { ProfileImgSM } from "./ui/ProfileImg";
-import logo from "../images/logo.png";
-import { useLocation } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { logoutUserInfo } from "../actions";
-import Search from "./ui/SearchInput";
-import { getAuth } from "firebase/auth";
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { ButtonPrimary } from '../../UI/Button/Button';
+import { MyPageDropDown } from '../../UI/DropDown';
+import { ProfileImgSM } from '../../UI/ProfileImg';
+import logo from '../../../images/logo.png';
+import { useLocation } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { logoutUserInfo } from '../../../actions';
+import Search from './SearchInput';
+import { getAuth } from 'firebase/auth';
 
 function Nav() {
   const navigate = useNavigate();
@@ -29,7 +29,7 @@ function Nav() {
   const logoutHandler = () => {
     dispatch(logoutUserInfo());
     getAuth().signOut();
-    navigate("/");
+    navigate('/');
     window.location.reload();
   };
 
@@ -56,11 +56,11 @@ function Nav() {
               <div className="username" onClick={onIsNameClickHandler}>
                 <ProfileImgSM
                   src={
-                    photoUrl === ""
-                      ? "https://avatars.githubusercontent.com/u/56163157?v=4"
+                    photoUrl === ''
+                      ? 'https://avatars.githubusercontent.com/u/56163157?v=4'
                       : photoUrl
                   }
-                />{" "}
+                />{' '}
                 {nickName}
                 {isNameClick ? (
                   <i className="fa-solid fa-caret-up" />
@@ -81,9 +81,9 @@ function Nav() {
               )}
             </UserNameDiv>
           ) : (
-            <NavLink to={pathname !== "/login" ? "/login" : "/signup"}>
+            <NavLink to={pathname !== '/login' ? '/login' : '/signup'}>
               <ButtonPrimary>
-                {pathname === "/login" ? "회원가입" : "LOGIN"}
+                {pathname === '/login' ? '회원가입' : 'LOGIN'}
               </ButtonPrimary>
             </NavLink>
           )}

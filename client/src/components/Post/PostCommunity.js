@@ -1,21 +1,19 @@
-import React, { useState } from "react";
-import { useSelector } from "react-redux";
-import styled from "styled-components";
+import { useState } from 'react';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
+import { db } from '../../firebase-config';
+import { collection, addDoc } from 'firebase/firestore';
+import uuid from 'react-uuid';
+import { WriteInputContainer } from './ui/PostInput';
+import { ButtonPrimary } from '../UI/Button/Button';
+import Modal from '../UI/Modal/Modal';
 
-import { WriteInputContainer } from "./ui/WriteInput";
-import { ButtonPrimary } from "./ui/Button";
-import Modal from "./Modal";
-
-import { db } from "../firebase-config";
-import { collection, addDoc } from "firebase/firestore";
-import uuid from "react-uuid";
-import { useNavigate } from "react-router-dom";
-
-function WriteCommunity({ setIsOk, setIsWrite, setIsView }) {
+function WriteCommunity({ setIsOk, setIsWrite }) {
   const navigate = useNavigate();
 
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
+  const [title, setTitle] = useState('');
+  const [content, setContent] = useState('');
   const dateCreated = new Date();
   const nickName = useSelector((state) => state.loginReducer.nickName);
 
@@ -34,18 +32,18 @@ function WriteCommunity({ setIsOk, setIsWrite, setIsView }) {
 
   // 글 내용 초기화
   const handleInit = () => {
-    setTitle("");
-    setContent("");
+    setTitle('');
+    setContent('');
     setIsWrite(false);
   };
 
-  const postsCollectionRef = collection(db, "posts");
+  const postsCollectionRef = collection(db, 'posts');
 
   // firestore에 데이터 올리기
   const createPosts = async () => {
     const id = uuid();
     const data = await addDoc(postsCollectionRef, {
-      board: "community",
+      board: 'community',
       content,
       dateCreated: dateCreated.toLocaleDateString(),
       id,
