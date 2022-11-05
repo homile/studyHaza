@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { ButtonSecondary } from '../UI/Button/Button';
-import { WriteInputContainer } from '../Post/ui/PostInput';
-import { SelectBox } from '../Post/ui/SelectBox';
-import { DatePick } from '../Post/ui/DatePick';
-import CheckBox from '../Post/ui/CheckBox';
+import { WriteInputContainer } from '../Post/UI/PostInput';
+import { SelectBox } from '../Post/UI/SelectBox';
+import { DatePick } from '../Post/UI/DatePick';
+import CheckBox from '../Post/UI/CheckBox';
 import Modal from '../UI/Modal/Modal';
 
 const devTypeOptions = [
