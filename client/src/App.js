@@ -13,7 +13,7 @@ import Detail from './pages/Detail';
 import { db } from './firebase-config';
 import { collection, getDocs } from 'firebase/firestore';
 import useUserInfo from './apis/user/userInfo';
-import { loginUserInfo } from './actions';
+import { loginUserInfo } from './redux/actions';
 import { useDispatch } from 'react-redux';
 
 const AppContainer = styled.div`

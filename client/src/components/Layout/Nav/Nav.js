@@ -7,7 +7,7 @@ import { ProfileImgSM } from '../../UI/ProfileImg';
 import logo from '../../../images/logo.png';
 import { useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { logoutUserInfo } from '../../../actions';
+import { logoutUserInfo } from '../../../redux/actions';
 import Search from './SearchInput';
 import { getAuth } from 'firebase/auth';
 
