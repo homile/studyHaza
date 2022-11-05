@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { db } from '../../firebase-config';
 import { collection, addDoc } from 'firebase/firestore';
 import uuid from 'react-uuid';
-import { WriteInputContainer } from './ui/PostInput';
+import { WriteInputContainer } from './UI/PostInput';
 import { ButtonPrimary } from '../UI/Button/Button';
 import Modal from '../UI/Modal/Modal';
 

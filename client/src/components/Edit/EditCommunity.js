@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import styled from 'styled-components';
-import { WriteInputContainer } from '../Post/ui/PostInput';
+import { WriteInputContainer } from '../Post/UI/PostInput';
 import { ButtonSecondary } from '../UI/Button/Button';
 import Modal from '../UI/Modal/Modal';
 
