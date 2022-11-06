@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { ProfileImgXS } from '../UI/ProfileImg';
+import { ProfileImgXS } from '../UI/Img/ProfileImg';
 import { ButtonPrimary } from '../UI/Button/Button';
 import ModalSoon from '../UI/Modal/ModalSoon';
 

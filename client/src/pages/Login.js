@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
 import { ButtonLogin, ButtonSnsLogin } from '../components/UI/Button/Button';
-import { StyledInputContainer } from '../components/UI/LoginInput';
+import { StyledInputContainer } from '../components/UI/Input/LoginInput';
 import ModalSoon from '../components/UI/Modal/ModalSoon';
 import { loginSuccess } from '../redux/actions';
 import {
