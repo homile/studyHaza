@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
-import { ProfileImgXS } from '../UI/ProfileImg';
+import { ProfileImgXS } from '../UI/Img/ProfileImg';
 import { query, collection, where, getDocs } from 'firebase/firestore';
 import { db } from '../../firebase-config';
 import { useParams } from 'react-router-dom';

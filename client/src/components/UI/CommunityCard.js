@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { ProfileImgXS } from "./ProfileImg";
+import { ProfileImgXS } from "./Img/ProfileImg";
 import img from "../../images/pf_sample.png";
 
 const CommunityCard = ({ data }) => {

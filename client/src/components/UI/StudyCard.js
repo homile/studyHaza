@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { ProfileImgXS } from "./ProfileImg";
+import { ProfileImgXS } from "./Img/ProfileImg";
 import img from "../../images/pf_sample.png";
 import { Link } from "react-router-dom";
 

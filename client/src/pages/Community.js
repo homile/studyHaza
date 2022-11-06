@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import WriteBox from '../components/Post/PostBox';
-import SearchBar from '../components/UI/SearchInputBar';
+import SearchBar from '../components/UI/Filter/SearchInputBar';
 import BoardHeader from '../components/UI/BoardHeader';
 import BoardListContents from '../components/UI/BoardListContents';
-import Pagination from '../components/UI/Pagination';
+import Pagination from '../components/UI/Filter/Pagination';
 import styled from 'styled-components';
 
 function Community({ posts }) {
