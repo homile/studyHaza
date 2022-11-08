@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const StyledInputContainer = styled.div`
+export const StyledInputContainer = styled.div<{height: string}>`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -41,7 +41,7 @@ export const StyledInputContainer = styled.div`
 `;
 
 
-export const UserInfoContainer = styled.div`
+export const UserInfoContainer = styled.div<{height: string}>`
   display: flex;
   flex-direction: column;
   align-items: flex-start;

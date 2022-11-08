@@ -32,7 +32,7 @@ const Content = () => {
       <form>
         <InputContainer>
           <InputContentContainer>
-            <UserInfoContainer>
+            <UserInfoContainer height = "">
               <label>닉네임</label>
               <input
                 id="nickName"
@@ -40,11 +40,11 @@ const Content = () => {
                 onChange={(e) => nickNameChange(e.target.value)}
               />
             </UserInfoContainer>
-            <UserInfoContainer>
+            <UserInfoContainer height = "">
               <label>이메일</label>
               <input id="email" value={loginUserInfo.email} disabled />
             </UserInfoContainer>
-            <UserInfoContainer>
+            <UserInfoContainer height = "">
               <label>현재 비밀번호</label>
               <input
                 type="password"
@@ -53,7 +53,7 @@ const Content = () => {
                 disabled
               />
             </UserInfoContainer>
-            <UserInfoContainer>
+            <UserInfoContainer height = "">
               <label>새 비밀번호</label>
               <input
                 type="password"
@@ -61,7 +61,7 @@ const Content = () => {
                 onChange={(e) => PWChange(e.target.value)}
               />
             </UserInfoContainer>
-            <UserInfoContainer>
+            <UserInfoContainer height = "">
               <label>새 비밀번호 확인</label>
               <input
                 type="password"
