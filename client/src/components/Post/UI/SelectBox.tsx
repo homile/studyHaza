@@ -1,18 +1,30 @@
 import styled from 'styled-components';
 import img from '../../../images/down_arrow.png';
 
-export const SelectBox = (props) => {
-  const onChangeDevType = (e) => {
-    props.setDevType(e.target.value);
-    props.setDevStack([]);
-    // console.log(e.target.value);
+interface OptionsProps {
+  value: string;
+  name: string;
+}
+
+interface Props {
+  defaultValue: string;
+  options: OptionsProps[];
+  devTypeOptions?: OptionsProps[];
+  setDevType?: (devType: string) => void;
+  setDevStack?: (devStack: string[]) => void;
+  setOnOff?: (onOff: string) => void;
+}
+
+export const SelectBox = (props: Props) => {
+  const onChangeDevType = (e: { target: { value: string } }) => {
+    props.setDevType && props.setDevType(e.target.value);
+    props.setDevStack && props.setDevStack([]);
   };
 
-  const onChangeOnOff = (e) => {
-    props.setOnOff(e.target.value);
-    // console.log(e.target.value);
+  const onChangeOnOff = (e: { target: { value: string } }) => {
+    props.setOnOff && props.setOnOff(e.target.value);
   };
-
+  //
   return (
     <Select
       onChange={
