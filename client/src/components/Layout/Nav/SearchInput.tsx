@@ -1,11 +1,17 @@
-import React, { useState } from "react";
-import styled from "styled-components";
+import React, { useState } from 'react';
+import styled from 'styled-components';
+
+declare module 'react' {
+  interface HTMLAttributes<T> extends AriaAttributes, DOMAttributes<T> {
+    value?: string;
+  }
+}
 
 function Search() {
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState('');
   // const [lengths, setLength] = useState(0);
 
-  const onChange = (e) => {
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
     if (e.target.value.length !== 0) {
       // console.log("have value!!!");
@@ -34,7 +40,7 @@ function Search() {
           onChange={onChange}
           autoComplete="off"
           onKeyUp={(e) => {
-            if (e.key === "Enter") {
+            if (e.key === 'Enter') {
               // console.log(e.target.value);
             }
           }}
