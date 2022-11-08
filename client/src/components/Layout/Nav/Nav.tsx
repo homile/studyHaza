@@ -8,8 +8,8 @@ import logo from '../../../images/logo.png';
 import { useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { logoutUserInfo } from '../../../redux/actions';
-import Search from './SearchInput';
 import { getAuth } from 'firebase/auth';
+import { RootState } from '../../../redux/reducers';
 
 function Nav() {
   const navigate = useNavigate();
@@ -18,9 +18,13 @@ function Nav() {
   const [isNameClick, setIsNameClick] = useState(false);
 
   // store에 있는 로그인 판별 유무 가져올 수 있음
-  const isLogin = useSelector((state) => state.loginReducer.isLogin);
-  const nickName = useSelector((state) => state.loginReducer.nickName);
-  const photoUrl = useSelector((state) => state.loginReducer.photoUrl);
+  const isLogin = useSelector((state: RootState) => state.loginReducer.isLogin);
+  const nickName = useSelector(
+    (state: RootState) => state.loginReducer.nickName,
+  );
+  const photoUrl = useSelector(
+    (state: RootState) => state.loginReducer.photoUrl,
+  );
 
   const onIsNameClickHandler = () => {
     setIsNameClick(!isNameClick);
@@ -46,7 +50,6 @@ function Nav() {
         </LeftContainer>
 
         <RightContainer>
-          <Search />
           <DarkmodeIcon>
             <i className="fa-solid fa-moon fa-fw"></i>
           </DarkmodeIcon>
