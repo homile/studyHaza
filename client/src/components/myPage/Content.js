@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { UserInfoContainer } from '../UI/LoginInput';
+import { UserInfoContainer } from '../UI/Input/LoginInput';
 import { ButtonPrimary } from '../UI/Button/Button';
 
 const Content = () => {

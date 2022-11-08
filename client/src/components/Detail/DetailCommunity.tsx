@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
-import { ProfileImgXS } from '../UI/ProfileImg';
+import { ProfileImgXS } from '../UI/Img/ProfileImg';
 import { RootState } from '../../redux/reducers';
 
 type dataType = {

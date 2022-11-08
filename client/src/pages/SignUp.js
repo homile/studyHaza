@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 
 import Footer from '../components/Layout/Footer';
-import { StyledInputContainer } from '../components/UI/LoginInput';
+import { StyledInputContainer } from '../components/UI/Input/LoginInput';
 import { ButtonLogin } from '../components/UI/Button/Button';
 import ModalSucces from '../components/UI/Modal/ModalSucces';
 
