@@ -3,7 +3,7 @@ import CountUp from 'react-countup';
 
 interface Props {
     posts: (posts: object) => void;
-  }
+}
 
 export const AdArea = ({posts} : Props) => {
     return(

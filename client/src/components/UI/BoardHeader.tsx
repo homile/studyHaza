@@ -1,7 +1,12 @@
 import { ButtonPrimary } from './Button/Button';
 import styled from 'styled-components';
 
-const BoardHeader = ({ onWriteClick, posts }) => {
+interface Props {
+    onWriteClick: () => void;
+    posts: (posts: object) => void;
+}
+
+const BoardHeader = ({ onWriteClick, posts }: Props) => {
   return (
     <>
       <Thead>
