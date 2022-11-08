@@ -1,30 +1,24 @@
-import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 import { ProfileImgXS } from '../UI/ProfileImg';
-import { query, collection, where, getDocs } from 'firebase/firestore';
-import { db } from '../../firebase-config';
-import { useParams } from 'react-router-dom';
+import { RootState } from '../../redux/reducers';
 
-function ViewCommunity() {
-  const { id } = useParams();
-  const [data, setData] = useState({});
+type dataType = {
+  board: string;
+  content: string;
+  dateCreated: string;
+  id: string;
+  nickName: string;
+  title: string;
+};
 
-  const nickName = useSelector((state) => state.loginReducer.nickName);
-  const photoUrl = useSelector((state) => state.loginReducer.photoUrl);
-
-  const getPosts = async () => {
-    const q = query(collection(db, 'posts'), where('id', '==', id));
-
-    const querySnapshot = await getDocs(q);
-    querySnapshot.forEach((doc) => {
-      setData(doc.data());
-    });
-  };
-
-  useEffect(() => {
-    getPosts();
-  }, []);
+interface Props {
+  data: dataType;
+}
+function DetailCommunity({ data }: Props) {
+  const photoUrl = useSelector(
+    (state: RootState) => state.loginReducer.photoUrl,
+  );
 
   return (
     <>
@@ -49,7 +43,7 @@ function ViewCommunity() {
   );
 }
 
-export default ViewCommunity;
+export default DetailCommunity;
 
 const ViewContainer = styled.div`
   height: 650px;
