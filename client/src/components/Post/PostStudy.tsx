@@ -10,7 +10,8 @@ import { ButtonPrimary } from '../UI/Button/Button';
 import Modal from '../UI/Modal/Modal';
 import { db } from '../../firebase-config';
 import { collection, addDoc } from 'firebase/firestore';
-import uuid from 'react-uuid';
+import { v4 as uuidv4 } from 'uuid';
+import { RootState } from '../../redux/reducers';
 
 const devTypeOptions = [
   { value: 'frontend', name: '프론트엔드' },
@@ -22,17 +23,24 @@ const onOffOptions = [
   { value: 'off', name: '오프라인' },
 ];
 
-const WriteStudy = ({ setIsOk, setIsWrite, isEdit }) => {
+interface Props {
+  setIsWrite: (isWrite: boolean) => void;
+  isEdit?: boolean;
+}
+
+const PostStudy = ({ setIsWrite, isEdit }: Props) => {
   const navigate = useNavigate();
   const [title, setTitle] = useState('');
-  const [startDate, setStartDate] = useState(new Date());
+  const [startDate, setStartDate] = useState<Date>(new Date());
   const [devType, setDevType] = useState('frontend');
-  const [devStack, setDevStack] = useState([]);
-  const [totalHeadCount, setTotalHeadCount] = useState(0);
+  const [devStack, setDevStack] = useState<string[]>([]);
+  const [totalHeadCount, setTotalHeadCount] = useState<number>(0);
   const [onOff, setOnOff] = useState('on');
   const [content, setContent] = useState('');
   const dateCreated = new Date();
-  const nickName = useSelector((state) => state.loginReducer.nickName);
+  const nickName = useSelector(
+    (state: RootState) => state.loginReducer.nickName,
+  );
 
   const [isOpenOk, setIsOpenOk] = useState(false);
   const [isOpenCancel, setIsOpenCancel] = useState(false);
@@ -60,8 +68,8 @@ const WriteStudy = ({ setIsOk, setIsWrite, isEdit }) => {
 
   // firestore에 데이터 업로드
   const createPosts = async () => {
-    const id = uuid();
-    const res = await addDoc(postsCollectionRef, {
+    const id = uuidv4();
+    await addDoc(postsCollectionRef, {
       board: 'study',
       content,
       dateCreated: dateCreated.toLocaleDateString(),
@@ -76,7 +84,6 @@ const WriteStudy = ({ setIsOk, setIsWrite, isEdit }) => {
       totalHeadCount,
     });
     navigate(`/studyjoin/detail/${id}`);
-    setIsOk(true);
   };
 
   return (
@@ -119,8 +126,8 @@ const WriteStudy = ({ setIsOk, setIsWrite, isEdit }) => {
             <input
               type="number"
               defaultValue={totalHeadCount}
-              onChange={(e) => {
-                setTotalHeadCount(e.target.value);
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                setTotalHeadCount(parseInt(e.target.value));
               }}
               id="title"
               placeholder="ex) 10"
@@ -136,14 +143,12 @@ const WriteStudy = ({ setIsOk, setIsWrite, isEdit }) => {
               defaultValue={onOff}
               options={onOffOptions}
               setOnOff={setOnOff}
-              onOffOptions={onOffOptions}
             ></SelectBox>
           </div>
         </WriteInputContainer>
       </DivContainer>
 
       <CheckBox
-        defaultValue={devStack}
         setDevStack={setDevStack}
         devType={devType}
         devStack={devStack}
@@ -193,7 +198,7 @@ const WriteStudy = ({ setIsOk, setIsWrite, isEdit }) => {
   );
 };
 
-export default WriteStudy;
+export default PostStudy;
 
 const DivContainer = styled.div`
   display: flex;
