@@ -1,6 +1,11 @@
 import styled from "styled-components";
 
-export const WriteInputContainer = styled.div`
+interface Props {
+  width?: string,
+  height?: string
+}
+
+export const WriteInputContainer = styled.div<Props>`
   display: flex;
   flex-direction: column;
   justify-items: center;
