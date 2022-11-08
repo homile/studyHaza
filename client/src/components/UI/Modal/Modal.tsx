@@ -1,9 +1,16 @@
-import styled from 'styled-components';
-import ImgObject from '../../../images/icon_team.png';
+import React from "react";
+import styled from "styled-components";
 
-function ModalSoon({ children, isOpen, setIsOpen }) {
+interface Props {
+    handleModal: () => void;
+    children: string;
+    isOpen: boolean;
+    setIsOpen: (isOpen: boolean) => void;
+}
+
+function Modal({ handleModal, children, isOpen, setIsOpen }: Props) {
   const openModalHandler = () => {
-    setIsOpen(!isOpen);
+    setIsOpen(false);
   };
 
   return (
@@ -16,18 +23,21 @@ function ModalSoon({ children, isOpen, setIsOpen }) {
               className="btn-modal-cls"
               onClick={openModalHandler}
             ></button>
-            <div className="modal-body soon">
-              <div>
-                <b>Coming Soon</b>
-                <p>{children} 준비중 입니다.</p>
-                <img className="icon-team" src={ImgObject} alt=""></img>
-              </div>
+            <div className="modal-body">
+              <strong>{children}</strong>
             </div>
             <StyledModalFooter className="modal-footer">
               <button
                 type="button"
-                className="btn-modal cta"
+                className="btn-modal cancel"
                 onClick={openModalHandler}
+              >
+                취소
+              </button>
+              <button
+                type="button"
+                className="btn-modal cta"
+                onClick={handleModal}
               >
                 확인
               </button>
@@ -39,8 +49,7 @@ function ModalSoon({ children, isOpen, setIsOpen }) {
     </>
   );
 }
-
-export default ModalSoon;
+export default Modal;
 
 const StyledModal = styled.div`
   display: flex;
@@ -60,7 +69,7 @@ const StyledModalCon = styled.div`
   display: flex;
   flex-direction: column;
   width: 450px;
-  min-height: 500px;
+  min-height: 380px;
   margin: 0 auto;
   text-align: center;
   background: #fff;
@@ -71,19 +80,8 @@ const StyledModalCon = styled.div`
   .modal-body {
     display: flex;
     align-items: center;
-    b {
-      display: inline-block;
-      padding-bottom: 16px;
-      font-size: 40px;
-      font-family: 'Pretendard-ExtraBold';
-    }
-    p,
     strong {
       font-size: 26px;
-    }
-    .icon-team {
-      margin-top: 20px;
-      width: 187px;
     }
   }
 `;
@@ -97,6 +95,9 @@ const StyledModalFooter = styled.div`
   button {
     font-size: 20px;
     font-weight: 500;
+  }
+  .btn-modal.cancel {
+    background: #f4f4f4;
   }
   .btn-modal.cta {
     background: #2584f4;

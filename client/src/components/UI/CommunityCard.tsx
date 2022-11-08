@@ -4,7 +4,18 @@ import { Link } from "react-router-dom";
 import { ProfileImgXS } from "./Img/ProfileImg";
 import img from "../../images/pf_sample.png";
 
-const CommunityCard = ({ data }) => {
+type communityDataType = {
+    dateCreated: string;
+    id: string;
+    nickName: string;
+    title: string;
+};
+
+interface Props {
+    data: communityDataType
+}
+
+const CommunityCard = ({ data }: Props) => {
   return (
     <StyledLink to={`/community/detail/${data.id}`}>
       <Item>
@@ -16,7 +27,7 @@ const CommunityCard = ({ data }) => {
           <span className="meta">
             <em>{data.dateCreated}</em>
             <em className="like">
-              <i class="fa-solid fa-heart"></i>202
+              <i className="fa-solid fa-heart"></i>202
             </em>
           </span>
         </div>

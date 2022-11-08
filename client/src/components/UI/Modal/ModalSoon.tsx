@@ -1,24 +1,35 @@
 import styled from 'styled-components';
-import ImgObject from '../../../images/icon_team3.png';
+import ImgObject from '../../../images/icon_team.png';
 
-const ModalSucces = ({ isOpen, setIsOpen }) => {
+interface Props {
+    children: string;
+    isOpen: boolean;
+    setIsOpen: (isOpen: boolean) => void;
+}
+
+function ModalSoon({ children, isOpen, setIsOpen } :Props) {
   const openModalHandler = () => {
     setIsOpen(!isOpen);
   };
 
   return (
     <>
-      {isOpen && (
+      {isOpen ? (
         <StyledModal className="modal" onClick={openModalHandler}>
           <StyledModalCon onClick={(e) => e.stopPropagation()}>
+            <button
+              type="button"
+              className="btn-modal-cls"
+              onClick={openModalHandler}
+            ></button>
             <div className="modal-body soon">
               <div>
-                <b>회원가입 완료</b>
-                <p>스터디하자에 오신것을 환영합니다!</p>
-                <img className="icon-team3" src={ImgObject} alt=""></img>
+                <b>Coming Soon</b>
+                <p>{children} 준비중 입니다.</p>
+                <img className="icon-team" src={ImgObject} alt=""></img>
               </div>
             </div>
-            <StyledModalFooter>
+            <StyledModalFooter className="modal-footer">
               <button
                 type="button"
                 className="btn-modal cta"
@@ -29,12 +40,13 @@ const ModalSucces = ({ isOpen, setIsOpen }) => {
             </StyledModalFooter>
           </StyledModalCon>
         </StyledModal>
-      )}
+      ) : null}
+      {/* <button onClick={openModalHandler}>모달 여닫기</button> */}
     </>
   );
-};
+}
 
-export default ModalSucces;
+export default ModalSoon;
 
 const StyledModal = styled.div`
   display: flex;
@@ -48,7 +60,6 @@ const StyledModal = styled.div`
   bottom: 0;
   left: 0;
   background: rgba(0, 0, 0, 0.75);
-  z-index: 10;
 `;
 const StyledModalCon = styled.div`
   position: relative;
@@ -76,7 +87,7 @@ const StyledModalCon = styled.div`
     strong {
       font-size: 26px;
     }
-    .icon-team3 {
+    .icon-team {
       margin-top: 20px;
       width: 187px;
     }

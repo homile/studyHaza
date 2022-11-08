@@ -1,48 +1,45 @@
-import React from "react";
-import styled from "styled-components";
+import styled from 'styled-components';
+import ImgObject from '../../../images/icon_team3.png';
 
-function Modal({ handleModal, children, isOpen, setIsOpen }) {
+interface Props {
+    isOpen: boolean;
+    setIsOpen: (isOpen: boolean) => void;
+}
+
+const ModalSucces = ({ isOpen, setIsOpen } :Props) => {
   const openModalHandler = () => {
-    setIsOpen(false);
+    setIsOpen(!isOpen);
   };
 
   return (
     <>
-      {isOpen ? (
+      {isOpen && (
         <StyledModal className="modal" onClick={openModalHandler}>
           <StyledModalCon onClick={(e) => e.stopPropagation()}>
-            <button
-              type="button"
-              className="btn-modal-cls"
-              onClick={openModalHandler}
-            ></button>
-            <div className="modal-body">
-              <strong>{children}</strong>
+            <div className="modal-body soon">
+              <div>
+                <b>회원가입 완료</b>
+                <p>스터디하자에 오신것을 환영합니다!</p>
+                <img className="icon-team3" src={ImgObject} alt=""></img>
+              </div>
             </div>
-            <StyledModalFooter className="modal-footer">
-              <button
-                type="button"
-                className="btn-modal cancel"
-                onClick={openModalHandler}
-              >
-                취소
-              </button>
+            <StyledModalFooter>
               <button
                 type="button"
                 className="btn-modal cta"
-                onClick={handleModal}
+                onClick={openModalHandler}
               >
                 확인
               </button>
             </StyledModalFooter>
           </StyledModalCon>
         </StyledModal>
-      ) : null}
-      {/* <button onClick={openModalHandler}>모달 여닫기</button> */}
+      )}
     </>
   );
-}
-export default Modal;
+};
+
+export default ModalSucces;
 
 const StyledModal = styled.div`
   display: flex;
@@ -56,13 +53,14 @@ const StyledModal = styled.div`
   bottom: 0;
   left: 0;
   background: rgba(0, 0, 0, 0.75);
+  z-index: 10;
 `;
 const StyledModalCon = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
   width: 450px;
-  min-height: 380px;
+  min-height: 500px;
   margin: 0 auto;
   text-align: center;
   background: #fff;
@@ -73,8 +71,19 @@ const StyledModalCon = styled.div`
   .modal-body {
     display: flex;
     align-items: center;
+    b {
+      display: inline-block;
+      padding-bottom: 16px;
+      font-size: 40px;
+      font-family: 'Pretendard-ExtraBold';
+    }
+    p,
     strong {
       font-size: 26px;
+    }
+    .icon-team3 {
+      margin-top: 20px;
+      width: 187px;
     }
   }
 `;
@@ -88,9 +97,6 @@ const StyledModalFooter = styled.div`
   button {
     font-size: 20px;
     font-weight: 500;
-  }
-  .btn-modal.cancel {
-    background: #f4f4f4;
   }
   .btn-modal.cta {
     background: #2584f4;

@@ -1,7 +1,11 @@
 import styled from "styled-components";
 import CountUp from 'react-countup';
 
-export const AdArea = ({posts}) => {
+interface Props {
+    posts: (posts: object) => void;
+}
+
+export const AdArea = ({posts} : Props) => {
     return(
         <BannerArea>
             <p><strong><CountUp duration={1} start={0} end={posts.length} /></strong>개의 스터디가<br/>당신의 합류를 기다리는 중!</p>
