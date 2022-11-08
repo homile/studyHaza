@@ -4,7 +4,22 @@ import { WriteInputContainer } from '../Post/UI/PostInput';
 import { ButtonSecondary } from '../UI/Button/Button';
 import Modal from '../UI/Modal/Modal';
 
-const EditCommunity = ({ data, onUpdatePost, toggleIsEdit }) => {
+type dataType = {
+  board: string;
+  content: string;
+  dateCreated: string;
+  id: string;
+  nickName: string;
+  title: string;
+};
+
+interface Props {
+  data: dataType;
+  onUpdatePost: (editData: object) => void;
+  toggleIsEdit: () => void;
+}
+
+const EditCommunity = ({ data, onUpdatePost, toggleIsEdit }: Props) => {
   const [editTitle, setEditTitle] = useState(data.title);
   const [editContent, setEditContent] = useState(data.content);
   const dateUpdated = new Date().toLocaleDateString();
@@ -25,7 +40,7 @@ const EditCommunity = ({ data, onUpdatePost, toggleIsEdit }) => {
 
   // 수정 취소
   const handleInit = () => {
-    toggleIsEdit(false);
+    toggleIsEdit();
     setEditTitle(data.title);
     setEditContent(data.content);
   };

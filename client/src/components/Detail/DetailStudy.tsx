@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { ProfileImgXS } from '../UI/Img/ProfileImg';
 import { ButtonPrimary } from '../UI/Button/Button';
 import ModalSoon from '../UI/Modal/ModalSoon';
+import { RootState } from '../../redux/reducers';
 
 const frontStacks = [
   'Angular',
@@ -63,9 +64,30 @@ const stackBackgrounds = [
   { stack: 'Java', color: '#D9D9D9' },
 ];
 
-function ViewStudy({ data }) {
-  const nickName = useSelector((state) => state.loginReducer.nickName);
-  const photoUrl = useSelector((state) => state.loginReducer.photoUrl);
+type dataType = {
+  board: string;
+  content: string;
+  dateCreated: string;
+  dateUpdated: string;
+  devStack: string[];
+  devType: string;
+  haveHeadCount: number;
+  id: string;
+  nickName: string;
+  onOff: string;
+  startDate: string;
+  title: string;
+  totalHeadCount: number;
+};
+
+interface Props {
+  data: dataType;
+}
+
+function DetailStudy({ data }: Props) {
+  const photoUrl = useSelector(
+    (state: RootState) => state.loginReducer.photoUrl,
+  );
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -73,16 +95,15 @@ function ViewStudy({ data }) {
     setIsOpen(true);
   };
 
-  const pick = (i) => {
-    const filtered = stackBackgrounds
-      .filter((el) => el.stack === i)
-      .map((el) => el.color);
-    return filtered;
+  const pick = (item: string) => {
+    return stackBackgrounds
+      .filter((el) => el.stack === item)
+      .map((el) => el.color)[0];
   };
 
-  const devStackWord = (devType, skill) => {
+  const devStackWord = (devType: string, skill: string) => {
     let a = '';
-    let idx = '';
+    let idx = 0;
     if (devType === 'frontend') {
       idx = frontStacks.findIndex((el) => el === skill);
       a = 'fe';
@@ -185,7 +206,7 @@ function ViewStudy({ data }) {
   );
 }
 
-export default ViewStudy;
+export default DetailStudy;
 
 const ViewContainer = styled.div`
   height: 800px;

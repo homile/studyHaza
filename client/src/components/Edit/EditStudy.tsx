@@ -17,7 +17,30 @@ const onOffOptions = [
   { value: 'off', name: '오프라인' },
 ];
 
-const PostEditor = ({ data, onUpdatePost, toggleIsEdit }) => {
+type dataType = {
+  board: string;
+  content: string;
+  dateCreated: string;
+  dateUpdated: string;
+  devStack: string[];
+  devType: string;
+  haveHeadCount: number;
+  id: string;
+  nickName: string;
+  onOff: string;
+  startDate: Date;
+  title: string;
+  totalHeadCount: number;
+};
+
+interface Props {
+  data: dataType;
+  onUpdatePost: (editData: object) => void;
+  toggleIsEdit: () => void;
+}
+
+const EditStudy = ({ data, onUpdatePost, toggleIsEdit }: Props) => {
+  console.log(data);
   const [editTitle, setEditTitle] = useState(data.title);
   const [editStartDate, setEditStartDate] = useState(new Date(data.startDate));
   const [editDevType, setEditDevType] = useState(data.devType);
@@ -50,7 +73,7 @@ const PostEditor = ({ data, onUpdatePost, toggleIsEdit }) => {
 
   // 수정 취소
   const handleInit = () => {
-    toggleIsEdit(false);
+    toggleIsEdit();
     setEditTitle(data.title);
     setEditStartDate(data.startDate);
     setEditDevType(data.devType);
@@ -113,7 +136,9 @@ const PostEditor = ({ data, onUpdatePost, toggleIsEdit }) => {
                 type="number"
                 name="editTotalHeadCount"
                 value={editTotalHeadCount}
-                onChange={(e) => setEditTotalHeadCount(e.target.value)}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setEditTotalHeadCount(Number(e.target.value))
+                }
                 placeholder="ex) 10"
               />
               <span>명</span>
@@ -127,14 +152,12 @@ const PostEditor = ({ data, onUpdatePost, toggleIsEdit }) => {
                 defaultValue={editOnOff}
                 options={onOffOptions}
                 setOnOff={setEditOnOff}
-                onOffOptions={onOffOptions}
               ></SelectBox>
             </div>
           </WriteInputContainer>
         </DivContainer>
 
         <CheckBox
-          defaultValue={editDevStack}
           setDevStack={setEditDevStack}
           devType={editDevType}
           devStack={editDevStack}
@@ -179,7 +202,7 @@ const PostEditor = ({ data, onUpdatePost, toggleIsEdit }) => {
   );
 };
 
-export default PostEditor;
+export default EditStudy;
 
 const Container = styled.div`
   display: flex;

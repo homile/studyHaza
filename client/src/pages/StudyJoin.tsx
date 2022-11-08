@@ -4,7 +4,11 @@ import { StudyContents } from '../components/UI/StudyContents';
 import iconButton from '../images/icon_add.png';
 import styled from 'styled-components';
 
-function StudyJoin({ posts, isEdit }) {
+interface Props {
+  posts: { [index: string]: string };
+}
+
+function StudyJoin({ posts }: Props) {
   const [isWrite, setIsWrite] = useState(false);
 
   const onWriteClick = () => {
@@ -14,7 +18,7 @@ function StudyJoin({ posts, isEdit }) {
   return (
     <Container>
       {isWrite ? (
-        <WriteBox setIsWrite={setIsWrite} isEdit={isEdit} />
+        <WriteBox setIsWrite={setIsWrite} />
       ) : (
         <>
           <CreateStudyButton onClick={onWriteClick}>
@@ -24,7 +28,11 @@ function StudyJoin({ posts, isEdit }) {
             </div>
           </CreateStudyButton>
           <ConPanel>
-            {posts !== 0 ? <StudyContents posts={posts} /> : <p>멍멍</p>}
+            {Number(posts) !== 0 ? (
+              <StudyContents posts={posts} />
+            ) : (
+              <p>멍멍</p>
+            )}
           </ConPanel>
         </>
       )}

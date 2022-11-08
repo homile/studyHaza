@@ -1,7 +1,15 @@
 import styled from "styled-components";
 
+interface Props {
+  width?: string,
+  height?: string,
+  background?: string,
+  borderColor?: string,
+
+}
+
 // 소셜 로그인 버튼
-export const ButtonSnsLogin = styled.div`
+export const ButtonSnsLogin = styled.div<Props>`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -23,7 +31,7 @@ export const ButtonSnsLogin = styled.div`
 `;
 
 // Nav 로그인 & 회원가입 버튼, 글쓰기 버튼, 더보기 버튼
-export const ButtonPrimary = styled.button`
+export const ButtonPrimary = styled.button<Props>`
   background: ${(props) => props.background || "#2584f4"};
   color: ${(props) => props.color || "white"};
   border-radius: 50px;
@@ -43,7 +51,7 @@ export const ButtonPrimary = styled.button`
 `;
 
 // 수정, 삭제, 목록으로, 참여하기, 취소, 작성완료 버튼
-export const ButtonSecondary = styled.button`
+export const ButtonSecondary = styled.button<Props>`
   background: ${(props) => props.background || "white"};
   color: ${(props) => props.color || "#2584F4"};
   border-radius: 50px;
@@ -65,7 +73,7 @@ export const ButtonSecondary = styled.button`
 `;
 
 // 로그인 및 회원가입 버튼
-export const ButtonLogin = styled.button`
+export const ButtonLogin = styled.button<Props>`
   display: flex;
   justify-content: center;
   align-items: center;

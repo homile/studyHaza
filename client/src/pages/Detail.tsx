@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
-import ViewStudy from '../components/Detail/DetailStudy';
+import DetailStudy from '../components/Detail/DetailStudy';
 import { ButtonSecondary } from '../components/UI/Button/Button';
 import { useNavigate } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
-import ViewCommunity from '../components/Detail/DetailCommunity';
+import DetailCommunity from '../components/Detail/DetailCommunity';
 import {
   deleteDoc,
   query,
@@ -17,17 +17,29 @@ import {
 import { db } from '../firebase-config';
 import { useParams } from 'react-router-dom';
 import Modal from '../components/UI/Modal/Modal';
-import PostEditor from '../components/Edit/EditStudy';
+import EditStudy from '../components/Edit/EditStudy';
 import EditCommunity from '../components/Edit/EditCommunity';
+import { RootState } from '../redux/reducers';
 
-function Detail({ isEdit, toggleIsEdit }) {
-  const nickName = useSelector((state) => state.loginReducer.nickName);
+interface Props {
+  isEdit: boolean;
+  toggleIsEdit: () => void;
+}
 
-  const { id } = useParams();
+type idParams = {
+  id: string;
+};
+
+function Detail({ isEdit, toggleIsEdit }: Props) {
+  const nickName = useSelector(
+    (state: RootState) => state.loginReducer.nickName,
+  );
+
+  const { id } = useParams<idParams>();
   const navigate = useNavigate();
   const pathName = useLocation().pathname.split('/')[1];
 
-  const [data, setData] = useState({});
+  const [data, setData] = useState(Object);
   const [isOpenOk, setIsOpenOk] = useState(false);
   const [isShow, setIsShow] = useState(false);
 
@@ -74,18 +86,17 @@ function Detail({ isEdit, toggleIsEdit }) {
   };
 
   // 글 수정
-  const onUpdatePost = async (el) => {
-    // console.log(el);
+  const onUpdatePost = async (el: object) => {
     const q = query(collection(db, 'posts'), where('id', '==', id));
     const data = await getDocs(q);
     try {
       if (data.docs.length !== 0) {
         await updateDoc(data.docs[0].ref, el);
       }
-      toggleIsEdit();
+      if (toggleIsEdit) toggleIsEdit();
       window.location.reload();
     } catch {
-      // console.log("Not Update");
+      // console.log('Not Update');
     }
   };
   return (
@@ -94,14 +105,12 @@ function Detail({ isEdit, toggleIsEdit }) {
         <>
           {pathName === 'community' ? (
             <EditCommunity
-              isEdit={isEdit}
               data={data}
               onUpdatePost={onUpdatePost}
               toggleIsEdit={toggleIsEdit}
             />
           ) : (
-            <PostEditor
-              isEdit={isEdit}
+            <EditStudy
               data={data}
               onUpdatePost={onUpdatePost}
               toggleIsEdit={toggleIsEdit}
@@ -111,9 +120,9 @@ function Detail({ isEdit, toggleIsEdit }) {
       ) : (
         <>
           {pathName === 'community' ? (
-            <ViewCommunity />
+            <DetailCommunity data={data} />
           ) : (
-            <ViewStudy data={data} id={id} />
+            <DetailStudy data={data} />
           )}
         </>
       )}

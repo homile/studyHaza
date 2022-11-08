@@ -1,34 +1,33 @@
-import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useLocation } from 'react-router-dom';
-import WriteCommunity from './PostCommunity';
-import WriteStudy from './PostStudy';
-import Detail from '../../pages/Detail';
+import PostCommunity from './PostCommunity';
+import PostStudy from './PostStudy';
+
+interface Props {
+  setIsWrite: (isWrite: boolean) => void;
+}
+
+interface StyleProps {
+  community: boolean;
+}
 
 // 스터디 모집 글쓰기, 커뮤니티 글쓰기 컴포넌트 container
-const WriteBox = ({ setIsWrite }) => {
+const WriteBox = ({ setIsWrite }: Props) => {
   const { pathname } = useLocation();
-  const [isOk, setIsOk] = useState(false);
 
   return (
     <WrapPanel>
-      {!isOk ? (
-        <>
-          <HeaderContainer>
-            {pathname === '/community' ? '커뮤니티 글쓰기' : '스터디 만들기'}
-          </HeaderContainer>
+      <HeaderContainer>
+        {pathname === '/community' ? '커뮤니티 글쓰기' : '스터디 만들기'}
+      </HeaderContainer>
 
-          <WriteContainer community={pathname === '/community' ? true : false}>
-            {pathname === '/community' ? (
-              <WriteCommunity setIsOk={setIsOk} setIsWrite={setIsWrite} />
-            ) : (
-              <WriteStudy setIsOk={setIsOk} setIsWrite={setIsWrite} />
-            )}
-          </WriteContainer>
-        </>
-      ) : (
-        <Detail setIsWrite={setIsWrite} />
-      )}
+      <WriteContainer community={pathname === '/community' ? true : false}>
+        {pathname === '/community' ? (
+          <PostCommunity setIsWrite={setIsWrite} />
+        ) : (
+          <PostStudy setIsWrite={setIsWrite} />
+        )}
+      </WriteContainer>
     </WrapPanel>
   );
 };
@@ -41,7 +40,7 @@ const WrapPanel = styled.div`
   background-color: #fff;
 `;
 
-const WriteContainer = styled.div`
+const WriteContainer = styled.div<StyleProps>`
   display: flex;
   flex-direction: column;
   width: 100%;

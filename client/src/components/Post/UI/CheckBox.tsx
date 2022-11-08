@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Dispatch, SetStateAction } from 'react';
 import styled from 'styled-components';
 import img1 from '../../../images/check_icon1.png';
 import img2 from '../../../images/check_icon2.png';
@@ -34,8 +34,14 @@ const BACK_LIST = [
   { id: 'JavaScript', data: 'JavaScript' },
 ];
 
-const CheckBox = ({ devStack, devType, setDevStack }) => {
-  const changeHandler = (checked, id) => {
+interface Props {
+  devStack: string[];
+  devType: string;
+  setDevStack: Dispatch<SetStateAction<string[]>>;
+}
+
+const CheckBox = ({ devStack, devType, setDevStack }: Props) => {
+  const changeHandler = (checked: boolean, id: string) => {
     if (checked) {
       setDevStack([...devStack, id]);
     } else {
