@@ -20,7 +20,7 @@ import kakao_symbol from '../assets/kakao_symbol.png';
 import google_symbol from '../assets/google_symbol.png';
 
 function Login() {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
