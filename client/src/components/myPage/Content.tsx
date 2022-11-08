@@ -3,20 +3,27 @@ import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { UserInfoContainer } from '../UI/Input/LoginInput';
 import { ButtonPrimary } from '../UI/Button/Button';
+import { RootState } from '../../redux/reducers';
 
 const Content = () => {
   // 로그인 중인 유저정보
-  const loginUserInfo = useSelector((state) => state.loginReducer);
+  const loginUserInfo = useSelector((state: RootState) => state.loginReducer);
 
   const [nickName, setNickName] = useState(loginUserInfo.nickName);
+  const [passWord, setPassWord] = useState('');
+  const [passWordCheck, setPassWordCheck] = useState('');
 
-  const nickNameChange = (e) => {
+  const nickNameChange = (e: string) => {
     setNickName(e);
   };
 
-  // const PWChange = () => {};
+  const PWChange = (e: string) => {
+    setPassWord(e);
+  };
 
-  // const PWCheckChange = () => {};
+  const PWCheckChange = (e: string) => {
+    setPassWordCheck(e);
+  };
 
   return (
     <Container>
@@ -48,11 +55,19 @@ const Content = () => {
             </UserInfoContainer>
             <UserInfoContainer>
               <label>새 비밀번호</label>
-              <input type="password" id="newPW" onChange={PWChange} />
+              <input
+                type="password"
+                id="newPW"
+                onChange={(e) => PWChange(e.target.value)}
+              />
             </UserInfoContainer>
             <UserInfoContainer>
               <label>새 비밀번호 확인</label>
-              <input type="password" id="newPWCheck" onChange={PWCheckChange} />
+              <input
+                type="password"
+                id="newPWCheck"
+                onChange={(e) => PWCheckChange(e.target.value)}
+              />
             </UserInfoContainer>
           </InputContentContainer>
           <InputImgContainer>이미지</InputImgContainer>
@@ -124,8 +139,8 @@ const ButtonContainer = styled.div`
   justify-content: flex-end;
 `;
 
-const ValidationCheck = styled.label`
-  display: ${(props) => props.display || 'none'};
-  color: red;
-  margin-top: -0.5rem;
-`;
+// const ValidationCheck = styled.label`
+//   display: ${(props) => props.display || 'none'};
+//   color: red;
+//   margin-top: -0.5rem;
+// `;

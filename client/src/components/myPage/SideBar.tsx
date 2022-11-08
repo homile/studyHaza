@@ -7,17 +7,18 @@ import { useSelector, useDispatch } from 'react-redux';
 import { logoutUserInfo } from '../../redux/actions';
 
 import { db } from '../../firebase-config';
-import { getAuth, deleteUser } from 'firebase/auth';
+import { getAuth, deleteUser, Auth } from 'firebase/auth';
 import { doc, deleteDoc } from 'firebase/firestore';
+import { RootState } from '../../redux/reducers';
 
 const SideBar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const id = useSelector((state) => state.loginReducer.id);
+  const id = useSelector((state: RootState) => state.loginReducer.id);
 
-  const auth = getAuth();
-  const user = auth.currentUser;
+  const auth:Auth = getAuth();
+  const user:any = auth.currentUser;
   const dispatch = useDispatch();
-  let navigate = useNavigate();
+  const navigate = useNavigate();
 
   const signOutHandler = () => {
     deleteUser(user)
