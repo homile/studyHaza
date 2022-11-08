@@ -4,18 +4,25 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { db } from '../../firebase-config';
 import { collection, addDoc } from 'firebase/firestore';
-import uuid from 'react-uuid';
 import { WriteInputContainer } from './UI/PostInput';
 import { ButtonPrimary } from '../UI/Button/Button';
 import Modal from '../UI/Modal/Modal';
+import { v4 as uuidv4 } from 'uuid';
+import { RootState } from '../../redux/reducers';
 
-function WriteCommunity({ setIsOk, setIsWrite }) {
+interface Props {
+  setIsWrite: (isWrite: boolean) => void;
+}
+
+function PostCommunity({ setIsWrite }: Props) {
   const navigate = useNavigate();
 
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const dateCreated = new Date();
-  const nickName = useSelector((state) => state.loginReducer.nickName);
+  const nickName = useSelector(
+    (state: RootState) => state.loginReducer.nickName,
+  );
 
   const [isOpenOk, setIsOpenOk] = useState(false);
   const [isOpenCancel, setIsOpenCancel] = useState(false);
@@ -41,8 +48,8 @@ function WriteCommunity({ setIsOk, setIsWrite }) {
 
   // firestore에 데이터 올리기
   const createPosts = async () => {
-    const id = uuid();
-    const data = await addDoc(postsCollectionRef, {
+    const id = uuidv4();
+    await addDoc(postsCollectionRef, {
       board: 'community',
       content,
       dateCreated: dateCreated.toLocaleDateString(),
@@ -51,7 +58,6 @@ function WriteCommunity({ setIsOk, setIsWrite }) {
       title,
     });
     navigate(`/community/detail/${id}`);
-    setIsOk(true);
   };
 
   return (
@@ -110,7 +116,7 @@ function WriteCommunity({ setIsOk, setIsWrite }) {
   );
 }
 
-export default WriteCommunity;
+export default PostCommunity;
 
 const ButtonContainer = styled.div`
   display: flex;
