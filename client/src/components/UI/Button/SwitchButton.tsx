@@ -1,6 +1,12 @@
 import styled from "styled-components";
 
-export const SwitchButton = ({isOn, toggleHandler}) => {
+
+interface Props {
+    isOn?: boolean,
+    toggleHandler?: () => void,
+}
+
+export const SwitchButton = ({isOn, toggleHandler}: Props) => {
     return(
         <>
             <ToggleContainer onClick={toggleHandler}>
