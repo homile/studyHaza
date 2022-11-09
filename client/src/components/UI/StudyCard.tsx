@@ -3,10 +3,27 @@ import { ProfileImgXS } from "./Img/ProfileImg";
 import img from "../../images/pf_sample.png";
 import { Link } from "react-router-dom";
 
-export const StudyCard = ({ data }) => {
+type communityDataType = {
+    startDate: string,
+    dateCreated: string,
+    id: string,
+    nickName: string,
+    title: string,
+    haveHeadCount: string,
+    totalHeadCount: string,
+    devStack: [],
+    devType:[],
+    onOff: string,
+};
+
+interface Props {
+    data: communityDataType
+}
+
+export const StudyCard = ({ data }: Props) => {
   const startDay = new Date(data.startDate);
   const toDay = new Date();
-  const diff = startDay - toDay;
+  const diff = +startDay - +toDay;
   const diffDay = Math.floor(diff / (1000 * 60 * 60 * 24));
 
   // 모집마감일 디데이
@@ -49,9 +66,9 @@ export const StudyCard = ({ data }) => {
     "JavaScript",
   ];
 
-  const devStackWord = (devType, skill) => {
+  const devStackWord = (devType:any, skill:any) => {
     let a = "";
-    let idx = "";
+    let idx:any = "";
     if (devType === "frontend") {
       idx = frontStacks.findIndex((el) => el === skill);
       a = "fe";

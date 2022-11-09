@@ -5,7 +5,6 @@ interface Props {
   height?: string,
   background?: string,
   borderColor?: string,
-
 }
 
 // 소셜 로그인 버튼
