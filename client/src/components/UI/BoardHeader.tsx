@@ -2,8 +2,8 @@ import { ButtonPrimary } from './Button/Button';
 import styled from 'styled-components';
 
 interface Props {
-    onWriteClick: () => void;
-    posts: (posts: object) => void;
+  onWriteClick: () => void;
+  posts: never[];
 }
 
 const BoardHeader = ({ onWriteClick, posts }: Props) => {
