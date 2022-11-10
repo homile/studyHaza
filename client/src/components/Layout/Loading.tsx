@@ -1,12 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
-import loading from '../../images/spinner.gif';
 
 export const Loading = () => {
+  const spinner = document.querySelector('loading-spinner');
+  if (spinner instanceof HTMLImageElement) {
+    spinner.src = '../../images/spinner.gif';
+  }
   return (
     <LoadingArea>
       <p>
-        <img src={loading} alt="" />
+        <img className="loading-spinner" alt="" />
       </p>
     </LoadingArea>
   );

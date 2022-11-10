@@ -28,19 +28,26 @@ const LogoImage = styled.img`
 `;
 
 function Footer() {
+  const footerLink = document.querySelectorAll('.blank-link');
+  footerLink?.forEach((footerLink) => {
+    if (footerLink instanceof HTMLAnchorElement) {
+      footerLink.href = '#';
+    }
+  });
+
   return (
     <StyledFooter>
       <div className="ft-hd">
         <LogoImage src={logo} alt="logo" />
         <ul className="ft-link">
           <li>
-            <a herf="#">스터디하자 소개</a>
+            <a className="blank-link">스터디하자 소개</a>
           </li>
           <li>
-            <a herf="#">개인정보보호</a>
+            <a className="blank-link">개인정보보호</a>
           </li>
           <li>
-            <a herf="#">서비스약관</a>
+            <a className="blank-link">서비스약관</a>
           </li>
         </ul>
       </div>

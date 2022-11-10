@@ -1,7 +1,13 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
 
-const Pagination = ({ postsPerPage, totalPosts, paginate }) => {
+interface Props {
+  postsPerPage: number;
+  totalPosts: number;
+  paginate: (number: number) => void;
+}
+
+const Pagination = ({ postsPerPage, totalPosts, paginate }: Props) => {
   const pageNumbers = [];
   for (let i = 1; i <= Math.ceil(totalPosts / postsPerPage); i++) {
     pageNumbers.push(i);
@@ -30,26 +36,26 @@ const PageUl = styled.ul`
   text-align: center;
   border-radius: 3px;
   color: #666;
-  gap:10px;
+  gap: 10px;
   padding: 1px;
 `;
 
 const PageLi = styled.li`
-transition: all 0s;
-cursor: pointer;
-`
+  transition: all 0s;
+  cursor: pointer;
+`;
 
 const PageSpan = styled.span`
-  display:flex;
+  display: flex;
   justify-content: center;
   align-items: center;
-  font-size:17px;
+  font-size: 17px;
   font-family: 'Pretendard-Medium';
-  background:#fff;
-  border:1px solid #eee;
-  border-radius:5px;
-  width:38px;
-  height:38px;
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 5px;
+  width: 38px;
+  height: 38px;
 
   &:hover {
     cursor: pointer;

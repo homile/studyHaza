@@ -4,7 +4,12 @@ import { NavLink } from 'react-router-dom';
 import { ButtonPrimary } from '../components/UI/Button/Button';
 import styled from 'styled-components';
 
-function Main({ posts, postsTotal }) {
+interface Props {
+  posts: [];
+  postsTotal: [];
+}
+
+function Main({ posts, postsTotal }: Props) {
   return (
     <Container>
       <AdArea posts={postsTotal} />

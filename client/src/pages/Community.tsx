@@ -6,7 +6,11 @@ import BoardListContents from '../components/UI/BoardListContents';
 import Pagination from '../components/UI/Filter/Pagination';
 import styled from 'styled-components';
 
-function Community({ posts }) {
+type Props = {
+  posts: [];
+};
+
+function Community({ posts }: Props) {
   const [isWrite2, setIsWrite2] = useState(false);
   const [postData, setPostData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -22,9 +26,9 @@ function Community({ posts }) {
 
   const indexOfLast = currentPage * postsPerPage;
   const indexOfFirst = indexOfLast - postsPerPage;
-  const currentPosts = (posts) => {
-    let currentPosts = 0;
-    currentPosts = posts.slice(indexOfFirst, indexOfLast);
+  const currentPosts = (posts?: [] | any) => {
+    let currentPosts: number | any = 0;
+    currentPosts = posts?.slice(indexOfFirst, indexOfLast);
     return currentPosts;
   };
 
@@ -39,7 +43,7 @@ function Community({ posts }) {
             <SearchBar />
           </SubPageTop>
           <BoardHeader onWriteClick={onWriteClick} posts={postData} />
-          <BoardListContents posts={currentPosts(postData)} />
+          <BoardListContents posts={currentPosts(postData)} />x
           <Pagination
             postsPerPage={postsPerPage}
             totalPosts={posts.length}
