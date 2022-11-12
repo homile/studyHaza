@@ -27,17 +27,18 @@ function SignUp() {
   const [validationPassword, setValidationPassword] = useState('none');
   const [validationNickName, setValidationNickName] = useState('none');
 
-  const nameInput = useRef(null);
+  const nameInput = useRef<HTMLInputElement>(null);
   const usersCollectionRef = collection(db, 'users');
 
   useEffect(() => {
-    nameInput.current.focus();
+    const {current} = nameInput;
+    current?.focus()
   }, []);
 
   // firebase 회원가입 코드
   const auth = getAuth();
 
-  const emailChange = (e) => {
+  const emailChange = (e: string) => {
     setEmail(e);
 
     // 이메일 형식 체크 정규표현식
@@ -50,7 +51,7 @@ function SignUp() {
     }
   };
 
-  const passwordChange = (e) => {
+  const passwordChange = (e: string) => {
     setPassword(e);
     if (e === passwordCheck && e !== '' && passwordCheck !== '') {
       setValidationPassword('none');
@@ -59,7 +60,7 @@ function SignUp() {
     }
   };
 
-  const passwordCheckChange = (e) => {
+  const passwordCheckChange = (e: string) => {
     setPasswordCheck(e);
     if (password === e && password !== '' && e !== '') {
       setValidationPassword('none');
@@ -68,7 +69,7 @@ function SignUp() {
     }
   };
 
-  const nickNameChange = (e) => {
+  const nickNameChange = (e: string) => {
     setNickName(e);
     if (e !== '') {
       setValidationNickName('none');
@@ -77,7 +78,7 @@ function SignUp() {
     }
   };
 
-  const signUpHandler = async (e) => {
+  const signUpHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     // 패스워드와 패스워드 확인란이 같을 때만 회원가입 실행
@@ -125,7 +126,7 @@ function SignUp() {
     <>
       <StyledSignUpContainer>
         <StyledSignUpTitle>StudyHaza</StyledSignUpTitle>
-        <form>
+        <form onSubmit={signUpHandler}>
           <StyledInputContainer
             height={validationEmail === 'block' ? '100px' : '90px'}
           >
@@ -206,7 +207,7 @@ function SignUp() {
               {nickName === '' && '닉네임을 입력해주세요.'}
             </ValidationCheck>
           </StyledInputContainer>
-          <ButtonLogin type="submit" onClick={(e) => signUpHandler(e)}>
+          <ButtonLogin>
             가입하기
           </ButtonLogin>
         </form>
@@ -249,7 +250,7 @@ const StyledSignUpTitle = styled.h1`
   margin-bottom: 1.5rem;
 `;
 
-const ValidationCheck = styled.label`
+const ValidationCheck = styled.label<{ display: string }>`
   display: ${(props) => props.display || 'none'};
   color: red;
   margin-top: -0.5rem;
