@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 interface Props {
   onWriteClick: () => void;
-  posts: never[];
+  posts: object[];
 }
 
 const BoardHeader = ({ onWriteClick, posts }: Props) => {

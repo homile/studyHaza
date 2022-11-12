@@ -4,7 +4,7 @@ import Loading from '../Layout/Loading';
 import CommunityCard from './CommunityCard';
 
 type Props = {
-  posts: [index: string];
+  posts: object[];
 };
 
 const BoardListContents = ({ posts }: Props) => {

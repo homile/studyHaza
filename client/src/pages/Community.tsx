@@ -7,7 +7,7 @@ import Pagination from '../components/UI/Filter/Pagination';
 import styled from 'styled-components';
 
 type Props = {
-  posts: [];
+  posts: object[];
 };
 
 function Community({ posts }: Props) {
