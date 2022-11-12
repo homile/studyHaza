@@ -5,7 +5,7 @@ import iconButton from '../images/icon_add.png';
 import styled from 'styled-components';
 
 interface Props {
-  posts: { [index: string]: string };
+  posts: object[];
 }
 
 function StudyJoin({ posts }: Props) {

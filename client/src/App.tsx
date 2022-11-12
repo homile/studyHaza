@@ -23,11 +23,12 @@ const AppContainer = styled.div`
   align-items: center;
 `;
 
+
 function App() {
   const dispatch = useDispatch();
   // 게시물 받아와서 상태에 넣기
-  const [posts, setPosts] = useState([]);
-  const [communityPosts, setCommunityPosts] = useState([]);
+  const [posts, setPosts] = useState<object[]>([]);
+  const [communityPosts, setCommunityPosts] = useState<object[]>([]);
 
   const [isEdit, setIsEdit] = useState(false);
   const toggleIsEdit = () => {
@@ -38,9 +39,7 @@ function App() {
   const postsCollectionRef = collection(db, 'posts');
   useUserInfo();
   const user = JSON.parse(
-    sessionStorage.getItem(
-      `firebase:authUser:${process.env.REACT_APP_FIREBASE_API_KEY}:[DEFAULT]`,
-    ),
+    sessionStorage.getItem(`firebase:authUser:${process.env.REACT_APP_FIREBASE_API_KEY}:[DEFAULT]`)|| '{}'
   );
 
   useEffect(() => {
@@ -54,13 +53,13 @@ function App() {
         return el.board === 'community';
       });
       setPosts(
-        studyData.sort((a, b) => {
-          return new Date(b.dateCreated) - new Date(a.dateCreated);
+        studyData.sort((a, b): number => {
+          return +new Date(b.dateCreated) - +new Date(a.dateCreated);
         }),
       );
       setCommunityPosts(
         communityData.sort((a, b) => {
-          return new Date(b.dateCreated) - new Date(a.dateCreated);
+          return +new Date(b.dateCreated) - +new Date(a.dateCreated);
         }),
       );
     };

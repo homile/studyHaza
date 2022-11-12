@@ -7,12 +7,12 @@ import Pagination from '../components/UI/Filter/Pagination';
 import styled from 'styled-components';
 
 type Props = {
-  posts: [];
+  posts: object[];
 };
 
 function Community({ posts }: Props) {
   const [isWrite2, setIsWrite2] = useState(false);
-  const [postData, setPostData] = useState([]);
+  const [postData, setPostData] = useState<object[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage, setPostsPerPage] = useState(10);
 
@@ -26,8 +26,8 @@ function Community({ posts }: Props) {
 
   const indexOfLast = currentPage * postsPerPage;
   const indexOfFirst = indexOfLast - postsPerPage;
-  const currentPosts = (posts?: [] | any) => {
-    let currentPosts: number | any = 0;
+  const currentPosts = (posts:object[]) => {
+    let currentPosts: object[] = [];
     currentPosts = posts?.slice(indexOfFirst, indexOfLast);
     return currentPosts;
   };

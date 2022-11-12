@@ -3,17 +3,22 @@ import styled from 'styled-components';
 import Loading from '../Layout/Loading';
 import CommunityCard from './CommunityCard';
 
+
 type Props = {
-  posts: [index: string];
-};
+  posts:object[],
+  dateCreated?: string;
+  id?: string;
+  nickName?: string;
+  title?: string;
+}
 
 const BoardListContents = ({ posts }: Props) => {
   return (
     <>
       {posts[0] !== undefined ? (
         <ItemGroup>
-          {posts.map((data: any) => (
-            <CommunityCard key={data.id} data={data} />
+          {posts.map((data:any, idx) => (
+            <CommunityCard key={idx} data={data} />
           ))}
         </ItemGroup>
       ) : (

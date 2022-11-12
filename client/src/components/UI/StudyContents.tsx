@@ -4,10 +4,14 @@ import { StudyCard } from './StudyCard';
 import { SwitchButton } from './Button/SwitchButton';
 import Loading from '../Layout/Loading';
 
-export const StudyContents = ({ posts }) => {
+interface Props {
+    posts:object[],
+}
+
+export const StudyContents = ({ posts }: Props) => {
   const [currentTab, setCurrentTab] = useState(0);
   const [isOn, setIsOn] = useState(false);
-  const [postData, setPostData] = useState([]);
+  const [postData, setPostData] = useState<object[]>([]);
 
   const filtered = {
     menuTab: ['전체', '프론트엔드', '백엔드'],
@@ -20,14 +24,14 @@ export const StudyContents = ({ posts }) => {
 
   useEffect(() => {
     if (isOn) {
-      const filterdData = posts.filter((data) => {
+      const filterdData = posts.filter((data:any) => {
         return new Date(data.startDate) > new Date();
       });
       setPostData(filterdData);
       for (let i = 1; i < filtered.skillTab.length; i++) {
         if (currentTab === i) {
           setPostData(
-            filterdData.filter((data) => {
+            filterdData.filter((data:any) => {
               return data.devType === filtered.skillTab[i];
             }),
           );
@@ -38,7 +42,7 @@ export const StudyContents = ({ posts }) => {
       for (let i = 1; i < filtered.skillTab.length; i++) {
         if (currentTab === i) {
           setPostData(
-            posts.filter((data) => {
+            posts.filter((data:any) => {
               return data.devType === filtered.skillTab[i];
             }),
           );
@@ -51,7 +55,7 @@ export const StudyContents = ({ posts }) => {
     setIsOn(!isOn);
   };
 
-  const activeMenuHandler = (idx) => {
+  const activeMenuHandler = (idx:number) => {
     setCurrentTab(idx);
   };
 
@@ -79,8 +83,8 @@ export const StudyContents = ({ posts }) => {
       <StudyList>
         {postData[0] !== undefined ? (
           <StudyCardList>
-            {postData.map((data, idx) => (
-              <StudyCard key={data.id} data={data} idx={idx} />
+            {postData.map((data:any, idx) => (
+              <StudyCard key={idx} data={data} idx={idx} />
             ))}
           </StudyCardList>
         ) : (
@@ -94,7 +98,6 @@ export const StudyContents = ({ posts }) => {
 const TabMenu = styled.ul`
   display: flex;
   gap: 13px;
-
   li {
     font-size: 1.25rem;
     font-family: 'Pretendard-Medium';
@@ -106,16 +109,13 @@ const TabMenu = styled.ul`
       background-color: #2584f4;
       color: #fff;
     }
-
     &:before {
       font-family: 'FontAwesome';
       margin-right: 5px;
     }
-
     &:nth-child(2):before {
       content: '\f1b2';
     }
-
     &:nth-child(3):before {
       content: '\f233';
     }

@@ -12,12 +12,13 @@ type communityDataType = {
     haveHeadCount: string,
     totalHeadCount: string,
     devStack: [],
-    devType:[],
+    devType:string,
     onOff: string,
 };
 
 interface Props {
     data: communityDataType
+    idx: number
 }
 
 export const StudyCard = ({ data }: Props) => {
@@ -66,7 +67,7 @@ export const StudyCard = ({ data }: Props) => {
     "JavaScript",
   ];
 
-  const devStackWord = (devType:any, skill:any) => {
+  const devStackWord = (devType:string, skill:string) => {
     let a = "";
     let idx:any = "";
     if (devType === "frontend") {
