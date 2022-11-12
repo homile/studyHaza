@@ -5,9 +5,10 @@ import { ButtonPrimary } from '../components/UI/Button/Button';
 import styled from 'styled-components';
 
 interface Props {
-  posts: [];
-  postsTotal: [];
+  posts: [],
+  postsTotal: [],
 }
+
 
 function Main({ posts, postsTotal }: Props) {
   return (

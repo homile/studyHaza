@@ -94,7 +94,6 @@ export const StudyContents = ({ posts }) => {
 const TabMenu = styled.ul`
   display: flex;
   gap: 13px;
-
   li {
     font-size: 1.25rem;
     font-family: 'Pretendard-Medium';
@@ -106,16 +105,13 @@ const TabMenu = styled.ul`
       background-color: #2584f4;
       color: #fff;
     }
-
     &:before {
       font-family: 'FontAwesome';
       margin-right: 5px;
     }
-
     &:nth-child(2):before {
       content: '\f1b2';
     }
-
     &:nth-child(3):before {
       content: '\f233';
     }
