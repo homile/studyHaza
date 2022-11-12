@@ -6,12 +6,10 @@ import CommunityCard from './CommunityCard';
 
 type Props = {
   posts:object[],
-  data:{
-    dateCreated: string;
-    id: string;
-    nickName: string;
-    title: string;
-  },
+  dateCreated?: string;
+  id?: string;
+  nickName?: string;
+  title?: string;
 }
 
 const BoardListContents = ({ posts }: Props) => {
