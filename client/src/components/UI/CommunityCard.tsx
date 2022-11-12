@@ -4,15 +4,14 @@ import { Link } from "react-router-dom";
 import { ProfileImgXS } from "./Img/ProfileImg";
 import img from "../../images/pf_sample.png";
 
-// type communityDataType = {
-//     dateCreated: string;
-//     id: string;
-//     nickName: string;
-//     title: string;
-// };
 
 interface Props {
-    data: object[],
+  data:{
+    dateCreated: string;
+    id: string;
+    nickName: string;
+    title: string;
+  };
 }
 
 const CommunityCard = ({ data }: Props) => {
