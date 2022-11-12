@@ -19,7 +19,7 @@ const BoardListContents = ({ posts }: Props) => {
     <>
       {posts[0] !== undefined ? (
         <ItemGroup>
-          {posts.map((data, idx) => (
+          {posts.map((data:any, idx) => (
             <CommunityCard key={idx} data={data} />
           ))}
         </ItemGroup>
