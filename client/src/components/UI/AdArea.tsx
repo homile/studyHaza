@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import CountUp from 'react-countup';
 
 interface Props {
-  posts: [];
+  posts: object[];
 }
 
 export const AdArea = ({ posts }: Props) => {
