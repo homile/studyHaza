@@ -26,12 +26,13 @@ function Login() {
 
   const auth = getAuth();
   const dispatch = useDispatch();
-  let navigate = useNavigate();
+  const navigate = useNavigate();
 
-  const nameInput = useRef(null);
+  const nameInput = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    nameInput.current.focus();
+    const { current } = nameInput;
+    current?.focus();
   }, []);
 
   const snsLoginHandler = () => {
@@ -39,7 +40,7 @@ function Login() {
   };
 
   // 로그인 버튼 클릭
-  const loginHandler = (e) => {
+  const loginHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     signInWithEmailAndPassword(auth, email, password)
@@ -74,11 +75,11 @@ function Login() {
       });
   };
 
-  const emailChange = (e) => {
+  const emailChange = (e: string) => {
     setEmail(e);
   };
 
-  const passwordChange = (e) => {
+  const passwordChange = (e: string) => {
     setPassword(e);
   };
 
@@ -86,20 +87,22 @@ function Login() {
     <>
       <StyledLoginContainer>
         <StyledLoginTitle>StudyHaza</StyledLoginTitle>
-        <form>
-          <StyledInputContainer>
+        <form onSubmit={loginHandler}>
+          <StyledInputContainer height="">
             <label htmlFor="email">이메일 계정</label>
             <div>
               <input
                 id="email"
                 placeholder="이메일"
                 ref={nameInput}
-                onChange={(e) => emailChange(e.target.value)}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  emailChange(e.target.value)
+                }
               />
               <i className="fa-solid fa-at" />
             </div>
           </StyledInputContainer>
-          <StyledInputContainer>
+          <StyledInputContainer height="">
             <label htmlFor="password">비밀번호</label>
             <div>
               <input
@@ -111,9 +114,7 @@ function Login() {
               <i className="fa-solid fa-lock"></i>
             </div>
           </StyledInputContainer>
-          <ButtonLogin type="submit" onClick={(e) => loginHandler(e)}>
-            로그인
-          </ButtonLogin>
+          <ButtonLogin>로그인</ButtonLogin>
         </form>
         <StyledUtilContainer>
           <span>
