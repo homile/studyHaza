@@ -1,6 +1,13 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-const initialState = {
+export interface UserInfo {
+  isLogin: boolean;
+  email: string | null;
+  nickName: string | null;
+  photoUrl?: string;
+}
+
+const initialState: UserInfo = {
   isLogin: false,
   email: '',
   nickName: '',
@@ -14,7 +21,8 @@ const loginReducer = createSlice({
     loginSuccess(state) {
       state.isLogin = true;
     },
-    loginUserInfo(state, action) {
+    loginUserInfo(state, action: PayloadAction<UserInfo>) {
+      state.isLogin = true;
       state.email = action.payload.email;
       state.nickName = action.payload.nickName;
       state.photoUrl = action.payload.photoUrl;
