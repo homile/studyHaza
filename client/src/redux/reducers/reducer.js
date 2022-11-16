@@ -8,7 +8,7 @@ const loginReducer = (state = initialState, action) => {
   switch (action.type) {
     case types.LOGIN_SUCCESS:
       return {
-        isLogin: !state.isLogin,
+        isLogin: true,
       };
     case types.LOGIN_USER_INFO:
       return {
@@ -17,7 +17,7 @@ const loginReducer = (state = initialState, action) => {
       };
     case types.LOGOUT_USER_INFO:
       return {
-        isLogin: !state.isLogin,
+        isLogin: false,
         email: "",
         nickName: "",
         photoUrl: "",
