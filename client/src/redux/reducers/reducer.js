@@ -28,4 +28,6 @@ const loginReducer = createSlice({
   },
 });
 
-export default loginReducer;
+export const loginActions = loginReducer.actions;
+
+export default loginReducer.reducer;
