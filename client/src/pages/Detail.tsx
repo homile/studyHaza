@@ -19,7 +19,7 @@ import { useParams } from 'react-router-dom';
 import Modal from '../components/UI/Modal/Modal';
 import EditStudy from '../components/Edit/EditStudy';
 import EditCommunity from '../components/Edit/EditCommunity';
-import { RootState } from '../redux/reducers';
+import { RootState } from '../redux/store';
 
 interface Props {
   isEdit: boolean;

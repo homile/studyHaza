@@ -11,7 +11,7 @@ import Modal from '../UI/Modal/Modal';
 import { db } from '../../firebase-config';
 import { collection, addDoc } from 'firebase/firestore';
 import { v4 as uuidv4 } from 'uuid';
-import { RootState } from '../../redux/reducers';
+import { RootState } from '../../redux/store';
 
 const devTypeOptions = [
   { value: 'frontend', name: '프론트엔드' },

@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { UserInfoContainer } from '../UI/Input/LoginInput';
 import { ButtonPrimary } from '../UI/Button/Button';
-import { RootState } from '../../redux/reducers';
+import { RootState } from '../../redux/store';
 
 const Content = () => {
   // 로그인 중인 유저정보
@@ -36,13 +36,13 @@ const Content = () => {
               <label>닉네임</label>
               <input
                 id="nickName"
-                value={nickName}
+                value={nickName!}
                 onChange={(e) => nickNameChange(e.target.value)}
               />
             </UserInfoContainer>
             <UserInfoContainer height = "">
               <label>이메일</label>
-              <input id="email" value={loginUserInfo.email} disabled />
+              <input id="email" value={loginUserInfo.email!} disabled />
             </UserInfoContainer>
             <UserInfoContainer height = "">
               <label>현재 비밀번호</label>

@@ -8,7 +8,7 @@ import { WriteInputContainer } from './UI/PostInput';
 import { ButtonPrimary } from '../UI/Button/Button';
 import Modal from '../UI/Modal/Modal';
 import { v4 as uuidv4 } from 'uuid';
-import { RootState } from '../../redux/reducers';
+import { RootState } from '../../redux/store';
 
 interface Props {
   setIsWrite: (isWrite: boolean) => void;

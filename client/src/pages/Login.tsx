@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux';
 import { ButtonLogin, ButtonSnsLogin } from '../components/UI/Button/Button';
 import { StyledInputContainer } from '../components/UI/Input/LoginInput';
 import ModalSoon from '../components/UI/Modal/ModalSoon';
-import { loginSuccess } from '../redux/actions';
+import { loginActions } from '../redux/reducers/reducer';
 import {
   getAuth,
   setPersistence,
@@ -14,10 +14,12 @@ import {
   browserSessionPersistence,
 } from 'firebase/auth';
 
-import naver_symbol from '../assets/naver_symbol.png';
-import facebook_symbol from '../assets/facebook_symbol.png';
-import kakao_symbol from '../assets/kakao_symbol.png';
-import google_symbol from '../assets/google_symbol.png';
+import {
+  naver_symbol,
+  facebook_symbol,
+  kakao_symbol,
+  google_symbol,
+} from '../assets/index';
 
 function Login() {
   const [isOpen, setIsOpen] = useState(false);
@@ -56,11 +58,11 @@ function Login() {
             const errorMessage = error.message;
             // console.log(errorCode, errorMessage);
           });
-        dispatch(loginSuccess());
+        dispatch(loginActions.loginSuccess());
         setEmail('');
         setPassword('');
         navigate('/');
-        window.location.reload();
+        // window.location.reload();
         // ...
       })
       .catch((error) => {

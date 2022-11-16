@@ -4,27 +4,27 @@ import Modal from '../UI/Modal/Modal';
 
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { logoutUserInfo } from '../../redux/actions';
+import { loginActions } from '../../redux/reducers/reducer';
 
 import { db } from '../../firebase-config';
 import { getAuth, deleteUser, Auth } from 'firebase/auth';
 import { doc, deleteDoc } from 'firebase/firestore';
-import { RootState } from '../../redux/reducers';
+import { RootState } from '../../redux/store';
 
 const SideBar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const id = useSelector((state: RootState) => state.loginReducer.id);
+  // const id = useSelector((state: RootState) => state.loginReducer.id);
 
-  const auth:Auth = getAuth();
-  const user:any = auth.currentUser;
+  const auth: Auth = getAuth();
+  const user: any = auth.currentUser;
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const signOutHandler = () => {
     deleteUser(user)
       .then(() => {
-        dispatch(logoutUserInfo());
-        deleteDoc(doc(db, 'users', id));
+        dispatch(loginActions.logoutUserInfo());
+        // deleteDoc(doc(db, 'users', id));
         navigate('/');
       })
       .catch((error) => {

@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 import { ProfileImgXS } from '../UI/Img/ProfileImg';
-import { RootState } from '../../redux/reducers';
+import { RootState } from '../../redux/store';
 
 type dataType = {
   board: string;

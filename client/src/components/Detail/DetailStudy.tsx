@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { ProfileImgXS } from '../UI/Img/ProfileImg';
 import { ButtonPrimary } from '../UI/Button/Button';
 import ModalSoon from '../UI/Modal/ModalSoon';
-import { RootState } from '../../redux/reducers';
+import { RootState } from '../../redux/store';
 
 const frontStacks = [
   'Angular',
