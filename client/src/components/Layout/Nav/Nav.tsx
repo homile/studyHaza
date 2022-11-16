@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { ButtonPrimary } from '../../UI/Button/Button';
@@ -7,9 +7,9 @@ import { ProfileImgSM } from '../../UI/Img/ProfileImg';
 import logo from '../../../images/logo.png';
 import { useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { logoutUserInfo } from '../../../redux/actions';
+import { loginActions } from '../../../redux/reducers/reducer';
 import { getAuth } from 'firebase/auth';
-import { RootState } from '../../../redux/reducers';
+import { RootState } from '../../../redux/store';
 
 function Nav() {
   const navigate = useNavigate();
@@ -31,10 +31,9 @@ function Nav() {
   };
 
   const logoutHandler = () => {
-    dispatch(logoutUserInfo());
+    dispatch(loginActions.logoutUserInfo());
     getAuth().signOut();
     navigate('/');
-    window.location.reload();
   };
 
   return (

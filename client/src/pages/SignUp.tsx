@@ -213,7 +213,6 @@ function SignUp() {
         </form>
         <ModalSucces isOpen={isOpen} setIsOpen={setIsOpen} />
       </StyledSignUpContainer>
-      <Footer />
     </>
   );
 }

@@ -12,8 +12,8 @@ import MyPage from './pages/MyPage';
 import Detail from './pages/Detail';
 import { db } from './firebase-config';
 import { collection, getDocs } from 'firebase/firestore';
-import useUserInfo from './apis/user/userInfo';
-import { loginUserInfo } from './redux/actions';
+import UserInfo from './apis/user/userInfo';
+import { loginActions } from './redux/reducers/reducer';
 import { useDispatch } from 'react-redux';
 
 const AppContainer = styled.div`
@@ -22,7 +22,6 @@ const AppContainer = styled.div`
   justify-content: center;
   align-items: center;
 `;
-
 
 function App() {
   const dispatch = useDispatch();
@@ -37,9 +36,11 @@ function App() {
 
   // 컬렉션이름이 posts인 db데이터 가져오기
   const postsCollectionRef = collection(db, 'posts');
-  useUserInfo();
+  UserInfo();
   const user = JSON.parse(
-    sessionStorage.getItem(`firebase:authUser:${process.env.REACT_APP_FIREBASE_API_KEY}:[DEFAULT]`)|| '{}'
+    sessionStorage.getItem(
+      `firebase:authUser:${process.env.REACT_APP_FIREBASE_API_KEY}:[DEFAULT]`,
+    ) || '{}',
   );
 
   useEffect(() => {
@@ -69,7 +70,7 @@ function App() {
   useEffect(() => {
     if (user !== null) {
       dispatch(
-        loginUserInfo({
+        loginActions.loginUserInfo({
           isLogin: true,
           email: user.email,
           nickName: user.displayName,
