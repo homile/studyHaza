@@ -1,30 +1,31 @@
-import * as types from "../actions/actionTypes";
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   isLogin: false,
+  email: '',
+  nickName: '',
+  photoUrl: '',
 };
 
-const loginReducer = (state = initialState, action) => {
-  switch (action.type) {
-    case types.LOGIN_SUCCESS:
-      return {
-        isLogin: true,
-      };
-    case types.LOGIN_USER_INFO:
-      return {
-        ...state,
-        ...action.payload,
-      };
-    case types.LOGOUT_USER_INFO:
-      return {
-        isLogin: false,
-        email: "",
-        nickName: "",
-        photoUrl: "",
-      };
-    default:
-      return state;
-  }
-};
+const loginReducer = createSlice({
+  name: 'auth',
+  initialState,
+  reducers: {
+    loginSuccess(state) {
+      state.isLogin = true;
+    },
+    loginUserInfo(state, action) {
+      state.email = action.payload.email;
+      state.nickName = action.payload.nickName;
+      state.photoUrl = action.payload.photoUrl;
+    },
+    logoutUserInfo(state) {
+      state.isLogin = false;
+      state.email = '';
+      state.nickName = '';
+      state.photoUrl = '';
+    },
+  },
+});
 
 export default loginReducer;
