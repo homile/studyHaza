@@ -1,17 +1,12 @@
-import React from "react";
-import styled from "styled-components";
-import { Link } from "react-router-dom";
-import { ProfileImgXS } from "./Img/ProfileImg";
-import img from "../../images/pf_sample.png";
-
+import React from 'react';
+import styled from 'styled-components';
+import { Link } from 'react-router-dom';
+import { ProfileImgXS } from './Img/ProfileImg';
+import { communityDataType } from './StudyCard';
+import img from '../../images/pf_sample.png';
 
 interface Props {
-  data:{
-    dateCreated: string;
-    id: string;
-    nickName: string;
-    title: string;
-  };
+  data: communityDataType;
 }
 
 const CommunityCard = ({ data }: Props) => {
@@ -52,7 +47,7 @@ const Item = styled.div`
 
   h4 {
     font-size: 25px;
-    font-family: "Pretendard-Medium";
+    font-family: 'Pretendard-Medium';
   }
 
   .meta-info {

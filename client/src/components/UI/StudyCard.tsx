@@ -1,24 +1,24 @@
-import styled from "styled-components";
-import { ProfileImgXS } from "./Img/ProfileImg";
-import img from "../../images/pf_sample.png";
-import { Link } from "react-router-dom";
+import styled from 'styled-components';
+import { ProfileImgXS } from './Img/ProfileImg';
+import img from '../../images/pf_sample.png';
+import { Link } from 'react-router-dom';
 
-type communityDataType = {
-    startDate: string,
-    dateCreated: string,
-    id: string,
-    nickName: string,
-    title: string,
-    haveHeadCount: string,
-    totalHeadCount: string,
-    devStack: [],
-    devType:string,
-    onOff: string,
+export type communityDataType = {
+  startDate: string;
+  dateCreated: string;
+  id: string;
+  nickName: string;
+  title: string;
+  haveHeadCount: string;
+  totalHeadCount: string;
+  devStack: [];
+  devType: string;
+  onOff: string;
 };
 
 interface Props {
-    data: communityDataType
-    idx: number
+  data: communityDataType;
+  idx: number;
 }
 
 export const StudyCard = ({ data }: Props) => {
@@ -30,54 +30,54 @@ export const StudyCard = ({ data }: Props) => {
   // 모집마감일 디데이
   function diffDayData() {
     if (diffDay <= 0) {
-      return "종료";
+      return '종료';
     }
     return `D-${diffDay}`;
   }
 
   // 기술 스택명 불러오기
   const frontStacks = [
-    "Angular",
-    "Emotion",
-    "GraphQL",
-    "NextJS",
-    "ReactJS",
-    "VueJS",
-    "Redux",
-    "Recoil",
-    "Storybook",
-    "StyledComponent",
-    "HTML",
-    "CSS",
-    "JavaScript",
-    "TypeScript",
+    'Angular',
+    'Emotion',
+    'GraphQL',
+    'NextJS',
+    'ReactJS',
+    'VueJS',
+    'Redux',
+    'Recoil',
+    'Storybook',
+    'StyledComponent',
+    'HTML',
+    'CSS',
+    'JavaScript',
+    'TypeScript',
   ];
 
   const backStacks = [
-    "Apollo",
-    "AWS",
-    "ExpressJS",
-    "Django",
-    "NestJS",
-    "NodeJS",
-    "Spring",
-    "SpringBoot",
-    "Python",
-    "Java",
-    "JavaScript",
+    'Apollo',
+    'AWS',
+    'ExpressJS',
+    'Django',
+    'NestJS',
+    'NodeJS',
+    'Spring',
+    'SpringBoot',
+    'Python',
+    'Java',
+    'JavaScript',
   ];
 
-  const devStackWord = (devType:string, skill:string) => {
-    let a = "";
-    let idx:any = "";
-    if (devType === "frontend") {
+  const devStackWord = (devType: string, skill: string) => {
+    let a = '';
+    let idx: any = '';
+    if (devType === 'frontend') {
       idx = frontStacks.findIndex((el) => el === skill);
-      a = "fe";
+      a = 'fe';
     }
 
-    if (devType === "backend") {
+    if (devType === 'backend') {
       idx = backStacks.findIndex((el) => el === skill);
-      a = "be";
+      a = 'be';
     }
 
     if (idx >= 9) {
@@ -123,7 +123,7 @@ export const StudyCard = ({ data }: Props) => {
               })}
             </ul>
             <ul className="meta-area">
-              <li>#{data.onOff === "on" ? "온라인" : "오프라인"}</li>
+              <li>#{data.onOff === 'on' ? '온라인' : '오프라인'}</li>
               <li>#3개월</li>
             </ul>
           </ProjectInfo>
@@ -132,8 +132,8 @@ export const StudyCard = ({ data }: Props) => {
               {data.nickName}
               <em>
                 {diffDay <= 0 || data.haveHeadCount === data.totalHeadCount
-                  ? "모집 종료"
-                  : "모집 중"}{" "}
+                  ? '모집 종료'
+                  : '모집 중'}{' '}
                 {data.haveHeadCount}/{data.totalHeadCount}명
               </em>
             </p>
@@ -167,7 +167,7 @@ const ProjectInfo = styled.div`
     display: flex;
     justify-content: space-between;
     font-size: 16px;
-    font-family: "Pretendard-medium";
+    font-family: 'Pretendard-medium';
 
     .date-area__date {
       em {
@@ -183,7 +183,7 @@ const ProjectInfo = styled.div`
   h4 {
     padding: 12px 0 0;
     font-size: 26px;
-    font-family: "Pretendard-Medium";
+    font-family: 'Pretendard-Medium';
     line-height: 1.2em;
     letter-spacing: -0.025em;
     min-height: 77px;
@@ -209,7 +209,7 @@ const ProjectInfo = styled.div`
     bottom: 13px;
     gap: 8px;
     li {
-      font-family: "Pretendard-Medium";
+      font-family: 'Pretendard-Medium';
       font-size: 15px;
       color: #75787e;
     }
@@ -226,7 +226,7 @@ const StudyInfo = styled.div`
   em {
     display: block;
     font-size: 15px;
-    font-family: "Pretendard-medium";
+    font-family: 'Pretendard-medium';
     font-weight: normal;
   }
 `;

@@ -2,14 +2,10 @@ import React from 'react';
 import styled from 'styled-components';
 import Loading from '../Layout/Loading';
 import CommunityCard from './CommunityCard';
+import { communityDataType } from './StudyCard';
 
-
-type Props = {
-  posts:object[],
-  dateCreated?: string;
-  id?: string;
-  nickName?: string;
-  title?: string;
+interface Props {
+  posts: communityDataType[];
 }
 
 const BoardListContents = ({ posts }: Props) => {
@@ -17,7 +13,7 @@ const BoardListContents = ({ posts }: Props) => {
     <>
       {posts[0] !== undefined ? (
         <ItemGroup>
-          {posts.map((data:any, idx) => (
+          {posts.map((data: communityDataType, idx) => (
             <CommunityCard key={idx} data={data} />
           ))}
         </ItemGroup>
