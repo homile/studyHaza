@@ -1,17 +1,17 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { StudyCard } from './StudyCard';
+import { communityDataType, StudyCard } from './StudyCard';
 import { SwitchButton } from './Button/SwitchButton';
 import Loading from '../Layout/Loading';
 
 interface Props {
-    posts:object[],
+  posts: communityDataType[];
 }
 
 export const StudyContents = ({ posts }: Props) => {
   const [currentTab, setCurrentTab] = useState(0);
   const [isOn, setIsOn] = useState(false);
-  const [postData, setPostData] = useState<object[]>([]);
+  const [postData, setPostData] = useState<communityDataType[]>([]);
 
   const filtered = {
     menuTab: ['전체', '프론트엔드', '백엔드'],
@@ -24,14 +24,14 @@ export const StudyContents = ({ posts }: Props) => {
 
   useEffect(() => {
     if (isOn) {
-      const filterdData = posts.filter((data:any) => {
+      const filterdData = posts.filter((data: communityDataType) => {
         return new Date(data.startDate) > new Date();
       });
       setPostData(filterdData);
       for (let i = 1; i < filtered.skillTab.length; i++) {
         if (currentTab === i) {
           setPostData(
-            filterdData.filter((data:any) => {
+            filterdData.filter((data: communityDataType) => {
               return data.devType === filtered.skillTab[i];
             }),
           );
@@ -42,7 +42,7 @@ export const StudyContents = ({ posts }: Props) => {
       for (let i = 1; i < filtered.skillTab.length; i++) {
         if (currentTab === i) {
           setPostData(
-            posts.filter((data:any) => {
+            posts.filter((data: communityDataType) => {
               return data.devType === filtered.skillTab[i];
             }),
           );
@@ -55,7 +55,7 @@ export const StudyContents = ({ posts }: Props) => {
     setIsOn(!isOn);
   };
 
-  const activeMenuHandler = (idx:number) => {
+  const activeMenuHandler = (idx: number) => {
     setCurrentTab(idx);
   };
 
@@ -83,7 +83,7 @@ export const StudyContents = ({ posts }: Props) => {
       <StudyList>
         {postData[0] !== undefined ? (
           <StudyCardList>
-            {postData.map((data:any, idx) => (
+            {postData.map((data, idx) => (
               <StudyCard key={idx} data={data} idx={idx} />
             ))}
           </StudyCardList>
