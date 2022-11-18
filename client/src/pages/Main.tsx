@@ -3,9 +3,10 @@ import { AdArea } from '../components/UI/AdArea';
 import { NavLink } from 'react-router-dom';
 import { ButtonPrimary } from '../components/UI/Button/Button';
 import styled from 'styled-components';
+import { communityDataType } from '../components/UI/StudyCard'
 
 interface Props {
-  posts: object[],
+  posts: communityDataType[],
   postsTotal: object[],
 }
 

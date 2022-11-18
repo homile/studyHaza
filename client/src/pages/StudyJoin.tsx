@@ -3,9 +3,10 @@ import WriteBox from '../components/Post/PostBox';
 import { StudyContents } from '../components/UI/StudyContents';
 import iconButton from '../images/icon_add.png';
 import styled from 'styled-components';
+import { communityDataType } from '../components/UI/StudyCard'
 
 interface Props {
-  posts: object[];
+  posts: communityDataType[];
 }
 
 function StudyJoin({ posts }: Props) {

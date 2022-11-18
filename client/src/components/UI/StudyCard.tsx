@@ -69,7 +69,7 @@ export const StudyCard = ({ data }: Props) => {
 
   const devStackWord = (devType: string, skill: string) => {
     let a = '';
-    let idx: any = '';
+    let idx = 0;
     if (devType === 'frontend') {
       idx = frontStacks.findIndex((el) => el === skill);
       a = 'fe';
