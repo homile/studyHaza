@@ -26,8 +26,8 @@ const AppContainer = styled.div`
 function App() {
   const dispatch = useDispatch();
   // 게시물 받아와서 상태에 넣기
-  const [posts, setPosts] = useState<object[]>([]);
-  const [communityPosts, setCommunityPosts] = useState<object[]>([]);
+  const [posts, setPosts] = useState<any>([]);
+  const [communityPosts, setCommunityPosts] = useState<any>([]);
 
   const [isEdit, setIsEdit] = useState(false);
   const toggleIsEdit = () => {

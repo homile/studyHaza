@@ -5,14 +5,15 @@ import BoardHeader from '../components/UI/BoardHeader';
 import BoardListContents from '../components/UI/BoardListContents';
 import Pagination from '../components/UI/Filter/Pagination';
 import styled from 'styled-components';
+import { communityDataType } from '../components/UI/StudyCard';
 
-type Props = {
-  posts: object[];
-};
+interface Props {
+  posts: communityDataType[]
+}
 
 function Community({ posts }: Props) {
   const [isWrite2, setIsWrite2] = useState(false);
-  const [postData, setPostData] = useState<object[]>([]);
+  const [postData, setPostData] = useState<communityDataType[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage, setPostsPerPage] = useState(10);
 
@@ -26,8 +27,8 @@ function Community({ posts }: Props) {
 
   const indexOfLast = currentPage * postsPerPage;
   const indexOfFirst = indexOfLast - postsPerPage;
-  const currentPosts = (posts:object[]) => {
-    let currentPosts: object[] = [];
+  const currentPosts = (posts:communityDataType[]) => {
+    let currentPosts: communityDataType[] = [];
     currentPosts = posts?.slice(indexOfFirst, indexOfLast);
     return currentPosts;
   };
@@ -43,7 +44,7 @@ function Community({ posts }: Props) {
             <SearchBar />
           </SubPageTop>
           <BoardHeader onWriteClick={onWriteClick} posts={postData} />
-          <BoardListContents posts={currentPosts(postData)} />x
+          <BoardListContents posts={currentPosts(postData)} />
           <Pagination
             postsPerPage={postsPerPage}
             totalPosts={posts.length}
