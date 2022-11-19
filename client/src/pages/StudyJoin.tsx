@@ -4,6 +4,7 @@ import { StudyContents } from '../components/UI/StudyContents';
 import iconButton from '../images/icon_add.png';
 import styled from 'styled-components';
 import { communityDataType } from '../components/UI/StudyCard'
+import Loading from '../components/Layout/Loading';
 
 interface Props {
   posts: communityDataType[];
@@ -32,7 +33,7 @@ function StudyJoin({ posts }: Props) {
             {Number(posts) !== 0 ? (
               <StudyContents posts={posts} />
             ) : (
-              <p>멍멍</p>
+              <Loading />
             )}
           </ConPanel>
         </>
