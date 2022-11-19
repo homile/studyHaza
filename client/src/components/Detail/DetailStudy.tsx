@@ -5,6 +5,7 @@ import { ProfileImgXS } from '../UI/Img/ProfileImg';
 import { ButtonPrimary } from '../UI/Button/Button';
 import ModalSoon from '../UI/Modal/ModalSoon';
 import { RootState } from '../../redux/store';
+import Loading from '../Layout/Loading';
 
 const frontStacks = [
   'Angular',
@@ -124,83 +125,89 @@ function DetailStudy({ data }: Props) {
   return (
     <>
       <ViewContainer>
-        <Title>{data.title}</Title>
-        <Info>
-          <ProfileImgXS
-            src={
-              photoUrl === ''
-                ? 'https://avatars.githubusercontent.com/u/56163157?v=4'
-                : photoUrl
-            }
-          />
-          <Writer>{data.nickName}</Writer>
-          <hr />
-          <Date>{data.dateCreated}</Date>
-        </Info>
-        <DevInfo>
-          <InnerBox>
-            <ListLine>
-              <List>
-                모집 구분 <Dot>•</Dot>{' '}
-                <span>
-                  {data.devType === 'frontend' ? '프론트엔드' : '백엔드'}
-                </span>
-              </List>
-              <List>
-                모집 인원 <Dot>•</Dot>{' '}
-                <span>
-                  {data.haveHeadCount} / {data.totalHeadCount}
-                </span>
-              </List>
-            </ListLine>
+        {data.board !== undefined ? (
+          <>
+            <Title>{data.title}</Title>
+            <Info>
+              <ProfileImgXS
+                src={
+                  photoUrl === ''
+                    ? 'https://avatars.githubusercontent.com/u/56163157?v=4'
+                    : photoUrl
+                }
+              />
+              <Writer>{data.nickName}</Writer>
+              <hr />
+              <Date>{data.dateCreated}</Date>
+            </Info>
+            <DevInfo>
+              <InnerBox>
+                <ListLine>
+                  <List>
+                    모집 구분 <Dot>•</Dot>{' '}
+                    <span>
+                      {data.devType === 'frontend' ? '프론트엔드' : '백엔드'}
+                    </span>
+                  </List>
+                  <List>
+                    모집 인원 <Dot>•</Dot>{' '}
+                    <span>
+                      {data.haveHeadCount} / {data.totalHeadCount}
+                    </span>
+                  </List>
+                </ListLine>
 
-            <ListLine>
-              <List>
-                시작 일시 <Dot>•</Dot> <span>{data.startDate}</span>
-              </List>
-              <List>
-                진행 방법 <Dot>•</Dot>{' '}
-                <span>{data.onOff === 'on' ? '온라인' : '오프라인'}</span>
-              </List>
-            </ListLine>
-          </InnerBox>
-          <DevInnerBox>
-            <ListLine>
-              <DevList>
-                <div>주요 기술</div>
-                <DevStackList>
-                  {data.devStack &&
-                    data.devStack.map((el, idx) => {
-                      return (
-                        <li key={idx} style={{ background: pick(el) }}>
-                          <img
-                            src={
-                              process.env.PUBLIC_URL +
-                              `/skill/${devStackWord(
-                                data.devType,
-                                `${el}`,
-                              )}.png`
-                            }
-                            alt=""
-                          />
-                          <div>{el}</div>
-                        </li>
-                      );
-                    })}
-                </DevStackList>
-              </DevList>
-            </ListLine>
-          </DevInnerBox>
-        </DevInfo>
-        <Content>{data.content}</Content>
-        <ButtonBox>
-          <ButtonPrimary background="#2863FB" onClick={modalSoonHandler}>
-            참여하기
-          </ButtonPrimary>
-          <ModalSoon isOpen={isOpen} setIsOpen={setIsOpen}>
-            참여하기 기능
-          </ModalSoon>
-        </ButtonBox>
+                <ListLine>
+                  <List>
+                    시작 일시 <Dot>•</Dot> <span>{data.startDate}</span>
+                  </List>
+                  <List>
+                    진행 방법 <Dot>•</Dot>{' '}
+                    <span>{data.onOff === 'on' ? '온라인' : '오프라인'}</span>
+                  </List>
+                </ListLine>
+              </InnerBox>
+              <DevInnerBox>
+                <ListLine>
+                  <DevList>
+                    <div>주요 기술</div>
+                    <DevStackList>
+                      {data.devStack &&
+                        data.devStack.map((el, idx) => {
+                          return (
+                            <li key={idx} style={{ background: pick(el) }}>
+                              <img
+                                src={
+                                  process.env.PUBLIC_URL +
+                                  `/skill/${devStackWord(
+                                    data.devType,
+                                    `${el}`,
+                                  )}.png`
+                                }
+                                alt=""
+                              />
+                              <div>{el}</div>
+                            </li>
+                          );
+                        })}
+                    </DevStackList>
+                  </DevList>
+                </ListLine>
+              </DevInnerBox>
+            </DevInfo>
+            <Content>{data.content}</Content>
+            <ButtonBox>
+              <ButtonPrimary background="#2863FB" onClick={modalSoonHandler}>
+                참여하기
+              </ButtonPrimary>
+              <ModalSoon isOpen={isOpen} setIsOpen={setIsOpen}>
+                참여하기 기능
+              </ModalSoon>
+            </ButtonBox>
+          </>
+        ) : (
+          <Loading />
+        )}
       </ViewContainer>
     </>
   );
