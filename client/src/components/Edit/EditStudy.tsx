@@ -6,16 +6,7 @@ import { SelectBox } from '../Post/UI/SelectBox';
 import { DatePick } from '../Post/UI/DatePick';
 import CheckBox from '../Post/UI/CheckBox';
 import Modal from '../UI/Modal/Modal';
-
-const devTypeOptions = [
-  { value: 'frontend', name: '프론트엔드' },
-  { value: 'backend', name: '백엔드' },
-];
-
-const onOffOptions = [
-  { value: 'on', name: '온라인' },
-  { value: 'off', name: '오프라인' },
-];
+import { devTypeOptions, onOffOptions } from '../../StackData';
 
 type dataType = {
   board: string;

@@ -6,64 +6,7 @@ import { ButtonPrimary } from '../UI/Button/Button';
 import ModalSoon from '../UI/Modal/ModalSoon';
 import { RootState } from '../../redux/store';
 import Loading from '../Layout/Loading';
-
-const frontStacks = [
-  'Angular',
-  'Emotion',
-  'GraphQL',
-  'NextJS',
-  'ReactJS',
-  'VueJS',
-  'Redux',
-  'Recoil',
-  'Storybook',
-  'StyledComponent',
-  'HTML',
-  'CSS',
-  'JavaScript',
-  'TypeScript',
-];
-
-const backStacks = [
-  'Apollo',
-  'AWS',
-  'ExpressJS',
-  'Django',
-  'NestJS',
-  'NodeJS',
-  'Spring',
-  'SpringBoot',
-  'Python',
-  'Java',
-  'JavaScript',
-];
-
-const stackBackgrounds = [
-  { stack: 'Angular', color: '#DD0031' },
-  { stack: 'Emotion', color: '#E19EDC' },
-  { stack: 'GraphQL', color: '#E10098' },
-  { stack: 'NextJS', color: '#000000' },
-  { stack: 'ReactJS', color: '#61DAFB' },
-  { stack: 'VueJS', color: '#4FC08D' },
-  { stack: 'Redux', color: '#764ABC' },
-  { stack: 'Recoil', color: '#007AF4' },
-  { stack: 'Storybook', color: '#FF4785' },
-  { stack: 'StyledComponent', color: '#DB7093' },
-  { stack: 'HTML', color: '#E34F26' },
-  { stack: 'CSS', color: '#1572B6' },
-  { stack: 'JavaScript', color: '#F7DF1E' },
-  { stack: 'TypeScript', color: '#3178C6' },
-  { stack: 'Apollo', color: '#311C87' },
-  { stack: 'AWS', color: '#232F3E' },
-  { stack: 'ExpressJS', color: '#000000' },
-  { stack: 'Django', color: '#092E20' },
-  { stack: 'NestJS', color: '#000000' },
-  { stack: 'NodeJS', color: '#339933' },
-  { stack: 'Spring', color: '#6DB33F' },
-  { stack: 'SpringBoot', color: '#6DB33F' },
-  { stack: 'Python', color: '#3776AB' },
-  { stack: 'Java', color: '#D9D9D9' },
-];
+import { frontStacks, backStacks, stackBackgrounds } from '../../StackData';
 
 type dataType = {
   board: string;
