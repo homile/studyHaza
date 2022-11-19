@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
@@ -12,16 +12,7 @@ import { db } from '../../firebase-config';
 import { collection, addDoc } from 'firebase/firestore';
 import { v4 as uuidv4 } from 'uuid';
 import { RootState } from '../../redux/store';
-
-const devTypeOptions = [
-  { value: 'frontend', name: '프론트엔드' },
-  { value: 'backend', name: '백엔드' },
-];
-
-const onOffOptions = [
-  { value: 'on', name: '온라인' },
-  { value: 'off', name: '오프라인' },
-];
+import { devTypeOptions, onOffOptions } from '../../StackData';
 
 interface Props {
   setIsWrite: (isWrite: boolean) => void;
@@ -30,6 +21,9 @@ interface Props {
 
 const PostStudy = ({ setIsWrite, isEdit }: Props) => {
   const navigate = useNavigate();
+
+  const titleInput = useRef<HTMLInputElement>(null);
+
   const [title, setTitle] = useState('');
   const [startDate, setStartDate] = useState<Date>(new Date());
   const [devType, setDevType] = useState('frontend');
@@ -44,6 +38,11 @@ const PostStudy = ({ setIsWrite, isEdit }: Props) => {
 
   const [isOpenOk, setIsOpenOk] = useState(false);
   const [isOpenCancel, setIsOpenCancel] = useState(false);
+
+  useEffect(() => {
+    const { current } = titleInput;
+    current?.focus();
+  }, []);
 
   const openModalHandler1 = () => {
     setIsOpenOk(!isOpenOk);
@@ -98,6 +97,7 @@ const PostStudy = ({ setIsWrite, isEdit }: Props) => {
             }}
             id="title"
             placeholder="제목을 입력해주세요."
+            ref={titleInput}
           />
         </div>
       </WriteInputContainer>

@@ -2,37 +2,7 @@ import React, { Dispatch, SetStateAction } from 'react';
 import styled from 'styled-components';
 import img1 from '../../../images/check_icon1.png';
 import img2 from '../../../images/check_icon2.png';
-
-const FRONT_LIST = [
-  { id: 'Angular', data: 'Angular' },
-  { id: 'Emotion', data: 'Emotion' },
-  { id: 'GraphQL', data: 'GraphQL' },
-  { id: 'NextJS', data: 'NextJS' },
-  { id: 'ReactJS', data: 'ReactJS' },
-  { id: 'VueJS', data: 'VueJS' },
-  { id: 'Redux', data: 'Redux' },
-  { id: 'Recoil', data: 'Recoil' },
-  { id: 'Storybook', data: 'Storybook' },
-  { id: 'StyledComponent', data: 'StyledComponent' },
-  { id: 'HTML', data: 'HTML' },
-  { id: 'CSS', data: 'CSS' },
-  { id: 'JavaScript', data: 'JavaScript' },
-  { id: 'TypeScript', data: 'TypeScript' },
-];
-
-const BACK_LIST = [
-  { id: 'Apollo', data: 'Apollo' },
-  { id: 'AWS', data: 'AWS' },
-  { id: 'ExpressJS', data: 'ExpressJS' },
-  { id: 'Django', data: 'Django' },
-  { id: 'NestJS', data: 'NestJS' },
-  { id: 'NodeJS', data: 'NodeJS' },
-  { id: 'Spring', data: 'Spring' },
-  { id: 'SpringBoot', data: 'SpringBoot' },
-  { id: 'Python', data: 'Python' },
-  { id: 'Java', data: 'Java' },
-  { id: 'JavaScript', data: 'JavaScript' },
-];
+import { FRONT_LIST, BACK_LIST } from '../../../StackData';
 
 interface Props {
   devStack: string[];

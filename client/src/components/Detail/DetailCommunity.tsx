@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 import { ProfileImgXS } from '../UI/Img/ProfileImg';
 import { RootState } from '../../redux/store';
+import Loading from '../Layout/Loading';
 
 type dataType = {
   board: string;
@@ -23,21 +24,27 @@ function DetailCommunity({ data }: Props) {
   return (
     <>
       <ViewContainer>
-        <Title>{data.title}</Title>
-        <Info>
-          <ProfileImgXS
-            src={
-              photoUrl === ''
-                ? 'https://avatars.githubusercontent.com/u/56163157?v=4'
-                : photoUrl
-            }
-          />
-          <Writer>{data.nickName}</Writer>
-          <hr />
-          <Date>{data.dateCreated}</Date>
-        </Info>
-        <hr />
-        <Content>{data.content}</Content>
+        {data.board !== undefined ? (
+          <>
+            <Title>{data.title}</Title>
+            <Info>
+              <ProfileImgXS
+                src={
+                  photoUrl === ''
+                    ? 'https://avatars.githubusercontent.com/u/56163157?v=4'
+                    : photoUrl
+                }
+              />
+              <Writer>{data.nickName}</Writer>
+              <hr />
+              <Date>{data.dateCreated}</Date>
+            </Info>
+            <hr />
+            <Content>{data.content}</Content>
+          </>
+        ) : (
+          <Loading />
+        )}
       </ViewContainer>
     </>
   );

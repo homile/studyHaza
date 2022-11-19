@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
@@ -17,6 +17,8 @@ interface Props {
 function PostCommunity({ setIsWrite }: Props) {
   const navigate = useNavigate();
 
+  const titleInput = useRef<HTMLInputElement>(null);
+
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const dateCreated = new Date();
@@ -26,6 +28,11 @@ function PostCommunity({ setIsWrite }: Props) {
 
   const [isOpenOk, setIsOpenOk] = useState(false);
   const [isOpenCancel, setIsOpenCancel] = useState(false);
+
+  useEffect(() => {
+    const { current } = titleInput;
+    current?.focus();
+  }, []);
 
   // 완료 버튼 클릭시
   const openModalHandler1 = () => {
@@ -70,6 +77,7 @@ function PostCommunity({ setIsWrite }: Props) {
             onChange={(e) => setTitle(e.target.value)}
             id="community_title"
             placeholder="제목을 입력해주세요."
+            ref={titleInput}
           />
         </div>
         <hr />
