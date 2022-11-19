@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import { ButtonSecondary } from '../UI/Button/Button';
 import { WriteInputContainer } from '../Post/UI/PostInput';
@@ -40,7 +40,8 @@ interface Props {
 }
 
 const EditStudy = ({ data, onUpdatePost, toggleIsEdit }: Props) => {
-  console.log(data);
+  const titleInput = useRef<HTMLInputElement>(null);
+
   const [editTitle, setEditTitle] = useState(data.title);
   const [editStartDate, setEditStartDate] = useState(new Date(data.startDate));
   const [editDevType, setEditDevType] = useState(data.devType);
@@ -65,6 +66,11 @@ const EditStudy = ({ data, onUpdatePost, toggleIsEdit }: Props) => {
     content: editContent,
     dateUpdated,
   };
+
+  useEffect(() => {
+    const { current } = titleInput;
+    current?.focus();
+  }, []);
 
   // 수정 완료 버튼
   const handleEdit = () => {
@@ -104,6 +110,7 @@ const EditStudy = ({ data, onUpdatePost, toggleIsEdit }: Props) => {
               value={editTitle}
               onChange={(e) => setEditTitle(e.target.value)}
               placeholder="제목을 입력해주세요."
+              ref={titleInput}
             />
           </div>
         </WriteInputContainer>

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
@@ -30,6 +30,9 @@ interface Props {
 
 const PostStudy = ({ setIsWrite, isEdit }: Props) => {
   const navigate = useNavigate();
+
+  const titleInput = useRef<HTMLInputElement>(null);
+
   const [title, setTitle] = useState('');
   const [startDate, setStartDate] = useState<Date>(new Date());
   const [devType, setDevType] = useState('frontend');
@@ -44,6 +47,11 @@ const PostStudy = ({ setIsWrite, isEdit }: Props) => {
 
   const [isOpenOk, setIsOpenOk] = useState(false);
   const [isOpenCancel, setIsOpenCancel] = useState(false);
+
+  useEffect(() => {
+    const { current } = titleInput;
+    current?.focus();
+  }, []);
 
   const openModalHandler1 = () => {
     setIsOpenOk(!isOpenOk);
@@ -98,6 +106,7 @@ const PostStudy = ({ setIsWrite, isEdit }: Props) => {
             }}
             id="title"
             placeholder="제목을 입력해주세요."
+            ref={titleInput}
           />
         </div>
       </WriteInputContainer>
