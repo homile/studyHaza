@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import { WriteInputContainer } from '../Post/UI/PostInput';
 import { ButtonSecondary } from '../UI/Button/Button';
@@ -20,6 +20,8 @@ interface Props {
 }
 
 const EditCommunity = ({ data, onUpdatePost, toggleIsEdit }: Props) => {
+  const titleInput = useRef<HTMLInputElement>(null);
+
   const [editTitle, setEditTitle] = useState(data.title);
   const [editContent, setEditContent] = useState(data.content);
   const dateUpdated = new Date().toLocaleDateString();
@@ -32,6 +34,11 @@ const EditCommunity = ({ data, onUpdatePost, toggleIsEdit }: Props) => {
     content: editContent,
     dateUpdated,
   };
+
+  useEffect(() => {
+    const { current } = titleInput;
+    current?.focus();
+  }, []);
 
   // 수정 완료 버튼
   const handleEdit = () => {
@@ -66,6 +73,7 @@ const EditCommunity = ({ data, onUpdatePost, toggleIsEdit }: Props) => {
               value={editTitle}
               onChange={(e) => setEditTitle(e.target.value)}
               placeholder="제목을 입력해주세요."
+              ref={titleInput}
             />
           </div>
           <hr />

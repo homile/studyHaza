@@ -1,4 +1,3 @@
-import React from 'react';
 import styled from 'styled-components';
 import logo from '../../images/logo_wh.png';
 
@@ -27,6 +26,11 @@ const LogoImage = styled.img`
   margin-top: -2px;
 `;
 
+const LinkStyle = styled.a`
+  color: #7b7b7b;
+  text-decoration: none;
+`;
+
 function Footer() {
   const footerLink = document.querySelectorAll('.blank-link');
   footerLink?.forEach((footerLink) => {
@@ -41,13 +45,13 @@ function Footer() {
         <LogoImage src={logo} alt="logo" />
         <ul className="ft-link">
           <li>
-            <a className="blank-link">스터디하자 소개</a>
+            <LinkStyle className="blank-link">스터디하자 소개</LinkStyle>
           </li>
           <li>
-            <a className="blank-link">개인정보보호</a>
+            <LinkStyle className="blank-link">개인정보보호</LinkStyle>
           </li>
           <li>
-            <a className="blank-link">서비스약관</a>
+            <LinkStyle className="blank-link">서비스약관</LinkStyle>
           </li>
         </ul>
       </div>

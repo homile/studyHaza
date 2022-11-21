@@ -1,20 +1,22 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, Suspense, lazy } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Nav from './components/Layout/Nav/Nav';
-import Footer from './components/Layout/Footer';
-import Main from './pages/Main';
-import StudyJoin from './pages/StudyJoin';
-import Community from './pages/Community';
-import Login from './pages/Login';
 import styled from 'styled-components';
-import SignUp from './pages/SignUp';
-import MyPage from './pages/MyPage';
-import Detail from './pages/Detail';
 import { db } from './firebase-config';
 import { collection, getDocs } from 'firebase/firestore';
 import UserInfo from './apis/user/userInfo';
 import { loginActions } from './redux/reducers/reducer';
 import { useDispatch } from 'react-redux';
+import Loading from './components/Layout/Loading';
+
+const Main = lazy(() => import('./pages/Main'));
+const StudyJoin = lazy(() => import('./pages/StudyJoin'));
+const Community = lazy(() => import('./pages/Community'));
+const Login = lazy(() => import('./pages/Login'));
+const SignUp = lazy(() => import('./pages/SignUp'));
+const MyPage = lazy(() => import('./pages/MyPage'));
+const Detail = lazy(() => import('./pages/Detail'));
+const Nav = lazy(() => import('./components/Layout/Nav/Nav'));
+const Footer = lazy(() => import('./components/Layout/Footer'));
 
 const AppContainer = styled.div`
   display: flex;
@@ -82,36 +84,38 @@ function App() {
 
   return (
     <>
-      <Router>
-        <AppContainer>
-          <Nav />
+      <Suspense fallback={<Loading />}>
+        <Router>
+          <AppContainer>
+            <Nav />
 
-          <Routes>
-            <Route
-              path="/"
-              element={<Main posts={posts.slice(0, 12)} postsTotal={posts} />}
-            />
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<SignUp />} />
-            <Route
-              path="/community"
-              element={<Community posts={communityPosts} />}
-            />
-            <Route
-              path="/community/detail/:id"
-              element={<Detail isEdit={isEdit} toggleIsEdit={toggleIsEdit} />}
-            />
-            <Route path="/studyjoin" element={<StudyJoin posts={posts} />} />
-            <Route
-              path="/studyjoin/detail/:id"
-              element={<Detail isEdit={isEdit} toggleIsEdit={toggleIsEdit} />}
-            />
-            <Route path="/mypage" element={<MyPage />} />
-          </Routes>
+            <Routes>
+              <Route
+                path="/"
+                element={<Main posts={posts.slice(0, 12)} postsTotal={posts} />}
+              />
+              <Route path="/login" element={<Login />} />
+              <Route path="/signup" element={<SignUp />} />
+              <Route
+                path="/community"
+                element={<Community posts={communityPosts} />}
+              />
+              <Route
+                path="/community/detail/:id"
+                element={<Detail isEdit={isEdit} toggleIsEdit={toggleIsEdit} />}
+              />
+              <Route path="/studyjoin" element={<StudyJoin posts={posts} />} />
+              <Route
+                path="/studyjoin/detail/:id"
+                element={<Detail isEdit={isEdit} toggleIsEdit={toggleIsEdit} />}
+              />
+              <Route path="/mypage" element={<MyPage />} />
+            </Routes>
 
-          <Footer />
-        </AppContainer>
-      </Router>
+            <Footer />
+          </AppContainer>
+        </Router>
+      </Suspense>
     </>
   );
 }
