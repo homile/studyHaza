@@ -8,7 +8,7 @@ import styled from 'styled-components';
 import { communityDataType } from '../components/UI/StudyCard';
 
 interface Props {
-  posts: communityDataType[]
+  posts: communityDataType[];
 }
 
 function Community({ posts }: Props) {
@@ -16,6 +16,15 @@ function Community({ posts }: Props) {
   const [postData, setPostData] = useState<communityDataType[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage, setPostsPerPage] = useState(10);
+  const [search, setSearch] = useState('');
+
+  const filtered = postData.filter((el) => {
+    return el.title.toUpperCase().includes(search.toUpperCase());
+  });
+
+  const onSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearch(e.target.value);
+  };
 
   const onWriteClick = () => {
     setIsWrite2(true);
@@ -27,7 +36,7 @@ function Community({ posts }: Props) {
 
   const indexOfLast = currentPage * postsPerPage;
   const indexOfFirst = indexOfLast - postsPerPage;
-  const currentPosts = (posts:communityDataType[]) => {
+  const currentPosts = (posts: communityDataType[]) => {
     let currentPosts: communityDataType[] = [];
     currentPosts = posts?.slice(indexOfFirst, indexOfLast);
     return currentPosts;
@@ -41,10 +50,10 @@ function Community({ posts }: Props) {
         <ConPanel>
           <SubPageTop>
             <TypeH2>커뮤니티</TypeH2>
-            <SearchBar />
+            <SearchBar value={search} onChange={onSearchChange} />
           </SubPageTop>
           <BoardHeader onWriteClick={onWriteClick} posts={postData} />
-          <BoardListContents posts={currentPosts(postData)} />
+          <BoardListContents posts={currentPosts(filtered)} />
           <Pagination
             postsPerPage={postsPerPage}
             totalPosts={posts.length}
