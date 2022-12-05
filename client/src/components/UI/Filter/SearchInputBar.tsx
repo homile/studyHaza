@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
 declare module 'react' {
@@ -7,48 +7,34 @@ declare module 'react' {
   }
 }
 
-function SearchBar() {
-  const [search, setSearch] = useState('');
-  // const [lengths, setLength] = useState(0);
+interface Props {
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}
 
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearch(e.target.value);
-    if (e.target.value.length !== 0) {
-      // console.log("have value!!!");
-    }
-    // setLength(e.target.value.length);
-  };
-
+const SearchBar: React.FC<Props> = ({ value, onChange }) => {
   return (
     <>
       <Container>
         <Icon>
           <i
             className="fa-solid fa-magnifying-glass fa-fw"
-            value={search}
+            value={value}
             onChange={onChange}
-            onClick={() => {
-              // console.log(search);
-            }}
           ></i>
         </Icon>
         <input
           type="search"
           id="search"
-          value={search}
+          value={value}
           contentEditable
           onChange={onChange}
           autoComplete="off"
-          onKeyUp={(e) => {
-            if (e.key === 'Enter') {
-              // console.log(e.target.value);
-            }
-          }}
         />
       </Container>
     </>
   );
-}
+};
 
 export default SearchBar;
 

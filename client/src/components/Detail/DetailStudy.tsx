@@ -179,7 +179,7 @@ const ViewContainer = styled.div`
 const Title = styled.h1`
   font-family: 'Pretendard-Regular';
   font-weight: 700;
-  font-size: 40px;
+  font-size: 25px;
   line-height: 48px;
   letter-spacing: -0.03em;
 `;

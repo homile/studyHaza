@@ -46,7 +46,7 @@ const Item = styled.div`
   }
 
   h4 {
-    font-size: 25px;
+    font-size: 21px;
     font-family: 'Pretendard-Medium';
   }
 

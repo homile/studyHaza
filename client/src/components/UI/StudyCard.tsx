@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { ProfileImgXS } from './Img/ProfileImg';
 import img from '../../images/pf_sample.png';
 import { Link } from 'react-router-dom';
+import { frontStacks, backStacks } from '../../StackData';
 
 export type communityDataType = {
   startDate: string;
@@ -34,38 +35,6 @@ export const StudyCard = ({ data }: Props) => {
     }
     return `D-${diffDay}`;
   }
-
-  // 기술 스택명 불러오기
-  const frontStacks = [
-    'Angular',
-    'Emotion',
-    'GraphQL',
-    'NextJS',
-    'ReactJS',
-    'VueJS',
-    'Redux',
-    'Recoil',
-    'Storybook',
-    'StyledComponent',
-    'HTML',
-    'CSS',
-    'JavaScript',
-    'TypeScript',
-  ];
-
-  const backStacks = [
-    'Apollo',
-    'AWS',
-    'ExpressJS',
-    'Django',
-    'NestJS',
-    'NodeJS',
-    'Spring',
-    'SpringBoot',
-    'Python',
-    'Java',
-    'JavaScript',
-  ];
 
   const devStackWord = (devType: string, skill: string) => {
     let a = '';
@@ -182,7 +151,7 @@ const ProjectInfo = styled.div`
   }
   h4 {
     padding: 12px 0 0;
-    font-size: 26px;
+    font-size: 21px;
     font-family: 'Pretendard-Medium';
     line-height: 1.2em;
     letter-spacing: -0.025em;
