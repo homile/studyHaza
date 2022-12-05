@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import CountUp from 'react-countup';
-
+import LogoSrc from '../../assets/adBanner.jpg';
 interface Props {
   posts: object[];
 }
@@ -27,14 +27,16 @@ const BannerArea = styled.div`
   align-items: center;
   width: 100%;
   height: 358px;
-  background: #f5f5f5;
+  background-image: url(${LogoSrc});
   border-radius: 25px;
+  background-size: cover;
 
   p {
     font-size: 50px;
     font-family: 'Pretendard-Bold';
     text-align: center;
     line-height: 1.1em;
+    padding-top: 1.5rem;
 
     strong {
       font-size: 58px;
