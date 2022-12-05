@@ -3,6 +3,7 @@ import styled from "styled-components";
 interface Props {
   width?: string,
   height?: string
+  padding?: string
 }
 
 export const WriteInputContainer = styled.div<Props>`
@@ -23,7 +24,7 @@ export const WriteInputContainer = styled.div<Props>`
     border: 1px solid #eeeeee;
     border-radius: 10px;
     font-size: 18px;
-    padding: 0 1.5rem;
+    padding: ${(props) => props.padding || "0 1.5rem"};
     margin-top: 8px;
 
     &::-webkit-outer-spin-button,
