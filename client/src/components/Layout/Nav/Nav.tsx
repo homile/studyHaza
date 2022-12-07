@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { ButtonPrimary } from '../../UI/Button/Button';
@@ -47,12 +47,7 @@ function Nav() {
           <NavStyle to="/studyjoin">스터디</NavStyle>
           <NavStyle to="/community">커뮤니티</NavStyle>
         </LeftContainer>
-
         <RightContainer>
-          <DarkmodeIcon>
-            <i className="fa-solid fa-moon fa-fw"></i>
-          </DarkmodeIcon>
-
           {isLogin ? (
             <UserNameDiv>
               <div className="username" onClick={onIsNameClickHandler}>
@@ -120,23 +115,6 @@ const RightContainer = styled.div`
   align-items: center;
   height: 100%;
   text-align: center;
-`;
-
-const DarkmodeIcon = styled.span`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  background: #e8e8e8;
-  font-size: 26px;
-  margin: 1rem;
-  border: 2px solid #e8e8e8;
-
-  > .fa-moon {
-    color: white;
-  }
 `;
 
 const NavStyle = styled(NavLink)`

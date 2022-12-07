@@ -19,7 +19,6 @@ const GlobalStyle = createGlobalStyle`
 
   .react-datepicker__input-container input {
     background: url(${img}) no-repeat 6% 50%/15px auto;
-    padding-left: 3.3rem;
   }
 
   .react-datepicker-popper, .react-datepicker-popper *{

@@ -102,7 +102,7 @@ const PostStudy = ({ setIsWrite, isEdit }: Props) => {
         </div>
       </WriteInputContainer>
       <DivContainer>
-        <WriteInputContainer width="95%">
+        <WriteInputContainer width="95%" padding="0 3.3rem">
           <label htmlFor="title">시작일자</label>
           <DatePick startDate={startDate} setStartDate={setStartDate} />
         </WriteInputContainer>
