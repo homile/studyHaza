@@ -96,7 +96,8 @@ const NavContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 1285px;
+  max-width: 1285px;
+  width:100%;
   height: 51px;
   margin: 1rem;
 `;
@@ -106,7 +107,9 @@ const LeftContainer = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  width: 35%;
+  a{
+    margin:0 20px
+  }
 `;
 
 const RightContainer = styled.div`
